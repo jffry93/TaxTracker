@@ -1,5 +1,6 @@
 const Transaction = require('../models/transactionModel');
 const mongoose = require('mongoose');
+const { cloudinary } = require('../utils/cloudinary');
 
 //GET ALL PAYMENTS
 const getTransactions = async (req, res) => {
@@ -22,6 +23,7 @@ const getTransactions = async (req, res) => {
 
     res.status(200).json({ transactions, paymentTotal, purchaseTotal });
   } catch (err) {
+    // console.log(err);
     res.status(400).json({
       error: error._message,
     });
@@ -54,10 +56,11 @@ const createTransaction = async (req, res) => {
     type,
     client,
     user,
+    image,
     imageData,
     imageValue,
   } = req.body;
-  // console.log(imageValue);
+  console.log(req.body);
 
   let emptyFields = [];
   // if (!client) {
@@ -89,17 +92,17 @@ const createTransaction = async (req, res) => {
     });
 
     const payment = await Transaction.find({ user, type: 'payment' });
-    console.log(payment);
+    // console.log(payment);
     let paymentTotal = payment.reduce((prevValue, currentItem) => {
       return prevValue + currentItem.amount;
     }, 0);
     const purchase = await Transaction.find({ user, type: 'purchase' });
-    console.log(payment);
+    // console.log(payment);
     let purchaseTotal = purchase.reduce((prevValue, currentItem) => {
       return prevValue + currentItem.amount;
     }, 0);
-    console.log(purchaseTotal);
-    console.log(paymentTotal);
+    // console.log(purchaseTotal);
+    // console.log(paymentTotal);
 
     res.status(200).json({ transaction, purchaseTotal, paymentTotal });
   } catch (error) {
@@ -115,14 +118,18 @@ const createTransaction = async (req, res) => {
 //DELETE PAYMENT
 const deleteTransaction = async (req, res) => {
   const { id } = req.params;
+  const { public } = req.query;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: 'No such payment' });
   }
   const transaction = await Transaction.findOneAndDelete({ _id: id });
 
-  console.log(transaction.user);
-
+  //DELETE IMAGE IN CLOUDINARY
+  const uploadedResponse = await cloudinary.uploader.destroy(
+    public,
+    (options = {})
+  );
   //PAYMENT TOTAL OF CURRENT USER LOGGED IN
   const payment = await Transaction.find({
     type: 'payment',

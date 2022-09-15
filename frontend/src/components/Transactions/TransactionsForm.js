@@ -18,6 +18,7 @@ const TransactionForm = () => {
   const [imageData, setImageData] = useState({
     name: undefined,
     url: undefined,
+    public_id: undefined,
   });
 
   const [error, setError] = useState(null);
@@ -34,6 +35,7 @@ const TransactionForm = () => {
     type,
     imageData,
     imageValue,
+    image,
   };
 
   const handleSubmitForm = (e) => {
@@ -55,7 +57,11 @@ const TransactionForm = () => {
         .then((resp) => resp.json())
         .then((data) => {
           // console.log(data);
-          setImageData({ url: data.url, name: data.original_filename });
+          setImageData({
+            url: data.url,
+            public_id: data.public_id,
+            name: data.original_filename,
+          });
           return data;
         })
         .catch((err) => {
@@ -87,6 +93,7 @@ const TransactionForm = () => {
       setImageData({
         name: undefined,
         url: undefined,
+        public_id: undefined,
       });
       setImageValue('');
       setError(null);

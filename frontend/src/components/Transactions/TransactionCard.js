@@ -8,11 +8,16 @@ import DisplayImg from '../Cloudinary/DisplayImg';
 
 const PurchaseCard = ({ transaction }) => {
   const { dispatch } = useTransactionContext();
+  console.log(transaction.imageData.public_id);
 
   const handleClick = async () => {
-    const response = await fetch('/api/transactions/' + transaction._id, {
-      method: 'DELETE',
-    });
+    const response = await fetch(
+      `/api/transactions/${transaction._id}?public=${transaction.imageData.public_id}`,
+      {
+        method: 'DELETE',
+        body: transaction,
+      }
+    );
     const json = await response.json();
 
     if (response.ok) {
