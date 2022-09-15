@@ -92,7 +92,12 @@ const TransactionForm = () => {
       setError(null);
       setEmptyFields([]);
       console.log('New Transactions added', json);
-      dispatch({ type: 'CREATE_TRANSACTIONS', payload: json });
+      dispatch({
+        type: 'CREATE_TRANSACTIONS',
+        payload: json.transaction,
+        paymentTotal: json.paymentTotal,
+        purchaseTotal: json.purchaseTotal,
+      });
     }
   };
 

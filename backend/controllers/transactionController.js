@@ -57,7 +57,7 @@ const createTransaction = async (req, res) => {
     imageData,
     imageValue,
   } = req.body;
-  console.log(imageValue);
+  // console.log(imageValue);
 
   let emptyFields = [];
   // if (!client) {
@@ -87,8 +87,21 @@ const createTransaction = async (req, res) => {
       type,
       imageData,
     });
-    // console.log(transaction);
-    res.status(200).json(transaction);
+
+    const payment = await Transaction.find({ user, type: 'payment' });
+    console.log(payment);
+    let paymentTotal = payment.reduce((prevValue, currentItem) => {
+      return prevValue + currentItem.amount;
+    }, 0);
+    const purchase = await Transaction.find({ user, type: 'purchase' });
+    console.log(payment);
+    let purchaseTotal = purchase.reduce((prevValue, currentItem) => {
+      return prevValue + currentItem.amount;
+    }, 0);
+    console.log(purchaseTotal);
+    console.log(paymentTotal);
+
+    res.status(200).json({ transaction, purchaseTotal, paymentTotal });
   } catch (error) {
     // console.log(error.errors);
     res.status(400).json({
@@ -107,10 +120,31 @@ const deleteTransaction = async (req, res) => {
     return res.status(404).json({ error: 'No such payment' });
   }
   const transaction = await Transaction.findOneAndDelete({ _id: id });
+
+  console.log(transaction.user);
+
+  //PAYMENT TOTAL OF CURRENT USER LOGGED IN
+  const payment = await Transaction.find({
+    type: 'payment',
+    user: transaction.user,
+  });
+  let paymentTotal = payment.reduce((prevValue, currentItem) => {
+    return prevValue + currentItem.amount;
+  }, 0);
+
+  //PURCHASE TOTAL OF CURRENT USER LOGGED IN
+  const purchase = await Transaction.find({
+    type: 'purchase',
+    user: transaction.user,
+  });
+  let purchaseTotal = purchase.reduce((prevValue, currentItem) => {
+    return prevValue + currentItem.amount;
+  }, 0);
+
   if (!transaction) {
     return res.status(404).json({ error: 'No such Payment' });
   }
-  res.status(200).json(transaction);
+  res.status(200).json({ transaction, paymentTotal, purchaseTotal });
 };
 
 // UPDATE A PAYMENT

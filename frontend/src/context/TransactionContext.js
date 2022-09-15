@@ -20,12 +20,16 @@ export const transactionsReducer = (state, action) => {
     case 'CREATE_TRANSACTIONS':
       return {
         transactions: [action.payload, ...state.transactions],
+        paymentTotal: action.paymentTotal,
+        purchaseTotal: action.purchaseTotal,
       };
     case 'DELETE_TRANSACTIONS':
       return {
         transactions: state.transactions.filter(
           (transactions) => transactions._id !== action.payload._id
         ),
+        paymentTotal: action.paymentTotal,
+        purchaseTotal: action.purchaseTotal,
       };
     default:
       return state;

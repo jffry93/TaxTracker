@@ -7,7 +7,6 @@ import { Image } from 'cloudinary-react';
 import DisplayImg from '../Cloudinary/DisplayImg';
 
 const PurchaseCard = ({ transaction }) => {
-  // console.log(transaction.imageData);
   const { dispatch } = useTransactionContext();
 
   const handleClick = async () => {
@@ -17,7 +16,12 @@ const PurchaseCard = ({ transaction }) => {
     const json = await response.json();
 
     if (response.ok) {
-      dispatch({ type: 'DELETE_TRANSACTIONS', payload: json });
+      dispatch({
+        type: 'DELETE_TRANSACTIONS',
+        payload: json.transaction,
+        paymentTotal: json.paymentTotal,
+        purchaseTotal: json.purchaseTotal,
+      });
     }
   };
 
@@ -41,7 +45,6 @@ const PurchaseCard = ({ transaction }) => {
           <div className='garbage-container' onClick={handleClick}>
             <RiDeleteBin6Fill size={20} color='white' />
           </div>
-          {/* <Image cloudName='dcfqlsnzh' publicId={transaction.imageData.url} /> */}
         </div>
       </div>
       <p className='time-stamp'>
@@ -70,39 +73,68 @@ const StyledPurchaseCard = styled.div`
 
   .card-container {
     display: flex;
-    h4,
-    strong {
-      color: var(--vivid-pink);
-    }
-    p,
-    .time-stamp {
-      font-size: 18px;
-      font-weight: 400;
-      color: white;
-    }
-    .title {
-      margin-top: 8px;
-    }
-  }
-  .left-side {
-    flex: 3;
-  }
-  .right-side {
-    flex: 1;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
     justify-content: space-between;
+    .left-side {
+      min-width: 270px;
+
+      h4,
+      strong {
+        color: var(--vivid-pink);
+      }
+      p,
+      .time-stamp {
+        font-size: 18px;
+        font-weight: 400;
+        color: white;
+      }
+      .title {
+        margin-top: 8px;
+      }
+    }
+    .right-side {
+      position: relative;
+      top: 0;
+
+      .garbage-container {
+        height: 35px;
+        width: 35px;
+        border-radius: 50%;
+        background-color: var(--vivid-pink);
+        cursor: pointer;
+
+        position: absolute;
+        top: 0%;
+        right: 0%;
+        transform: translate(-0%, -0%);
+        svg {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+
+  /* .right-side {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row-reverse;
   }
   .garbage-container {
+    height: 35px;
+    width: 35px;
     cursor: pointer;
     background-color: var(--vivid-pink);
     border-radius: 50%;
-
-    padding: 8px;
-    display: flex;
-  }
+    position: relative;
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  } */
   .time-stamp {
     display: flex;
     justify-content: flex-end;

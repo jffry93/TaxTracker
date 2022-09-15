@@ -6,6 +6,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 //components
 import TransactionForm from '../components/Transactions/TransactionsForm';
 import TransactionCard from '../components/Transactions/TransactionCard';
+import PieChart from '../components/Chartjs/PieChart';
 
 const Home = () => {
   const { transactions, dispatch } = useTransactionContext();
@@ -57,9 +58,10 @@ const Home = () => {
                 );
               })}
           </div>
-          <>
+          <div>
+            <PieChart />
             <TransactionForm />
-          </>
+          </div>
         </StyledHome>
       )}
     </>
@@ -76,6 +78,12 @@ const StyledHome = styled.div`
   max-width: 1200px;
   margin: auto;
   padding: 32px 32px;
+  div:first-child {
+    flex: 3;
+  }
+  div:last-child {
+    flex: 2;
+  }
   .transactions {
     width: 100%;
     display: flex;
