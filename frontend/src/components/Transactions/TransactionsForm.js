@@ -20,6 +20,9 @@ const TransactionForm = () => {
     url: undefined,
     public_id: undefined,
   });
+  //preview image file
+  const [previewSource, setPreviewSource] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
@@ -41,33 +44,37 @@ const TransactionForm = () => {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     //CLOUDINARY
-    const data = new FormData();
-    data.append('file', image);
-    data.append(
-      'upload_preset',
-      process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
-    );
-    data.append('cloud_name', process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
     handleAddToDB();
-    if (!imageData.url) {
-      fetch('  https://api.cloudinary.com/v1_1/dcfqlsnzh/image/upload', {
-        method: 'post',
-        body: data,
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          // console.log(data);
-          setImageData({
-            url: data.url,
-            public_id: data.public_id,
-            name: data.original_filename,
-          });
-          return data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    if (!previewSource) return;
+    uploadImage(previewSource);
+
+    // fetch('  https://api.cloudinary.com/v1_1/dcfqlsnzh/image/upload', {
+    //   method: 'post',
+    //   body: data',
+    // })
+    //   .then((resp) => resp.json())
+    //   .then((data) => {
+    //     // console.log(data);
+    //     setImageData({
+    //       url: data.url,
+    //       public_id: data.public_id,
+    //       name: data.original_filename,
+    //     });
+    //     return data;
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+  };
+  const uploadImage = async (base64EncodedImage) => {
+    console.log(base64EncodedImage);
+    fetch('/api/transactions/cloud', {
+      method: 'post',
+      body: JSON.stringify({ data: base64EncodedImage }),
+      headers: {
+        'Content-type': 'application/json',
+      },
+    });
   };
 
   const handleAddToDB = async () => {
@@ -106,6 +113,19 @@ const TransactionForm = () => {
         purchaseTotal: json.purchaseTotal,
       });
     }
+  };
+
+  const handleFileInput = (e) => {
+    const file = e.target.files[0];
+    previewFile(file);
+  };
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
+    console.log(transactions);
   };
 
   useEffect(() => {
@@ -201,8 +221,8 @@ const TransactionForm = () => {
             type='file'
             accept='image/*'
             onChange={(e) => {
+              handleFileInput(e);
               setImageValue(e.target.value);
-              setImage(e.target.files[0]);
             }}
           />
 
@@ -218,6 +238,7 @@ const TransactionForm = () => {
           )}
         </div>
       </StyledForm>
+      {image && <img src={image} alt='chosen' />}
     </StyledMain>
   );
 };

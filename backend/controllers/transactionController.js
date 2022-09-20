@@ -49,18 +49,8 @@ const getTransaction = async (req, res) => {
 
 //CREATE PAYMENT
 const createTransaction = async (req, res) => {
-  const {
-    title,
-    amount,
-    description,
-    type,
-    client,
-    user,
-    image,
-    imageData,
-    imageValue,
-  } = req.body;
-  console.log(req.body);
+  const { title, amount, description, type, client, user, image, imageValue } =
+    req.body;
 
   let emptyFields = [];
   // if (!client) {
@@ -80,6 +70,15 @@ const createTransaction = async (req, res) => {
   }
 
   try {
+    let uploadResponse;
+    if (title && amount && description && image) {
+      const imageString = image;
+      uploadResponse = await cloudinary.uploader.upload(imageString, {
+        upload_preset: 'vr6hp6xz',
+      });
+      console.log('added to cloudinary');
+    }
+
     //.create() is asynchronous so you must include async await
     const transaction = await Transaction.create({
       client,
@@ -88,31 +87,32 @@ const createTransaction = async (req, res) => {
       amount,
       description,
       type,
-      imageData,
+      imageData: {
+        name: imageValue,
+        public_id: uploadResponse.public_id,
+        url: uploadResponse.url,
+      },
     });
 
     const payment = await Transaction.find({ user, type: 'payment' });
-    // console.log(payment);
+
     let paymentTotal = payment.reduce((prevValue, currentItem) => {
       return prevValue + currentItem.amount;
     }, 0);
     const purchase = await Transaction.find({ user, type: 'purchase' });
-    // console.log(payment);
+
     let purchaseTotal = purchase.reduce((prevValue, currentItem) => {
       return prevValue + currentItem.amount;
     }, 0);
-    // console.log(purchaseTotal);
-    // console.log(paymentTotal);
 
     res.status(200).json({ transaction, purchaseTotal, paymentTotal });
   } catch (error) {
-    // console.log(error.errors);
+    console.log(error._message);
     res.status(400).json({
-      error: error._message,
+      error: 'Highlighted fields required',
       emptyFields,
     });
   }
-  //   res.json({ mssg: 'POST new payment' });
 };
 
 //DELETE PAYMENT
@@ -173,6 +173,19 @@ const updateTransaction = async (req, res) => {
   }
   res.status(200).json(payment);
 };
+// post to cloud
+const createImage = async (req, res) => {
+  try {
+    const imageString = req.body.data;
+    const uploadResponse = await cloudinary.uploader.upload(imageString, {
+      upload_preset: 'vr6hp6xz',
+    });
+    console.log(uploadResponse);
+    res.json({ msg: 'yass' });
+  } catch (err) {
+    res.status(500).json({ err: 'noooooo' });
+  }
+};
 
 module.exports = {
   getTransactions,
@@ -180,4 +193,5 @@ module.exports = {
   createTransaction,
   deleteTransaction,
   updateTransaction,
+  createImage,
 };
