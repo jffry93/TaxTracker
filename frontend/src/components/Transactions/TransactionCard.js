@@ -3,12 +3,9 @@ import { RiDeleteBin6Fill } from 'react-icons/ri';
 import { useTransactionContext } from '../../hooks/useTransactionHook';
 //fns package
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import { Image } from 'cloudinary-react';
-import DisplayImg from '../Cloudinary/DisplayImg';
 
 const PurchaseCard = ({ transaction }) => {
   const { dispatch } = useTransactionContext();
-  console.log(transaction.imageData.public_id);
 
   const handleClick = async () => {
     const response = await fetch(
@@ -19,7 +16,7 @@ const PurchaseCard = ({ transaction }) => {
       }
     );
     const json = await response.json();
-
+    console.log(json);
     if (response.ok) {
       dispatch({
         type: 'DELETE_TRANSACTIONS',

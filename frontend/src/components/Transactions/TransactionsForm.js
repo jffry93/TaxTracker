@@ -15,14 +15,6 @@ const TransactionForm = () => {
   //cloudinary
   const [imageValue, setImageValue] = useState('');
   const [image, setImage] = useState(null);
-  const [imageData, setImageData] = useState({
-    name: undefined,
-    url: undefined,
-    public_id: undefined,
-  });
-  //preview image file
-  const [previewSource, setPreviewSource] = useState('');
-  const [selectedFile, setSelectedFile] = useState(null);
 
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
@@ -36,48 +28,12 @@ const TransactionForm = () => {
     amount,
     description,
     type,
-    imageData,
     imageValue,
     image,
   };
 
-  const handleSubmitForm = (e) => {
+  const handleAddToDB = async (e) => {
     e.preventDefault();
-    //CLOUDINARY
-    handleAddToDB();
-    if (!previewSource) return;
-    uploadImage(previewSource);
-
-    // fetch('  https://api.cloudinary.com/v1_1/dcfqlsnzh/image/upload', {
-    //   method: 'post',
-    //   body: data',
-    // })
-    //   .then((resp) => resp.json())
-    //   .then((data) => {
-    //     // console.log(data);
-    //     setImageData({
-    //       url: data.url,
-    //       public_id: data.public_id,
-    //       name: data.original_filename,
-    //     });
-    //     return data;
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  };
-  const uploadImage = async (base64EncodedImage) => {
-    console.log(base64EncodedImage);
-    fetch('/api/transactions/cloud', {
-      method: 'post',
-      body: JSON.stringify({ data: base64EncodedImage }),
-      headers: {
-        'Content-type': 'application/json',
-      },
-    });
-  };
-
-  const handleAddToDB = async () => {
     const response = await fetch('/api/transactions', {
       method: 'POST',
       body: JSON.stringify(transactions),
@@ -89,7 +45,6 @@ const TransactionForm = () => {
     if (!response.ok) {
       setError(json.error);
       setEmptyFields(json.emptyFields);
-      // console.log(json);
     }
     if (response.ok) {
       setClient('');
@@ -97,11 +52,6 @@ const TransactionForm = () => {
       setAmount('');
       setDescription('');
       setImage(null);
-      setImageData({
-        name: undefined,
-        url: undefined,
-        public_id: undefined,
-      });
       setImageValue('');
       setError(null);
       setEmptyFields([]);
@@ -125,14 +75,7 @@ const TransactionForm = () => {
     reader.onloadend = () => {
       setImage(reader.result);
     };
-    console.log(transactions);
   };
-
-  useEffect(() => {
-    if (imageData.name) {
-      handleAddToDB();
-    }
-  }, [imageData]);
 
   return (
     <StyledMain>
@@ -141,7 +84,7 @@ const TransactionForm = () => {
         <button onClick={() => setType('purchase')}>Receipt</button>
       </div>
       <h4>Add New Receipt</h4>
-      <StyledForm onSubmit={(e) => handleSubmitForm(e)}>
+      <StyledForm onSubmit={(e) => handleAddToDB(e)}>
         <div className='form-container'>
           <label>Client:</label>
           <input

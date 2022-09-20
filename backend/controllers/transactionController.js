@@ -173,19 +173,6 @@ const updateTransaction = async (req, res) => {
   }
   res.status(200).json(payment);
 };
-// post to cloud
-const createImage = async (req, res) => {
-  try {
-    const imageString = req.body.data;
-    const uploadResponse = await cloudinary.uploader.upload(imageString, {
-      upload_preset: 'vr6hp6xz',
-    });
-    console.log(uploadResponse);
-    res.json({ msg: 'yass' });
-  } catch (err) {
-    res.status(500).json({ err: 'noooooo' });
-  }
-};
 
 module.exports = {
   getTransactions,
@@ -193,5 +180,4 @@ module.exports = {
   createTransaction,
   deleteTransaction,
   updateTransaction,
-  createImage,
 };

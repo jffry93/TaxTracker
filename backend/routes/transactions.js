@@ -6,7 +6,6 @@ const {
   createTransaction,
   deleteTransaction,
   updateTransaction,
-  createImage,
 } = require('../controllers/transactionController');
 
 const router = express.Router();
@@ -20,7 +19,5 @@ router.post('/', createTransaction);
 router.delete('/:id', deleteTransaction);
 //UPDATE NEW
 router.patch('/:id', updateTransaction);
-//POST TO CLOUDINARY
-router.post('/cloud', createImage);
 
 module.exports = router;
