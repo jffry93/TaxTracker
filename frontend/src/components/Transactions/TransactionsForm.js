@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { RiErrorWarningLine } from 'react-icons/ri';
 import React, { useEffect, useState } from 'react';
 import { useTransactionContext } from '../../hooks/useTransactionHook';
+import useDebounce from '../../hooks/useDebounce';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const TransactionForm = () => {
@@ -32,8 +33,7 @@ const TransactionForm = () => {
     image,
   };
 
-  const handleAddToDB = async (e) => {
-    e.preventDefault();
+  const handleAddToDB = async () => {
     const response = await fetch('/api/transactions', {
       method: 'POST',
       body: JSON.stringify(transactions),
@@ -65,10 +65,6 @@ const TransactionForm = () => {
     }
   };
 
-  const handleFileInput = (e) => {
-    const file = e.target.files[0];
-    previewFile(file);
-  };
   const previewFile = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -77,6 +73,10 @@ const TransactionForm = () => {
     };
   };
 
+  const handleDebounce = useDebounce(() => {
+    handleAddToDB();
+  }, 500);
+
   return (
     <StyledMain>
       <div>
@@ -84,7 +84,12 @@ const TransactionForm = () => {
         <button onClick={() => setType('purchase')}>Receipt</button>
       </div>
       <h4>Add New Receipt</h4>
-      <StyledForm onSubmit={(e) => handleAddToDB(e)}>
+      <StyledForm
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleDebounce();
+        }}
+      >
         <div className='form-container'>
           <label>Client:</label>
           <input
@@ -164,7 +169,7 @@ const TransactionForm = () => {
             type='file'
             accept='image/*'
             onChange={(e) => {
-              handleFileInput(e);
+              previewFile(e.target.files[0]);
               setImageValue(e.target.value);
             }}
           />

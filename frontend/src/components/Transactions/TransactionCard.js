@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 import { RiDeleteBin6Fill } from 'react-icons/ri';
 import { useTransactionContext } from '../../hooks/useTransactionHook';
+import useDebounce from '../../hooks/useDebounce';
 //fns package
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 const PurchaseCard = ({ transaction }) => {
   const { dispatch } = useTransactionContext();
 
-  const handleClick = async () => {
+  const handleDelete = async () => {
     const response = await fetch(
       `/api/transactions/${transaction._id}?public=${transaction.imageData.public_id}`,
       {
@@ -27,6 +28,10 @@ const PurchaseCard = ({ transaction }) => {
     }
   };
 
+  const handleDebounce = useDebounce(() => {
+    handleDelete();
+  }, 500);
+
   return (
     <StyledPurchaseCard>
       <div className='card-container'>
@@ -44,7 +49,7 @@ const PurchaseCard = ({ transaction }) => {
           <p>{transaction.description}</p>
         </div>
         <div className='right-side'>
-          <div className='garbage-container' onClick={handleClick}>
+          <div className='garbage-container' onClick={handleDebounce}>
             <RiDeleteBin6Fill size={20} color='white' />
           </div>
         </div>
