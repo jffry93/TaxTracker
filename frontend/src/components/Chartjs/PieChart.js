@@ -10,7 +10,7 @@ const PieChart = () => {
   // console.log(purchaseTotal);
 
   const data = {
-    labels: ['Income', 'Purchases'],
+    // labels: ['Income', 'Purchases'],
     datasets: [
       {
         label: '# of Votes',

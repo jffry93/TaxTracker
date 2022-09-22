@@ -65,12 +65,15 @@ const TransactionForm = () => {
     }
   };
 
-  const previewFile = (file) => {
+  const handleImgToBase64 = (file) => {
     const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setImage(reader.result);
-    };
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      return reader;
+    }
   };
 
   const handleDebounce = useDebounce(() => {
@@ -169,7 +172,7 @@ const TransactionForm = () => {
             type='file'
             accept='image/*'
             onChange={(e) => {
-              previewFile(e.target.files[0]);
+              setImage(handleImgToBase64(e.target.files[0]));
               setImageValue(e.target.value);
             }}
           />

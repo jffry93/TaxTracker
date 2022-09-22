@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 //components
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home';
 import Footer from './components/Footer';
 import Map from './pages/Map';
@@ -17,7 +17,6 @@ function App() {
             <Route path='/map' element={<Map />} />
           </Routes>
         </div>
-        <Footer />
       </BrowserRouter>
     </StyledApp>
   );
@@ -31,6 +30,6 @@ const StyledApp = styled.div`
   .pages {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 60px);
+    min-height: 100vh;
   }
 `;
