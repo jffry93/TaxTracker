@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useTransactionContext } from '../hooks/useTransactionHook';
+import { useStyleContext } from '../hooks/useStyleHook';
 import { useAuth0 } from '@auth0/auth0-react';
 
 //components
@@ -10,6 +11,7 @@ import PieChart from '../components/Chartjs/PieChart';
 
 const Home = () => {
   const { transactions, dispatch } = useTransactionContext();
+  const { viewWidth, mobileBreakpoint } = useStyleContext();
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   //------FETCH TRANCTION DATA -------//
@@ -60,7 +62,7 @@ const Home = () => {
           </div>
           <div>
             <PieChart />
-            <TransactionForm />
+            {viewWidth > mobileBreakpoint ? <TransactionForm /> : ''}
           </div>
         </StyledHome>
       )}
