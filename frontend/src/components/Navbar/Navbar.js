@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
+import TemporaryDrawer from './TemporaryDrawer';
 
 const Navbar = () => {
   const [width, setWidth] = useState(window.innerWidth);
