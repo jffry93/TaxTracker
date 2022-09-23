@@ -1,7 +1,5 @@
 import * as React from 'react';
 import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
@@ -33,9 +31,6 @@ export default function Settings() {
 
       <Popover
         id='long-menu'
-        MenuListProps={{
-          'aria-labelledby': 'long-button',
-        }}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}

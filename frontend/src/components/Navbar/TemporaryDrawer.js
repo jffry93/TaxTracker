@@ -33,6 +33,7 @@ const TemporaryDrawer = () => {
 
     setState({ ...state, [anchor]: open });
   };
+
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
@@ -81,6 +82,9 @@ const TemporaryDrawer = () => {
         <MenuIcon />
       </IconButton>
       <Drawer
+        // PaperProps={{
+        //   sx: { width: '80vw' },
+        // }}
         anchor={'left'}
         open={state['left']}
         onClose={toggleDrawer('left', false)}

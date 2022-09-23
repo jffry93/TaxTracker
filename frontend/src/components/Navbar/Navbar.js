@@ -1,23 +1,30 @@
 import { useState, useEffect } from 'react';
+import useDebounce from '../../hooks/useDebounce';
+import { useStyleContext } from '../../hooks/useStyleHook';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
-import TemporaryDrawer from './TemporaryDrawer';
 
 const Navbar = () => {
-  const [width, setWidth] = useState(window.innerWidth);
-  const breakpoint = 640;
+  const { dispatch, viewWidth, mobileBreakpoint } = useStyleContext();
 
+  const handleFunc = useDebounce(() => handleResizeWindow(), 100);
+
+  const handleResizeWindow = () =>
+    dispatch({ type: 'SET_VIEW_WIDTH', width: window.innerWidth });
   useEffect(() => {
-    const handleResizeWindow = () => setWidth(window.innerWidth);
     // subscribe to window resize event "onComponentDidMount"
-    window.addEventListener('resize', handleResizeWindow);
+    // handleDebounce();
+    window.addEventListener('resize', handleFunc);
+
+    // window.addEventListener('resize', handleResizeWindow);
+
     return () => {
       // unsubscribe "onComponentDestroy"
       window.removeEventListener('resize', handleResizeWindow);
     };
   }, []);
 
-  return <>{width > breakpoint ? <DesktopNav /> : <MobileNav />}</>;
+  return <>{viewWidth > mobileBreakpoint ? <DesktopNav /> : <MobileNav />}</>;
 };
 
 export default Navbar;

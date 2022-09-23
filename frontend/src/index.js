@@ -5,6 +5,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import App from './App';
 import { TransactionsContextProvider } from './context/TransactionContext';
 import GlobalStyle from './GlobalStyles';
+import { StyleContextProvider } from './context/StyleContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,12 +15,12 @@ root.render(
     clientId={process.env.REACT_APP_AUTH0_CLIENTID}
     redirectUri={window.location.origin}
   >
-    <TransactionsContextProvider>
-      <GlobalStyle />
-      <App />
-    </TransactionsContextProvider>
+    <StyleContextProvider>
+      <TransactionsContextProvider>
+        <GlobalStyle />
+        <App />
+      </TransactionsContextProvider>
+    </StyleContextProvider>
   </Auth0Provider>
   // </React.StrictMode>
 );
-
-// setInterval(tickTock, 1000);

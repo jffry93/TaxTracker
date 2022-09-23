@@ -1,4 +1,7 @@
 import { styled } from '@mui/material/styles';
+import { useState } from 'react';
+import TransactionForm from '../Transactions/TransactionsForm';
+//Material UI Componenets
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,23 +15,55 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { useState } from 'react';
+
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 import TemporaryDrawer from './TemporaryDrawer';
 import Settings from './Settings';
+import FormModal from './FormModal';
+import { useAuth0 } from '@auth0/auth0-react';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const MobileNav = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
   return (
     <>
       <AppBar position='fixed' color='primary' sx={{ top: 'auto', bottom: 0 }}>
         <Toolbar>
           <TemporaryDrawer />
-          <StyledFab color='secondary' aria-label='add'>
+          <StyledFab onClick={handleOpen} color='secondary' aria-label='add'>
             <AddIcon />
           </StyledFab>
           <Box sx={{ flexGrow: 1 }} />
           <Settings />
         </Toolbar>
       </AppBar>
+      <Modal
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='keep-mounted-modal-title'
+        aria-describedby='keep-mounted-modal-description'
+      >
+        <Box sx={style}>{isAuthenticated && <TransactionForm />}</Box>
+      </Modal>
     </>
   );
 };
