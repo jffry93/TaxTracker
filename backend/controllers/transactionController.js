@@ -1,6 +1,7 @@
 const Transaction = require('../models/transactionModel');
 const mongoose = require('mongoose');
 const { cloudinary } = require('../utils/cloudinary');
+const calculateTax = require('../funky/calculateTax');
 
 //GET ALL PAYMENTS
 const getTransactions = async (req, res) => {
@@ -20,6 +21,10 @@ const getTransactions = async (req, res) => {
     let purchaseTotal = purchase.reduce((prevValue, currentItem) => {
       return prevValue + currentItem.amount;
     }, 0);
+    //CALCULATE TAX
+    const remainingIncome = paymentTotal - purchaseTotal;
+
+    console.log(calculateTax(remainingIncome));
 
     res.status(200).json({ transactions, paymentTotal, purchaseTotal });
   } catch (err) {
