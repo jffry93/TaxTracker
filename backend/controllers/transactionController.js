@@ -23,10 +23,12 @@ const getTransactions = async (req, res) => {
     }, 0);
     //CALCULATE TAX
     const remainingIncome = paymentTotal - purchaseTotal;
+    const taxObject = calculateTax(remainingIncome);
+    // console.log(taxObject);
 
-    console.log(calculateTax(remainingIncome));
-
-    res.status(200).json({ transactions, paymentTotal, purchaseTotal });
+    res
+      .status(200)
+      .json({ transactions, paymentTotal, purchaseTotal, ...taxObject });
   } catch (err) {
     // console.log(err);
     res.status(400).json({
@@ -99,18 +101,23 @@ const createTransaction = async (req, res) => {
       },
     });
 
+    //PAYMENT TOTAL OF CURRENT USER LOGGED IN
     const payment = await Transaction.find({ user, type: 'payment' });
-
     let paymentTotal = payment.reduce((prevValue, currentItem) => {
       return prevValue + currentItem.amount;
     }, 0);
+    //PURCHASE TOTAL OF CURRENT USER LOGGED IN
     const purchase = await Transaction.find({ user, type: 'purchase' });
-
     let purchaseTotal = purchase.reduce((prevValue, currentItem) => {
       return prevValue + currentItem.amount;
     }, 0);
+    //CALCULATE TAX
+    const remainingIncome = paymentTotal - purchaseTotal;
+    const taxObject = calculateTax(remainingIncome);
 
-    res.status(200).json({ transaction, purchaseTotal, paymentTotal });
+    res
+      .status(200)
+      .json({ transaction, purchaseTotal, paymentTotal, ...taxObject });
   } catch (error) {
     console.log(error._message);
     res.status(400).json({
@@ -152,11 +159,16 @@ const deleteTransaction = async (req, res) => {
   let purchaseTotal = purchase.reduce((prevValue, currentItem) => {
     return prevValue + currentItem.amount;
   }, 0);
+  //CALCULATE TAX
+  const remainingIncome = paymentTotal - purchaseTotal;
+  const taxObject = calculateTax(remainingIncome);
 
   if (!transaction) {
     return res.status(404).json({ error: 'No such Payment' });
   }
-  res.status(200).json({ transaction, paymentTotal, purchaseTotal });
+  res
+    .status(200)
+    .json({ transaction, paymentTotal, purchaseTotal, ...taxObject });
 };
 
 // UPDATE A PAYMENT

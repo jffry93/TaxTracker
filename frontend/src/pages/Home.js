@@ -26,6 +26,8 @@ const Home = () => {
         },
       });
       const json = await response.json();
+      // console.log(json.paymentTotal - json.purchaseTotal);
+      // console.log(json.provTax + json.fedTax + json.postDeduction);
 
       if (response.ok) {
         dispatch({
@@ -33,6 +35,9 @@ const Home = () => {
           transactions: json.transactions,
           paymentTotal: json.paymentTotal,
           purchaseTotal: json.purchaseTotal,
+          provTax: json.provTax,
+          fedTax: json.fedTax,
+          postDeduction: json.postDeduction,
         });
       }
     };

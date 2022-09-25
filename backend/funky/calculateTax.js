@@ -5,6 +5,14 @@ const federal = [
   { amount: 221708, tax: 1.29 },
   { amount: 221708, tax: 1.33 },
 ];
+
+const provincial = [
+  { amount: 46226, tax: 1.0505 },
+  { amount: 92454, tax: 1.0915 },
+  { amount: 150000, tax: 1.1116 },
+  { amount: 220000, tax: 1.1216 },
+  { amount: 220000, tax: 1.1316 },
+];
 const calcTax = (amount, tax) => {
   taxDiff = amount * tax;
   tax = taxDiff - amount;
@@ -14,27 +22,30 @@ const calcTax = (amount, tax) => {
   };
 };
 
-const federalDue = (income) => {
+const taxDue = (income, taxType) => {
   let total = income; //value of total to retun
-  let fedTax = 0; //tax data to retun
+  let tax = 0; //tax data to retun
   let amountRemaining = income; // total changing through loop
   //if the user will only fill 1 bucket
-  if (income <= federal[0].amount) {
-    data = calcTax(income, federal[0].tax);
+  if (income <= taxType[0].amount) {
+    data = calcTax(income, taxType[0].tax);
     total = data.amount;
-    fedTax = data.tax;
+    tax = data.tax;
   } else {
     //if user is making more than first bracket
-    const fedBuckets = federal.forEach((bucket, index, ogArr) => {
+    const fedBuckets = taxType.forEach((bucket, index, ogArr) => {
       //IF CONDITION FOR FINAL LOOP
-      if (index === 4 && income >= 221708) {
+      if (
+        index === taxType.length - 1 &&
+        income >= ogArr[taxType.length - 1].amount
+      ) {
         const data = calcTax(amountRemaining, bucket.tax);
-        console.log(total);
-        console.log(fedTax);
+        // console.log(total);
+        // console.log(tax);
         total += data.amount;
-        fedTax += data.tax;
-        console.log(amountRemaining, 'remaining amount on final loop');
-        console.log(total + fedTax, income);
+        tax += data.tax;
+        // console.log(amountRemaining, 'remaining amount on final loop');
+        // console.log(total + tax, income);
         return;
       }
       //IF CONDITION FOR FIRST LOOP
@@ -42,45 +53,63 @@ const federalDue = (income) => {
         amountRemaining -= bucket.amount;
         const data = calcTax(bucket.amount, bucket.tax);
         total = data.amount;
-        fedTax = data.tax;
+        tax = data.tax;
       } else {
         //ALL THE OTHER BUCKETS
         const bucketDiff = bucket.amount - ogArr[index - 1].amount;
         //block of code that runs if bucket does NOT overflow
         if (amountRemaining <= bucketDiff && amountRemaining > 0) {
           const data = calcTax(amountRemaining, bucket.tax);
-          console.log(data);
+          // console.log(data);
           total += data.amount;
-          fedTax += data.tax;
-          console.log(fedTax, 'total tax');
-          console.log(total, 'amount after tax');
+          tax += data.tax;
+          // console.log(tax, 'total tax');
+          // console.log(total, 'amount after tax');
           amountRemaining = amountRemaining - bucket.amount;
-          console.log(amountRemaining, 'remaining ');
+          // console.log(amountRemaining, 'remaining ');
         }
         //block of code that runs if bucket overflows
         if (amountRemaining >= bucketDiff) {
           const data = calcTax(bucketDiff, bucket.tax);
           total += data.amount;
-          fedTax += data.tax;
-          console.log(fedTax, 'total tax');
-          console.log(total, 'amount after tax');
+          tax += data.tax;
+          // console.log(tax, 'total tax');
+          // console.log(total, 'amount after tax');
 
           amountRemaining = amountRemaining - bucketDiff;
-          console.log(amountRemaining);
+          // console.log(amountRemaining);
         }
       }
     });
   }
 
-  console.log(fedTax, 'tax end of function');
-  console.log(total, 'post tax total end of function');
-  console.log(total + fedTax, income);
+  // console.log(tax, 'tax end of function');
+  // console.log(total, 'post tax total end of function');
+  // console.log(total + tax, income);
+  return {
+    tax,
+    total,
+  };
 };
 
 const calculateTax = (income) => {
   // console.log(income);
-  console.log(federalDue(260000));
-  return 'data that i will return';
+  const federalTax = taxDue(income, federal, 'federal');
+  const provincialTax = taxDue(income, provincial, 'federal');
+  // console.log('federal', federalTax);
+  // console.log('provincial', provincialTax);
+  const newTotal = provincialTax.total - federalTax.tax;
+  const postDeduction = Math.round(newTotal * 100) / 100;
+  const fedTax = Math.round(federalTax.tax * 100) / 100;
+  // const provTax = provincialTax.tax;
+  const provTax = Math.round(provincialTax.tax * 100) / 100;
+  console.log(postDeduction + fedTax + provTax);
+
+  return {
+    postDeduction,
+    fedTax,
+    provTax,
+  };
 };
 
 module.exports = calculateTax;

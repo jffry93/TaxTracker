@@ -61,6 +61,9 @@ const TransactionForm = () => {
         payload: json.transaction,
         paymentTotal: json.paymentTotal,
         purchaseTotal: json.purchaseTotal,
+        provTax: json.provTax,
+        fedTax: json.fedTax,
+        postDeduction: json.postDeduction,
       });
     }
   };

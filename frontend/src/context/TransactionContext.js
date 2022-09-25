@@ -6,6 +6,9 @@ const initialState = {
   transactions: null,
   paymentTotal: null,
   purchaseTotal: null,
+  provTax: null,
+  fedTax: null,
+  postDeduction: null,
 };
 
 export const transactionsReducer = (state, action) => {
@@ -16,12 +19,18 @@ export const transactionsReducer = (state, action) => {
         transactions: action.transactions,
         paymentTotal: action.paymentTotal,
         purchaseTotal: action.purchaseTotal,
+        provTax: action.provTax,
+        fedTax: action.fedTax,
+        postDeduction: action.postDeduction,
       };
     case 'CREATE_TRANSACTIONS':
       return {
         transactions: [action.payload, ...state.transactions],
         paymentTotal: action.paymentTotal,
         purchaseTotal: action.purchaseTotal,
+        provTax: action.provTax,
+        fedTax: action.fedTax,
+        postDeduction: action.postDeduction,
       };
     case 'DELETE_TRANSACTIONS':
       return {
@@ -30,6 +39,9 @@ export const transactionsReducer = (state, action) => {
         ),
         paymentTotal: action.paymentTotal,
         purchaseTotal: action.purchaseTotal,
+        provTax: action.provTax,
+        fedTax: action.fedTax,
+        postDeduction: action.postDeduction,
       };
     default:
       return state;
