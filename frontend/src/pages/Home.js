@@ -7,10 +7,12 @@ import { useAuth0 } from '@auth0/auth0-react';
 //components
 import TransactionForm from '../components/Transactions/TransactionsForm';
 import TransactionCard from '../components/Transactions/TransactionCard';
-import PieChart from '../components/Chartjs/PieChart';
+import DoughnutChart from '../components/Chartjs/Doughnut';
+import ChartInfo from '../components/Chartjs/ChartInfo';
 
 const Home = () => {
-  const { transactions, dispatch } = useTransactionContext();
+  const { transactions, paymentTotal, dispatch, postDeduction } =
+    useTransactionContext();
   const { viewWidth, mobileBreakpoint } = useStyleContext();
   const { user, isAuthenticated, isLoading } = useAuth0();
 
@@ -51,9 +53,22 @@ const Home = () => {
   }
   return (
     <>
+      <StyledTitle>TaxTracker</StyledTitle>
       {isAuthenticated && transactions && (
-        <StyledHome>
-          <div className='transactions'>
+        <>
+          <StyledData>
+            <StyledMain>
+              <div className='chart'>
+                <div className='container'>
+                  <strong>INCOME</strong>
+                  <h1>${Math.floor(postDeduction)}</h1>
+                </div>
+                <DoughnutChart />
+              </div>
+            </StyledMain>
+            <ChartInfo />
+          </StyledData>
+          <StyledCards>
             {transactions &&
               transactions.map((transaction) => {
                 // console.log(transaction);
@@ -64,12 +79,13 @@ const Home = () => {
                   />
                 );
               })}
-          </div>
-          <div>
-            <PieChart />
-            {viewWidth > mobileBreakpoint ? <TransactionForm /> : ''}
-          </div>
-        </StyledHome>
+          </StyledCards>
+        </>
+      )}
+      {isAuthenticated && transactions && viewWidth > mobileBreakpoint ? (
+        <TransactionForm />
+      ) : (
+        ''
       )}
     </>
   );
@@ -77,15 +93,21 @@ const Home = () => {
 
 export default Home;
 
-const StyledHome = styled.div`
+const StyledTitle = styled.h1`
+  padding: 8px 24px;
+`;
+
+const StyledData = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 32px;
 
   width: 100%;
   max-width: 1200px;
   margin: auto;
-  padding: 32px 32px;
-  div:first-child {
+  /* padding: 16px 0px; */
+  /* div:first-child {
     flex: 3;
   }
   div:last-child {
@@ -100,8 +122,40 @@ const StyledHome = styled.div`
   form,
   .transactions {
     flex: 1;
-  }
-  @media (max-width: 650px) {
+  } */
+  /* @media (max-width: 650px) {
     flex-direction: column-reverse;
+  } */
+`;
+
+const StyledMain = styled.div`
+  width: 100%;
+  padding: 16px 0px 32px;
+
+  position: sticky;
+  top: 0;
+  background-color: var(--off-white);
+  .chart {
+    margin: auto;
+    min-width: 270px;
+    min-height: 270px;
+    max-width: 330px;
+    max-height: 330px;
+    width: 88%;
+    position: relative;
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
+`;
+
+const StyledCards = styled.div`
+  padding: 60px 24px 68px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 `;
