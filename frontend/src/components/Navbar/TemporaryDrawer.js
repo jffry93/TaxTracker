@@ -82,9 +82,9 @@ const TemporaryDrawer = () => {
         <MenuIcon />
       </IconButton>
       <Drawer
-        // PaperProps={{
-        //   sx: { width: '80vw' },
-        // }}
+        PaperProps={{
+          sx: { width: '80vw' },
+        }}
         anchor={'left'}
         open={state['left']}
         onClose={toggleDrawer('left', false)}

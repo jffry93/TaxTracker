@@ -46,5 +46,6 @@ const StyledContainer = styled.div`
     margin: 16px 8px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 `;

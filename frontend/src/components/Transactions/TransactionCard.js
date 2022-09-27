@@ -1,11 +1,14 @@
 import styled from 'styled-components';
+import { motion, AnimatePresence } from 'framer-motion';
 import { RiDeleteBin6Fill } from 'react-icons/ri';
 import { useTransactionContext } from '../../hooks/useTransactionHook';
 import useDebounce from '../../hooks/useDebounce';
 //fns package
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { useState } from 'react';
 
 const PurchaseCard = ({ transaction }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const { dispatch } = useTransactionContext();
 
   const handleDelete = async () => {
@@ -31,112 +34,126 @@ const PurchaseCard = ({ transaction }) => {
     }
   };
 
-  const handleDebounce = useDebounce(() => {
+  const handleDebounceDelete = useDebounce(() => {
     handleDelete();
   }, 500);
 
+  console.log(transaction);
   return (
-    <StyledPurchaseCard>
-      <div className='card-container'>
-        <div className='left-side'>
-          <h4 className='title'>Client</h4>
-          <p>{transaction.client}</p>
-
-          <h4 className='title'>Item</h4>
-          <p>{transaction.title}</p>
-
-          <p className='title'>
-            <strong>Amount: </strong>${transaction.amount} CAD
-          </p>
-          <h4 className='title'>Details</h4>
-          <p>{transaction.description}</p>
-        </div>
-        <div className='right-side'>
-          <div className='garbage-container' onClick={handleDebounce}>
-            <RiDeleteBin6Fill size={20} color='white' />
-          </div>
-        </div>
-      </div>
-      <p className='time-stamp'>
-        {/* date-fns library */}
-        {formatDistanceToNow(new Date(transaction.createdAt), {
-          addSuffix: true,
-        })}
-      </p>
-    </StyledPurchaseCard>
+    <>
+      <AnimatePresence>
+        <StyledCard
+          transition={{ layout: { duration: 1, type: 'spring' } }}
+          layout
+          style={{
+            borderRadius: '1rem',
+            boxShadow: '0px, 10px 30px rgba(0,0,0,0.5)',
+          }}
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+        >
+          <StyledUpper>
+            <motion.div layout='position'>
+              <strong>{transaction.type}</strong>
+              {isOpen && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ opacity: { duration: 1.5, type: 'spring' } }}
+                  layout
+                >
+                  <h2>Client</h2>
+                  <p>{transaction.client}</p>
+                </motion.div>
+              )}
+              <h4>Item</h4>
+              <p>{transaction.title}</p>
+              <p className='title'>
+                <strong>Amount: </strong>${transaction.amount} CAD
+              </p>
+            </motion.div>
+            {isOpen && (
+              <div
+                className='garbage-container'
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDebounceDelete();
+                }}
+              >
+                <RiDeleteBin6Fill size={20} color='white' />
+              </div>
+            )}
+          </StyledUpper>
+          {isOpen ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ opacity: { duration: 2.5, type: 'spring' } }}
+              layout
+            >
+              {/* <p>{transaction.description}</p> */}
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Perferendis quibusdam natus ?
+              </p>
+              <StyledLower>
+                <p className='time-stamp'>
+                  {formatDistanceToNow(new Date(transaction.createdAt), {
+                    addSuffix: true,
+                  })}
+                </p>
+                <div className='image-container'>
+                  <img src={transaction.imageData.url} alt='' />
+                </div>
+              </StyledLower>
+            </motion.div>
+          ) : (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className='more'
+            >
+              More Details
+            </motion.p>
+          )}
+        </StyledCard>
+      </AnimatePresence>
+    </>
   );
 };
 
 export default PurchaseCard;
 
-const StyledPurchaseCard = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  padding: 24px 16px 16px;
-
-  border-radius: 8px;
+const StyledCard = styled(motion.div)`
+  background-color: var(--primary);
+  padding: 16px 24px;
+  max-width: 300px;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
     rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
     rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
-  background-color: var(--misty-rose);
-
-  .card-container {
-    display: flex;
-    justify-content: space-between;
-    .left-side {
-      min-width: 270px;
-
-      h4,
-      strong {
-        color: var(--vivid-pink);
-      }
-      p,
-      .time-stamp {
-        font-size: 18px;
-        font-weight: 400;
-        color: white;
-      }
-      .title {
-        margin-top: 8px;
-      }
-    }
-    .right-side {
-      position: relative;
-      top: 0;
-
-      .garbage-container {
-        height: 35px;
-        width: 35px;
-        border-radius: 50%;
-        background-color: var(--vivid-pink);
-        cursor: pointer;
-
-        position: absolute;
-        top: 0%;
-        right: 0%;
-        transform: translate(-0%, -0%);
-        svg {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-      }
-    }
+  img {
+    width: 64px;
   }
-
-  /* .right-side {
-    border: 1px solid black;
-    display: flex;
-    flex-direction: row-reverse;
+  .more {
+    margin-top: 8px;
+    text-align: center;
   }
+`;
+const StyledUpper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   .garbage-container {
     height: 35px;
     width: 35px;
-    cursor: pointer;
-    background-color: var(--vivid-pink);
     border-radius: 50%;
+    background-color: var(--vivid-pink);
+    cursor: pointer;
+
     position: relative;
     svg {
       position: absolute;
@@ -144,13 +161,10 @@ const StyledPurchaseCard = styled.div`
       left: 50%;
       transform: translate(-50%, -50%);
     }
-  } */
-  .time-stamp {
-    display: flex;
-    justify-content: flex-end;
-
-    margin-top: 8px;
-
-    color: var(--vivid-pink);
   }
+`;
+const StyledLower = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 `;

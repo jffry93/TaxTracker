@@ -101,7 +101,7 @@ const StyledData = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  /* gap: 32px; */
 
   width: 100%;
   max-width: 1200px;
@@ -130,17 +130,17 @@ const StyledData = styled.div`
 
 const StyledMain = styled.div`
   width: 100%;
-  padding: 16px 0px 32px;
+  padding: 16px 0px 16px;
 
-  position: sticky;
-  top: 0;
+  /* position: sticky;
+  top: 0; */
   background-color: var(--off-white);
   .chart {
     margin: auto;
     min-width: 270px;
     min-height: 270px;
-    max-width: 330px;
-    max-height: 330px;
+    max-width: 300px;
+    max-height: 300px;
     width: 88%;
     position: relative;
     .container {
@@ -155,7 +155,10 @@ const StyledMain = styled.div`
 const StyledCards = styled.div`
   padding: 60px 24px 68px;
 
+  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
   gap: 24px;
 `;
