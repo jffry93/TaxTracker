@@ -85,11 +85,16 @@ const TransactionForm = () => {
 
   return (
     <StyledMain>
-      <div>
-        <button onClick={() => setType('payment')}>Invoice</button>
-        <button onClick={() => setType('purchase')}>Receipt</button>
+      <div className='button-container'>
+        <h2>
+          Add New <span>{type === 'payment' ? 'Invoice' : 'Receipt'}</span>
+        </h2>
+        {type === 'payment' ? (
+          <button onClick={() => setType('purchase')}>Receipt</button>
+        ) : (
+          <button onClick={() => setType('payment')}>Invoice</button>
+        )}
       </div>
-      <h4>Add New Receipt</h4>
       <StyledForm
         onSubmit={(e) => {
           e.preventDefault();
@@ -110,6 +115,7 @@ const TransactionForm = () => {
               <div className='error-text'>
                 <RiErrorWarningLine size={24} />
                 <p>What'd you buy?</p>
+                <RiErrorWarningLine size={24} />
               </div>
             ) : (
               'Purchase Title:'
@@ -127,6 +133,7 @@ const TransactionForm = () => {
               <div className='error-text'>
                 <RiErrorWarningLine size={24} />
                 <p>How much moneyz was it?</p>
+                <RiErrorWarningLine size={24} />
               </div>
             ) : (
               'Amount CAD:'
@@ -146,6 +153,7 @@ const TransactionForm = () => {
               <div className='error-text'>
                 <RiErrorWarningLine size={24} />
                 <p>Why'd you spend moneyz?</p>
+                <RiErrorWarningLine size={24} />
               </div>
             ) : (
               'Description:'
@@ -158,30 +166,44 @@ const TransactionForm = () => {
             value={description}
             className={emptyFields.includes('description') ? 'error' : ''}
           />
-
-          <label className={emptyFields.includes('image') ? 'error-text' : ''}>
-            {emptyFields.includes('image') ? (
-              <div className='error-text'>
-                <RiErrorWarningLine size={24} />
-                <p>Add some proof</p>
+          <div className='image-wrapper'>
+            <div>
+              <label
+                className={emptyFields.includes('image') ? 'error-text' : ''}
+              >
+                {emptyFields.includes('image') ? (
+                  <div className='error-text'>
+                    <RiErrorWarningLine size={24} />
+                    <p>Add some proof</p>
+                    <RiErrorWarningLine size={24} />
+                  </div>
+                ) : (
+                  'Document:'
+                )}
+              </label>
+              <div
+                className={
+                  emptyFields.includes('image')
+                    ? 'error image-container'
+                    : 'image-container'
+                }
+              >
+                <input
+                  value={imageValue}
+                  type='file'
+                  accept='image/*'
+                  onChange={(e) => {
+                    setImage(handleImgToBase64(e.target.files[0]));
+                    setImageValue(e.target.value);
+                  }}
+                />
+                {image && <img src={image} alt='chosen' />}
               </div>
-            ) : (
-              'Document:'
-            )}
-          </label>
-          <input
-            value={imageValue}
-            className={emptyFields.includes('image') ? 'error' : ''}
-            type='file'
-            accept='image/*'
-            onChange={(e) => {
-              setImage(handleImgToBase64(e.target.files[0]));
-              setImageValue(e.target.value);
-            }}
-          />
+            </div>
+          </div>
 
           <button>Add Purchase</button>
-          {emptyFields.length ? (
+          {/* {emptyFields.length ? (
             <div className='error-message'>
               <RiErrorWarningLine size={24} />
               <p>{error}</p>
@@ -189,10 +211,9 @@ const TransactionForm = () => {
             </div>
           ) : (
             ''
-          )}
+          )} */}
         </div>
       </StyledForm>
-      {image && <img src={image} alt='chosen' />}
     </StyledMain>
   );
 };
@@ -201,35 +222,47 @@ export default TransactionForm;
 
 const StyledMain = styled.div`
   flex: 1;
+  min-width: clamp(270px, 80vw, 400px);
   width: 100%;
+  color: white;
+  .button-container {
+    /* border: 5px solid red; */
+    margin: 16px 16px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    h2 {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 `;
 
 const StyledForm = styled.form`
   .form-container {
-    position: sticky;
-    top: 92px;
+    /* position: sticky;
+    top: 92px; */
 
     display: flex;
     flex-direction: column;
 
-    padding: 32px 16px;
+    padding: 0 16px 32px 16px;
 
-    border-radius: 8px;
-    background-color: #615d6c;
-    color: white;
-
-    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
-      rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
-      rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+    /* border-radius: 8px; */
+    /* background-color: #615d6c; */
+    /* 
     h4 {
       font-size: 24px;
       text-align: center;
-      margin-bottom: 16px;
-    }
+      margin-bottom: 12px;
+    } */
     label {
+      font-size: 14px;
+      margin-left: 8px;
       margin-bottom: 2px;
     }
     input {
+      /* text-align: center; */
       margin: 0 0 12px 0;
     }
 
@@ -249,16 +282,21 @@ const StyledForm = styled.form`
     .error {
       border: 3px solid var(--vivid-pink);
       border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
     }
     .error-text {
-      color: var(--vivid-pink);
       display: flex;
+      justify-content: space-between;
       gap: 8px;
+
+      color: var(--vivid-pink);
+      margin: 0;
+      width: 100%;
     }
     .error-message {
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
 
       border-radius: 8px;
@@ -274,5 +312,21 @@ const StyledForm = styled.form`
         transform: rotate(180deg);
       }
     }
+  }
+
+  .image-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    min-width: clamp(270px, 80vw, 400px);
+    /* gap: 16px; */
+    margin-bottom: 16px;
+    input {
+      margin: 0;
+      max-width: clamp(220px, 50vw, 400px);
+    }
+  }
+  img {
+    width: 50px;
   }
 `;

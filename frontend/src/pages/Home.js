@@ -53,10 +53,10 @@ const Home = () => {
   }
   return (
     <>
-      <StyledTitle>TaxTracker</StyledTitle>
       {isAuthenticated && transactions && (
         <>
           <StyledData>
+            <StyledTitle>TaxTracker</StyledTitle>
             <StyledMain>
               <div className='chart'>
                 <div className='container'>
@@ -68,18 +68,6 @@ const Home = () => {
             </StyledMain>
             <ChartInfo />
           </StyledData>
-          <StyledCards>
-            {transactions &&
-              transactions.map((transaction) => {
-                // console.log(transaction);
-                return (
-                  <TransactionCard
-                    key={transaction._id}
-                    transaction={transaction}
-                  />
-                );
-              })}
-          </StyledCards>
         </>
       )}
       {isAuthenticated && transactions && viewWidth > mobileBreakpoint ? (
@@ -101,11 +89,14 @@ const StyledData = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* gap: 32px; */
+  justify-content: center;
 
+  /* gap: 32px; */
+  min-height: 100vh;
+  padding-bottom: 56px;
   width: 100%;
   max-width: 1200px;
-  margin: auto;
+  margin: 0 auto;
   /* padding: 16px 0px; */
   /* div:first-child {
     flex: 3;
@@ -150,15 +141,4 @@ const StyledMain = styled.div`
       transform: translate(-50%, -50%);
     }
   }
-`;
-
-const StyledCards = styled.div`
-  padding: 60px 24px 68px;
-
-  /* min-height: 100vh; */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* justify-content: center; */
-  gap: 24px;
 `;

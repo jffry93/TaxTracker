@@ -43,13 +43,14 @@ const PurchaseCard = ({ transaction }) => {
     <>
       <AnimatePresence>
         <StyledCard
-          transition={{ layout: { duration: 1, type: 'spring' } }}
+          transition={{ layout: { duration: 0.6, type: 'spring' } }}
           layout
           style={{
             borderRadius: '1rem',
             boxShadow: '0px, 10px 30px rgba(0,0,0,0.5)',
           }}
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             setIsOpen(!isOpen);
           }}
         >
@@ -61,7 +62,7 @@ const PurchaseCard = ({ transaction }) => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ opacity: { duration: 1.5, type: 'spring' } }}
+                  transition={{ opacity: { duration: 1, type: 'spring' } }}
                   layout
                 >
                   <h2>Client</h2>
@@ -91,7 +92,7 @@ const PurchaseCard = ({ transaction }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ opacity: { duration: 2.5, type: 'spring' } }}
+              transition={{ opacity: { duration: 1.5, type: 'spring' } }}
               layout
             >
               {/* <p>{transaction.description}</p> */}
@@ -131,7 +132,7 @@ export default PurchaseCard;
 const StyledCard = styled(motion.div)`
   background-color: var(--primary);
   padding: 16px 24px;
-  max-width: 300px;
+  max-width: 350px;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
     rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
     rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;

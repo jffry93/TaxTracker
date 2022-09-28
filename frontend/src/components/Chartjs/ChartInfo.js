@@ -7,29 +7,29 @@ const ChartInfo = () => {
     useTransactionContext();
   return (
     <StyledContainer>
-      <h2>Data</h2>
-      <Divider />
+      {/* <h3>Data</h3> */}
+      {/* <Divider /> */}
       <div className='container'>
         <strong>Gross:</strong>
-        <h2>${Math.floor(paymentTotal)}</h2>
+        <h3>${Math.floor(paymentTotal)}</h3>
       </div>
       <div className='container'>
         <strong>Fed Tax:</strong>
-        <h2>${Math.floor(fedTax)}</h2>
+        <h3>${Math.floor(fedTax)}</h3>
       </div>
       <div className='container'>
         <strong>Prov Tax:</strong>
-        <h2>${Math.floor(provTax)}</h2>
+        <h3>${Math.floor(provTax)}</h3>
       </div>
       <Divider />
       <div className='container'>
         <strong>Expense:</strong>
-        <h2>${Math.floor(purchaseTotal)}</h2>
+        <h3>${Math.floor(purchaseTotal)}</h3>
       </div>
       <Divider />
       <div className='container'>
         <strong>Net:</strong>
-        <h2>${Math.floor(postDeduction)}</h2>
+        <h3>${Math.floor(postDeduction)}</h3>
       </div>
     </StyledContainer>
   );
@@ -39,7 +39,7 @@ export default ChartInfo;
 
 const StyledContainer = styled.div`
   width: 100%;
-  padding: 16px 32px;
+  padding: 16px 32px 0;
 
   .container {
     padding: 0;
