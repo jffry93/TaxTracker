@@ -327,6 +327,7 @@ const StyledForm = styled.form`
     }
   }
   img {
+    padding: 8px;
     width: 50px;
   }
 `;

@@ -41,7 +41,9 @@ const TemporaryDrawer = () => {
 
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : '100%' }}
+      sx={{
+        width: anchor === 'top' || anchor === 'bottom' ? 'auto' : '100%',
+      }}
       role='presentation'
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
@@ -96,7 +98,7 @@ const TemporaryDrawer = () => {
       </IconButton>
       <Drawer
         PaperProps={{
-          sx: { width: '80vw' },
+          sx: { width: '90vw' },
         }}
         anchor={'left'}
         open={state['left']}

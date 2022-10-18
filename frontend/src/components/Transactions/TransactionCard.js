@@ -8,6 +8,7 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { useState } from 'react';
 
 const PurchaseCard = ({ transaction }) => {
+  console.log(transaction);
   const [isOpen, setIsOpen] = useState(false);
   const { dispatch } = useTransactionContext();
 
@@ -38,11 +39,11 @@ const PurchaseCard = ({ transaction }) => {
     handleDelete();
   }, 500);
 
-  console.log(transaction);
   return (
     <>
       <AnimatePresence>
         <StyledCard
+          open={isOpen}
           transition={{ layout: { duration: 0.6, type: 'spring' } }}
           layout
           style={{
@@ -132,7 +133,13 @@ export default PurchaseCard;
 const StyledCard = styled(motion.div)`
   background-color: var(--primary);
   padding: 16px 24px;
-  max-width: 350px;
+  width: ${(props) => {
+    if (!props.open) {
+      return 'clamp(220px, 50vw, 400px)';
+    } else {
+      return '100%';
+    }
+  }};
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
     rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
     rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;

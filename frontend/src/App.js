@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 //components
 import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home';
+import Settings from './pages/Settings';
+import { useTransactionContext } from './hooks/useTransactionHook';
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
         <div className='pages'>
           <Routes>
             <Route path='/' element={<Home />} />
+            <Route path='/preferences' element={<Settings />} />
           </Routes>
         </div>
       </BrowserRouter>

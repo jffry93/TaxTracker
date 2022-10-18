@@ -7,8 +7,10 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DoorBackIcon from '@mui/icons-material/DoorBack';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import HomeIcon from '@mui/icons-material/Home';
 import styled from 'styled-components';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Link } from 'react-router-dom';
 
 const Settings = () => {
   const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
@@ -52,6 +54,12 @@ const Settings = () => {
       >
         <MenuItem>
           <StyledItem>
+            <HomeIcon />
+            <Link to='/'>Home</Link>
+          </StyledItem>
+        </MenuItem>
+        <MenuItem>
+          <StyledItem>
             <AccountCircle />
             <p>Profile</p>
           </StyledItem>
@@ -59,7 +67,7 @@ const Settings = () => {
         <MenuItem>
           <StyledItem>
             <SettingsIcon />
-            <p>Settings</p>
+            <Link to='/preferences'>Settings</Link>
           </StyledItem>
         </MenuItem>
         {isAuthenticated ? (

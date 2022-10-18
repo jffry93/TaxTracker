@@ -9,6 +9,7 @@ const initialState = {
   provTax: null,
   fedTax: null,
   postDeduction: null,
+  test: 'string',
 };
 
 export const transactionsReducer = (state, action) => {
@@ -16,6 +17,7 @@ export const transactionsReducer = (state, action) => {
     //TRANSACTIONS
     case 'SET_TRANSACTIONS':
       return {
+        ...state,
         transactions: action.transactions,
         paymentTotal: action.paymentTotal,
         purchaseTotal: action.purchaseTotal,
@@ -25,6 +27,7 @@ export const transactionsReducer = (state, action) => {
       };
     case 'CREATE_TRANSACTIONS':
       return {
+        ...state,
         transactions: [action.payload, ...state.transactions],
         paymentTotal: action.paymentTotal,
         purchaseTotal: action.purchaseTotal,
@@ -34,6 +37,7 @@ export const transactionsReducer = (state, action) => {
       };
     case 'DELETE_TRANSACTIONS':
       return {
+        ...state,
         transactions: state.transactions.filter(
           (transactions) => transactions._id !== action.payload._id
         ),
@@ -42,6 +46,11 @@ export const transactionsReducer = (state, action) => {
         provTax: action.provTax,
         fedTax: action.fedTax,
         postDeduction: action.postDeduction,
+      };
+    case 'TEST':
+      return {
+        ...state,
+        test: 'test',
       };
     default:
       return state;
