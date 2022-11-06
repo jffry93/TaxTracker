@@ -1,17 +1,13 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import { useState } from 'react';
 import TransactionCard from '../Transactions/TransactionCard';
@@ -19,8 +15,9 @@ import { useTransactionContext } from '../../hooks/useTransactionHook';
 import styled from 'styled-components';
 
 const TemporaryDrawer = () => {
-	const { transactions, filterType, dispatch } = useTransactionContext();
-	const [filterData, setFilterData] = useState('all');
+	const { transactions, filterType, sortType, dispatch } =
+		useTransactionContext();
+	const [age, setAge] = useState('');
 	const [state, setState] = useState({
 		top: false,
 		left: false,
@@ -40,8 +37,13 @@ const TemporaryDrawer = () => {
 	};
 
 	const handleFilter = (e) => {
-		console.log('selected filter', e.target.value);
-		dispatch({ type: 'FILTER_PURCHASES', payload: e.target.value });
+		console.log('change', e.target.value);
+		dispatch({ type: 'FILTER_TRANSACTIONS', payload: e.target.value });
+		dispatch({ type: 'SORT_TRANSACTIONS', payload: sortType });
+	};
+
+	const handleSort = (e) => {
+		dispatch({ type: 'SORT_TRANSACTIONS', payload: e.target.value });
 	};
 
 	//THE CONTAINER THAT SLIDES IN
@@ -54,36 +56,45 @@ const TemporaryDrawer = () => {
 			onClick={toggleDrawer(anchor, false)}
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
-			<StyledContainer>
-				<div>
-					<label for='card-types'>Filter</label>
-					<select
+			<StyledContainer
+				onClick={(e) => {
+					e.stopPropagation();
+				}}
+			>
+				<FormControl fullWidth>
+					<InputLabel htmlFor='card-types'>Filter</InputLabel>
+					<Select
 						id='filter-input'
 						name='card-types'
 						value={filterType}
 						onClick={(e) => e.stopPropagation()}
 						onChange={handleFilter}
 					>
-						<option value='all'>All</option>
-						<option value='purchase'>Purchases</option>
-						<option value='payment'>Payments</option>
-					</select>
-				</div>
-				<div>
-					<label for='sort'>Sort</label>
-					<select id='sort' name='sort' onClick={(e) => e.stopPropagation()}>
-						<option value='volvo'>Recent</option>
-						<option value='saab'>High - Low</option>
-						<option value='fiat'>Low - High</option>
-					</select>
-				</div>
+						<MenuItem value='all'>All</MenuItem>
+						<MenuItem value='purchase'>Purchases</MenuItem>
+						<MenuItem value='payment'>Payments</MenuItem>
+					</Select>
+				</FormControl>
+				<FormControl fullWidth>
+					<InputLabel htmlFor='sort'>Sort</InputLabel>
+					<Select
+						id='sort'
+						name='sort'
+						value={sortType}
+						onClick={(e) => e.stopPropagation()}
+						onChange={handleSort}
+					>
+						<MenuItem value='recent'>Recent</MenuItem>
+						<MenuItem value='oldest'>Oldest</MenuItem>
+						<MenuItem value='high-to-low'>High - Low</MenuItem>
+						<MenuItem value='low-to-high'>Low - High</MenuItem>
+					</Select>
+				</FormControl>
 			</StyledContainer>
 			<Divider />
-			{/* content inside the sidebar */}
 			<StyledCards>
 				{transactions &&
 					transactions.map((transaction, index) => {
-						// console.log(transaction);
 						return (
 							<TransactionCard
 								key={transaction._id}
@@ -121,7 +132,7 @@ const TemporaryDrawer = () => {
 export default TemporaryDrawer;
 
 const StyledCards = styled.div`
-	padding: 60px 24px 68px;
+	padding: 24px 24px 68px;
 
 	/* min-height: 100vh; */
 	display: flex;
@@ -133,15 +144,10 @@ const StyledCards = styled.div`
 const StyledContainer = styled.div`
 	display: flex;
 	gap: 16px;
-
-	padding: 0 16px 8px;
-	div {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		select {
-			width: 100%;
-		}
+	padding: 24px 16px 8px;
+	label {
+		position: absolute;
+		top: -15%;
+		padding-bottom: 16px;
 	}
 `;

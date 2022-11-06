@@ -11,9 +11,8 @@ import DoughnutChart from '../components/Chartjs/Doughnut';
 import ChartInfo from '../components/Chartjs/ChartInfo';
 
 const Home = () => {
-	const { transactions, filterType, dispatch, postDeduction } =
-		useTransactionContext();
-	console.log(filterType);
+	const { transactions, dispatch, postDeduction } = useTransactionContext();
+
 	const { viewWidth, mobileBreakpoint } = useStyleContext();
 	const { user, isAuthenticated, isLoading } = useAuth0();
 

@@ -4,6 +4,7 @@ export const TransactionContext = createContext();
 
 const initialState = {
 	filterType: 'all',
+	sortType: 'recent',
 	transactions: null,
 	paymentTotal: null,
 	purchaseTotal: null,
@@ -53,7 +54,7 @@ export const transactionsReducer = (state, action) => {
 				fedTax: action.fedTax,
 				postDeduction: action.postDeduction,
 			};
-		case 'FILTER_PURCHASES':
+		case 'FILTER_TRANSACTIONS':
 			return {
 				...state,
 				filterType: action.payload,
@@ -65,6 +66,28 @@ export const transactionsReducer = (state, action) => {
 							transactions.type.toLowerCase() === action.payload.toLowerCase()
 						);
 					}
+				}),
+			};
+		case 'SORT_TRANSACTIONS':
+			return {
+				...state,
+				sortType: action.payload,
+				transactions: state.transactions.sort((a, b) => {
+					if (action.payload === 'recent') {
+						return new Date(b.updatedAt) - new Date(a.updatedAt);
+					}
+					if (action.payload === 'oldest') {
+						return new Date(a.updatedAt) - new Date(b.updatedAt);
+					}
+					if (action.payload === 'low-to-high') {
+						return a.amount - b.amount;
+					}
+					// Turn your strings into dates, and then subtract them
+					// to get a value that is either negative, positive, or zero.
+					if (action.payload === 'high-to-low') {
+						return b.amount - a.amount;
+					}
+					// return new Date(b.date) - new Date(a.date);
 				}),
 			};
 		case 'TEST':

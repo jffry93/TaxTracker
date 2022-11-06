@@ -13,98 +13,98 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
 
 const Settings = () => {
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+	const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+	const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+	const open = Boolean(anchorEl);
+	const id = open ? 'simple-popover' : undefined;
 
-  return (
-    <div>
-      <IconButton
-        aria-describedby={id}
-        variant='contained'
-        onClick={handleClick}
-        color='inherit'
-      >
-        <MoreIcon />
-      </IconButton>
+	return (
+		<div>
+			<IconButton
+				aria-describedby={id}
+				variant='contained'
+				onClick={handleClick}
+				color='inherit'
+			>
+				<MoreIcon />
+			</IconButton>
 
-      <Popover
-        id='long-menu'
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-      >
-        <MenuItem>
-          <StyledItem>
-            <HomeIcon />
-            <Link to='/'>Home</Link>
-          </StyledItem>
-        </MenuItem>
-        <MenuItem>
-          <StyledItem>
-            <AccountCircle />
-            <p>Profile</p>
-          </StyledItem>
-        </MenuItem>
-        <MenuItem>
-          <StyledItem>
-            <SettingsIcon />
-            <Link to='/preferences'>Settings</Link>
-          </StyledItem>
-        </MenuItem>
-        {isAuthenticated ? (
-          <MenuItem
-            onClick={() => logout({ returnTo: window.location.origin })}
-          >
-            <StyledItem>
-              <MeetingRoomIcon />
-              <p>Logout</p>
-            </StyledItem>
-          </MenuItem>
-        ) : (
-          <MenuItem onClick={() => loginWithRedirect()}>
-            <StyledItem>
-              <DoorBackIcon />
-              <p>Login</p>
-            </StyledItem>
-          </MenuItem>
-        )}
-      </Popover>
-    </div>
-  );
+			<Popover
+				id='long-menu'
+				open={open}
+				anchorEl={anchorEl}
+				onClose={handleClose}
+				anchorOrigin={{
+					vertical: 'top',
+					horizontal: 'right',
+				}}
+				transformOrigin={{
+					vertical: 'bottom',
+					horizontal: 'right',
+				}}
+			>
+				<MenuItem>
+					<StyledItem>
+						<HomeIcon />
+						<Link to='/'>Home</Link>
+					</StyledItem>
+				</MenuItem>
+				<MenuItem>
+					<StyledItem>
+						<AccountCircle />
+						<p>Profile</p>
+					</StyledItem>
+				</MenuItem>
+				<MenuItem>
+					<StyledItem>
+						<SettingsIcon />
+						<Link to='/preferences'>Settings</Link>
+					</StyledItem>
+				</MenuItem>
+				{isAuthenticated ? (
+					<MenuItem
+						onClick={() => logout({ returnTo: window.location.origin })}
+					>
+						<StyledItem>
+							<MeetingRoomIcon />
+							<p>Logout</p>
+						</StyledItem>
+					</MenuItem>
+				) : (
+					<MenuItem onClick={() => loginWithRedirect()}>
+						<StyledItem>
+							<DoorBackIcon />
+							<p>Login</p>
+						</StyledItem>
+					</MenuItem>
+				)}
+			</Popover>
+		</div>
+	);
 };
 export default Settings;
 
 const StyledItem = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  p {
-    font-weight: 500;
-  }
-  button {
-    background-color: transparent;
-    color: black;
-    padding: 8px;
-  }
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	p {
+		font-weight: 500;
+	}
+	button {
+		background-color: transparent;
+		color: black;
+		padding: 8px;
+	}
 `;
