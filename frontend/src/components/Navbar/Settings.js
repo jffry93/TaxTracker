@@ -52,24 +52,30 @@ const Settings = () => {
 					horizontal: 'right',
 				}}
 			>
-				<MenuItem>
-					<StyledItem>
-						<HomeIcon />
-						<Link to='/'>Home</Link>
-					</StyledItem>
-				</MenuItem>
-				<MenuItem>
-					<StyledItem>
-						<AccountCircle />
-						<p>Profile</p>
-					</StyledItem>
-				</MenuItem>
-				<MenuItem>
-					<StyledItem>
-						<SettingsIcon />
-						<Link to='/preferences'>Settings</Link>
-					</StyledItem>
-				</MenuItem>
+				<Link to='/'>
+					<MenuItem>
+						<StyledItem>
+							<HomeIcon />
+							<p>Home</p>
+						</StyledItem>
+					</MenuItem>
+				</Link>
+				<Link to='/account'>
+					<MenuItem>
+						<StyledItem>
+							<AccountCircle />
+							<p>Profile</p>
+						</StyledItem>
+					</MenuItem>
+				</Link>
+				<Link to='/preferences'>
+					<MenuItem>
+						<StyledItem>
+							<SettingsIcon />
+							<p>Settings</p>
+						</StyledItem>
+					</MenuItem>
+				</Link>
 				{isAuthenticated ? (
 					<MenuItem
 						onClick={() => logout({ returnTo: window.location.origin })}

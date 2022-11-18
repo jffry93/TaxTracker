@@ -5,7 +5,7 @@ import { useTransactionContext } from '../../hooks/useTransactionHook';
 import useDebounce from '../../hooks/useDebounce';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const TransactionForm = () => {
+const TransactionForm = ({ open, setOpen }) => {
 	const { dispatch } = useTransactionContext();
 	//form values
 	const [client, setClient] = useState('');
@@ -65,6 +65,9 @@ const TransactionForm = () => {
 				fedTax: json.fedTax,
 				postDeduction: json.postDeduction,
 			});
+			if (open) {
+				setOpen(false);
+			}
 		}
 	};
 
@@ -118,7 +121,9 @@ const TransactionForm = () => {
 								<RiErrorWarningLine size={24} />
 							</div>
 						) : (
-							'Purchase Title:'
+							<p>
+								Purchase Title<span>*</span>
+							</p>
 						)}
 					</label>
 					<input
@@ -136,7 +141,9 @@ const TransactionForm = () => {
 								<RiErrorWarningLine size={24} />
 							</div>
 						) : (
-							'Amount CAD:'
+							<p>
+								Amount CAD<span>*</span>
+							</p>
 						)}
 					</label>
 					<input
@@ -156,7 +163,9 @@ const TransactionForm = () => {
 								<RiErrorWarningLine size={24} />
 							</div>
 						) : (
-							'Description:'
+							<p>
+								Description<span>*</span>
+							</p>
 						)}
 					</label>
 					<input
@@ -178,7 +187,9 @@ const TransactionForm = () => {
 										<RiErrorWarningLine size={24} />
 									</div>
 								) : (
-									'Document:'
+									<p>
+										Document<span>*</span>
+									</p>
 								)}
 							</label>
 							<div
@@ -203,15 +214,6 @@ const TransactionForm = () => {
 					</div>
 
 					<button>Add Purchase</button>
-					{/* {emptyFields.length ? (
-            <div className='error-message'>
-              <RiErrorWarningLine size={24} />
-              <p>{error}</p>
-              <RiErrorWarningLine size={24} />
-            </div>
-          ) : (
-            ''
-          )} */}
 				</div>
 			</StyledForm>
 		</StyledMain>
@@ -240,34 +242,24 @@ const StyledMain = styled.div`
 
 const StyledForm = styled.form`
 	.form-container {
-		/* position: sticky;
-    top: 92px; */
-
 		display: flex;
 		flex-direction: column;
 
 		padding: 0 16px 32px 16px;
-
-		/* border-radius: 8px; */
-		/* background-color: #615d6c; */
-		/* 
-    h4 {
-      font-size: 24px;
-      text-align: center;
-      margin-bottom: 12px;
-    } */
 		label {
-			font-size: 14px;
-			margin-left: 8px;
+			font-size: 12px;
+			/* margin-left: 12px; */
 			margin-bottom: 2px;
 		}
 		input {
 			/* text-align: center; */
-			margin: 0 0 12px 0;
+			padding: 6px 8px;
+			margin: 0 0 4px 0;
 		}
 
 		input::placeholder {
-			font: 16px/3 sans-serif;
+			/* padding: 4px; */
+			font: 14px/3 sans-serif;
 		}
 		/* Chrome, Safari, Edge, Opera */
 		input::-webkit-outer-spin-button,

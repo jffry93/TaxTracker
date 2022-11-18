@@ -16,38 +16,6 @@ const Home = () => {
 	const { viewWidth, mobileBreakpoint } = useStyleContext();
 	const { user, isAuthenticated, isLoading } = useAuth0();
 
-	//------FETCH TRANSACTION DATA -------//
-	//GET REQUEST
-	useEffect(() => {
-		const fetchTransaction = async () => {
-			const response = await fetch('/api/transactions/user', {
-				method: 'POST',
-				body: JSON.stringify(user),
-				headers: {
-					'Content-type': 'application/json',
-				},
-			});
-			const json = await response.json();
-			// console.log(json.paymentTotal - json.purchaseTotal);
-			// console.log(json.provTax + json.fedTax + json.postDeduction);
-
-			if (response.ok) {
-				dispatch({
-					type: 'SET_TRANSACTIONS',
-					transactions: json.transactions,
-					paymentTotal: json.paymentTotal,
-					purchaseTotal: json.purchaseTotal,
-					provTax: json.provTax,
-					fedTax: json.fedTax,
-					postDeduction: json.postDeduction,
-				});
-			}
-		};
-		if (isAuthenticated) {
-			fetchTransaction();
-		}
-	}, [isAuthenticated]);
-
 	if (isLoading) {
 		return <div>Loading ...</div>;
 	}
@@ -87,32 +55,11 @@ const StyledData = styled.div`
 	align-items: center;
 	justify-content: center;
 
-	/* gap: 32px; */
 	min-height: 100vh;
 	padding-bottom: 56px;
 	width: 100%;
 	max-width: 1200px;
 	margin: 0 auto;
-	/* padding: 16px 0px; */
-	/* div:first-child {
-    flex: 3;
-  }
-  div:last-child {
-    flex: 2;
-  }
-  .transactions {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-  form,
-  .transactions {
-    flex: 1;
-  } */
-	/* @media (max-width: 650px) {
-    flex-direction: column-reverse;
-  } */
 `;
 
 const StyledMain = styled.div`
@@ -124,17 +71,24 @@ const StyledMain = styled.div`
 	background-color: var(--off-white);
 	.chart {
 		margin: auto;
-		min-width: 270px;
-		min-height: 270px;
-		max-width: 300px;
-		max-height: 300px;
-		width: 88%;
+		width: 270px;
+		height: 270px;
+		/* width: clamp(270px, 88%, 300px);
+		height: clamp(270px, 88%, 300px); */
+
 		position: relative;
 		.container {
 			position: absolute;
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
+			strong {
+				margin-left: 16px;
+				font-size: 20px;
+			}
+			h1 {
+				font-size: 40px;
+			}
 		}
 	}
 `;

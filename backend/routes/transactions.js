@@ -1,18 +1,18 @@
 // const { json } = require('express');
 const express = require('express');
 const {
-  getTransactions,
-  getTransaction,
-  createTransaction,
-  deleteTransaction,
-  updateTransaction,
+	getTransactions,
+	getTransaction,
+	createTransaction,
+	deleteTransaction,
+	updateTransaction,
 } = require('../controllers/transactionController');
 
 const router = express.Router();
 //GET ALL
 router.post('/user', getTransactions);
 // GET SINGLE
-router.get('/:id', getTransaction);
+router.get('/:id/', getTransaction);
 //POST NEW
 router.post('/', createTransaction);
 //DELETE NEW

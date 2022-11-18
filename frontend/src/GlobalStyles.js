@@ -11,8 +11,9 @@ const GlobalStyle = createGlobalStyle`
   --secondary: #A1683A;
   --vivid-pink: #E8998D;
   --misty-rose: #EED2CC;
-  --off-white: #FBF7F4;
+  --off-white: #1e1e1e;
   --error: #e7195a;
+  --eggshell: #eae2ce;
 }
 
 h1{
@@ -50,8 +51,8 @@ p{
 
 body{
   font-family: 'Poppins';
-  
   background-color:var(--primary) ;
+  color: var(--eggshell);
 }
 a{
   text-decoration: none ;
@@ -68,7 +69,7 @@ button{
 }
 input {
   border-radius: 4px;
-  padding: 8px;
+  padding: 6px 4px;
   margin: 0 0 12px 0;
   outline: none;
 }

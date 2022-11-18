@@ -6,8 +6,7 @@ import App from './App';
 import { TransactionsContextProvider } from './context/TransactionContext';
 import GlobalStyle from './GlobalStyles';
 import { StyleContextProvider } from './context/StyleContext';
-import { StateProvider } from './context/StateContext';
-import { DemoProvider } from './context/DemoContext';
+import { UserProvider } from './context/UserContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,12 +18,10 @@ root.render(
 	>
 		<StyleContextProvider>
 			<TransactionsContextProvider>
-				<StateProvider>
-					<DemoProvider>
-						<GlobalStyle />
-						<App />
-					</DemoProvider>
-				</StateProvider>
+				<UserProvider>
+					<GlobalStyle />
+					<App />
+				</UserProvider>
 			</TransactionsContextProvider>
 		</StyleContextProvider>
 	</Auth0Provider>

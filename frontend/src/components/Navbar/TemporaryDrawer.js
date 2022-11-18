@@ -7,17 +7,18 @@ import MenuIcon from '@mui/icons-material/Menu';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 
 import { useState } from 'react';
 import TransactionCard from '../Transactions/TransactionCard';
 import { useTransactionContext } from '../../hooks/useTransactionHook';
 import styled from 'styled-components';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const TemporaryDrawer = () => {
+	const { user, isAuthenticated, isLoading } = useAuth0();
 	const { transactions, filterType, sortType, dispatch } =
 		useTransactionContext();
-	const [age, setAge] = useState('');
 	const [state, setState] = useState({
 		top: false,
 		left: false,
@@ -37,7 +38,6 @@ const TemporaryDrawer = () => {
 	};
 
 	const handleFilter = (e) => {
-		console.log('change', e.target.value);
 		dispatch({ type: 'FILTER_TRANSACTIONS', payload: e.target.value });
 		dispatch({ type: 'SORT_TRANSACTIONS', payload: sortType });
 	};
@@ -109,6 +109,7 @@ const TemporaryDrawer = () => {
 	return (
 		<>
 			<IconButton
+				// disabled={!isAuthenticated}
 				onClick={toggleDrawer('left', true)}
 				color='inherit'
 				aria-label='open drawer'
@@ -117,7 +118,7 @@ const TemporaryDrawer = () => {
 			</IconButton>
 			<Drawer
 				PaperProps={{
-					sx: { width: '90vw' },
+					sx: { width: '100vw' },
 				}}
 				anchor={'left'}
 				open={state['left']}
@@ -132,9 +133,8 @@ const TemporaryDrawer = () => {
 export default TemporaryDrawer;
 
 const StyledCards = styled.div`
+	min-height: calc(100vh - 80px);
 	padding: 24px 24px 68px;
-
-	/* min-height: 100vh; */
 	display: flex;
 	flex-direction: column;
 	align-items: center;

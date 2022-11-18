@@ -6,9 +6,13 @@ import useDebounce from '../../hooks/useDebounce';
 //fns package
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { useState } from 'react';
+import ImageZoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
+import '../../css/ImageZoom.css';
 
 const PurchaseCard = ({ transaction }) => {
 	// console.log(transaction);
+	const [youSure, setYouSure] = useState(true);
 	const [isOpen, setIsOpen] = useState(false);
 	const { dispatch } = useTransactionContext();
 
@@ -32,6 +36,7 @@ const PurchaseCard = ({ transaction }) => {
 				fedTax: json.fedTax,
 				postDeduction: json.postDeduction,
 			});
+			// setYouSure(true);
 		}
 	};
 
@@ -39,6 +44,15 @@ const PurchaseCard = ({ transaction }) => {
 		handleDelete();
 	}, 500);
 
+	const dubCheckHandle = (e) => {
+		console.log('click');
+		e.stopPropagation();
+		setYouSure(!youSure);
+		setTimeout(() => {
+			console.log('timeout');
+			setYouSure(true);
+		}, 2500);
+	};
 	return (
 		<>
 			<AnimatePresence>
@@ -52,6 +66,7 @@ const PurchaseCard = ({ transaction }) => {
 					}}
 					onClick={(e) => {
 						e.stopPropagation();
+						setYouSure(true);
 						setIsOpen(!isOpen);
 					}}
 				>
@@ -77,15 +92,36 @@ const PurchaseCard = ({ transaction }) => {
 							</p>
 						</motion.div>
 						{isOpen && (
-							<div
-								className='garbage-container'
-								onClick={(e) => {
-									e.stopPropagation();
-									handleDebounceDelete();
+							<StyledActionDiv
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								transition={{
+									width: { duration: 1, type: 'spring' },
+									opacity: { duration: 1, type: 'spring' },
+									borderRadius: { duration: 2, type: 'spring' },
 								}}
+								layout
+								yousure={youSure.toString()}
+								onClick={dubCheckHandle}
 							>
-								<RiDeleteBin6Fill size={20} color='white' />
-							</div>
+								{youSure ? (
+									<div className='garbage-container'>
+										<RiDeleteBin6Fill size={20} color='white' />
+									</div>
+								) : (
+									<div
+										className='confirm-container'
+										onClick={(e) => {
+											e.stopPropagation();
+											// dubCheckHandle();
+											handleDebounceDelete();
+										}}
+									>
+										<p>Are you sure?</p>
+									</div>
+								)}
+							</StyledActionDiv>
 						)}
 					</StyledUpper>
 					{isOpen ? (
@@ -108,7 +144,16 @@ const PurchaseCard = ({ transaction }) => {
 									})}
 								</p>
 								<div className='image-container'>
-									<img src={transaction.imageData.url} alt='' />
+									<ImageZoom classDialog={'custom-zoom'}>
+										<img
+											src={transaction.imageData.url}
+											alt=''
+											onClick={(e) => {
+												e.stopPropagation();
+												console.log('click');
+											}}
+										/>
+									</ImageZoom>
 								</div>
 							</StyledLower>
 						</motion.div>
@@ -155,11 +200,26 @@ const StyledUpper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
+	position: relative;
+`;
+
+const StyledActionDiv = styled(motion.div)`
+	position: absolute;
+	right: 0;
+	background-color: var(--vivid-pink);
+	border-radius: ${(props) => (props.yousure === 'true' ? '50%' : '18px')};
+	.confirm-container {
+		height: 35px;
+		display: flex;
+		align-items: center;
+		padding: 0px 8px;
+	}
+
 	.garbage-container {
 		height: 35px;
 		width: 35px;
-		border-radius: 50%;
-		background-color: var(--vivid-pink);
+		/* border-radius: 50%; */
+
 		cursor: pointer;
 
 		position: relative;
@@ -171,6 +231,7 @@ const StyledUpper = styled.div`
 		}
 	}
 `;
+
 const StyledLower = styled.div`
 	display: flex;
 	justify-content: space-between;
