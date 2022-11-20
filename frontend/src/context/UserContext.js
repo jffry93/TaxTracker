@@ -7,8 +7,15 @@ const reducerFunction = (state, action) => {
 		case 'LOG_ON':
 			return {
 				...state,
+				userStatus: 'active',
 				userInfo: { ...state.user, ...action.user },
 				legitCheck: true,
+			};
+		case 'FAILED':
+			return {
+				...state,
+				userStatus: 'failed',
+				// legitCheck: false,
 			};
 		case 'UPDATE_USER':
 			return {
@@ -22,6 +29,7 @@ const reducerFunction = (state, action) => {
 
 export const UserProvider = ({ children }) => {
 	const initialState = {
+		userStatus: 'idle',
 		userInfo: {},
 		legitCheck: false,
 	};

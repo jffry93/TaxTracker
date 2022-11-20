@@ -23,7 +23,7 @@ const Home = () => {
 		<>
 			{isAuthenticated && transactions && (
 				<StyledData>
-					<StyledTitle>TaxTracker</StyledTitle>
+					{/* <StyledTitle>TaxTracker</StyledTitle> */}
 					<StyledMain>
 						<div className='chart'>
 							<div className='container'>
@@ -68,7 +68,7 @@ const StyledMain = styled.div`
 
 	/* position: sticky;
   top: 0; */
-	background-color: var(--off-white);
+	/* background-color: var(--off-white); */
 	.chart {
 		margin: auto;
 		width: 270px;

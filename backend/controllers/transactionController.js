@@ -12,31 +12,37 @@ const getTransactions = async (req, res) => {
 		let user = await User.find({ email });
 		const { location } = user[0];
 
-		//.sort will return the collection in the order it is createdAt because of the object passed
-		const transactions = await Transaction.find({ user: email }).sort({
-			createdAt: -1,
-		});
-		//PAYMENT TOTAL OF CURRENT USER LOGGED IN
-		const payment = await Transaction.find({ type: 'payment', user: email });
-		let paymentTotal = payment.reduce((prevValue, currentItem) => {
-			return prevValue + currentItem.amount;
-		}, 0);
-		//PURCHASE TOTAL OF CURRENT USER LOGGED IN
-		const purchase = await Transaction.find({ type: 'purchase', user: email });
-		let purchaseTotal = purchase.reduce((prevValue, currentItem) => {
-			return prevValue + currentItem.amount;
-		}, 0);
-		//CALCULATE TAX
-		const remainingIncome = paymentTotal - purchaseTotal;
-		const taxObject = calculateTax(remainingIncome, location.toLowerCase());
-		// console.log(taxObject);
+		if (location) {
+			//.sort will return the collection in the order it is createdAt because of the object passed
+			const transactions = await Transaction.find({ user: email }).sort({
+				createdAt: -1,
+			});
+			//PAYMENT TOTAL OF CURRENT USER LOGGED IN
+			const payment = await Transaction.find({ type: 'payment', user: email });
+			let paymentTotal = payment.reduce((prevValue, currentItem) => {
+				return prevValue + currentItem.amount;
+			}, 0);
+			//PURCHASE TOTAL OF CURRENT USER LOGGED IN
+			const purchase = await Transaction.find({
+				type: 'purchase',
+				user: email,
+			});
+			let purchaseTotal = purchase.reduce((prevValue, currentItem) => {
+				return prevValue + currentItem.amount;
+			}, 0);
+			//CALCULATE TAX
+			const remainingIncome = paymentTotal - purchaseTotal;
+			const taxObject = calculateTax(remainingIncome, location.toLowerCase());
 
-		res
-			.status(200)
-			.json({ transactions, paymentTotal, purchaseTotal, ...taxObject });
+			res
+				.status(200)
+				.json({ transactions, paymentTotal, purchaseTotal, ...taxObject });
+		} else {
+			res.status(400).json({ msg: 'missing data' });
+		}
 	} catch (err) {
-		// console.log(err);
-		res.status(400).json({
+		console.log(err);
+		res.status(500).json({
 			error: err._message,
 		});
 	}
@@ -44,19 +50,23 @@ const getTransactions = async (req, res) => {
 
 //GET SINGLE PAYMENT
 const getTransaction = async (req, res) => {
-	const { id } = req.params;
+	try {
+		const { id } = req.params;
 
-	if (!mongoose.Types.ObjectId.isValid(id)) {
-		return res.status(404).json({ error: 'No such payment' });
+		if (!mongoose.Types.ObjectId.isValid(id)) {
+			return res.status(404).json({ error: 'No such payment' });
+		}
+
+		const payment = await Transaction.findById(id);
+
+		if (!payment) {
+			return res.status(404).json({ error: 'No such Payment' });
+		}
+
+		res.status(200).json(id);
+	} catch (err) {
+		console.log(err);
 	}
-
-	const payment = await Transaction.findById(id);
-
-	if (!payment) {
-		return res.status(404).json({ error: 'No such Payment' });
-	}
-
-	res.status(200).json(id);
 };
 
 //CREATE PAYMENT

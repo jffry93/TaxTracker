@@ -51,7 +51,7 @@ p{
 
 body{
   font-family: 'Poppins';
-  background-color:var(--primary) ;
+  /* background-color:var(--primary) ; */
   color: var(--eggshell);
 }
 a{

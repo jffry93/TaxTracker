@@ -6,6 +6,7 @@ const express = require('express');
 //routes
 const transactionsRoutes = require('./routes/transactions');
 const userRoutes = require('./routes/user');
+const styleRoutes = require('./routes/styles');
 //express app
 const app = express();
 
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
 	next();
 });
 // PAYMENT ROUTE
+app.use('/api/styles', styleRoutes);
 app.use('/api/transactions', transactionsRoutes);
 app.use('/api/user', userRoutes);
 

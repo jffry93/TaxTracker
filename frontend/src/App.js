@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 //components
+import FloatingShapes from './css/FloatingShapes';
 import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home';
+import Loading from './pages/Loading';
 import Profile from './pages/Profile';
 import SignUp from './pages/SignUp';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -14,11 +16,10 @@ import InitialSetup from './pages/InitialSetup';
 function App() {
 	const { user, isAuthenticated, isLoading } = useAuth0();
 	const { dispatch } = useContext(TransactionContext);
-	const { userInfo, legitCheck, userDispatch } = useContext(UserContext);
+	const { userStatus, userInfo, legitCheck, userDispatch } =
+		useContext(UserContext);
 
 	useEffect(() => {
-		console.log(isAuthenticated);
-
 		const fetchGetHandler = async () => {
 			const res = await fetch('/api/user/', {
 				method: 'POST',
@@ -28,7 +29,7 @@ function App() {
 				},
 			});
 			const data = await res.json();
-			console.log(data);
+
 			userDispatch({ type: 'LOG_ON', user: data.user });
 		};
 		isAuthenticated && fetchGetHandler();
@@ -46,8 +47,6 @@ function App() {
 				},
 			});
 			const json = await response.json();
-			// console.log(json.paymentTotal - json.purchaseTotal);
-			// console.log(json.provTax + json.fedTax + json.postDeduction);
 
 			if (response.ok) {
 				dispatch({
@@ -59,6 +58,8 @@ function App() {
 					fedTax: json.fedTax,
 					postDeduction: json.postDeduction,
 				});
+			} else {
+				userDispatch({ type: 'FAILED' });
 			}
 		};
 		if (isAuthenticated) {
@@ -66,27 +67,33 @@ function App() {
 		}
 	}, [isAuthenticated, userInfo]);
 
-	console.log(userInfo.location);
 	return (
 		<StyledApp>
-			<BrowserRouter>
-				{isAuthenticated && <Navbar />}
-				{isAuthenticated ? (
-					!userInfo.location && legitCheck ? (
-						<InitialSetup />
+			{isAuthenticated ? (
+				<BrowserRouter>
+					{isAuthenticated && userInfo.location && <Navbar />}
+					{isAuthenticated ? (
+						!userInfo.location && legitCheck ? (
+							<InitialSetup />
+						) : (
+							<div className='pages'>
+								<Routes>
+									<Route path='/' element={<Home />} />
+									<Route path='/account' element={<Profile />} />
+									<Route path='/preferences' element={<InitialSetup />} />
+								</Routes>
+							</div>
+						)
 					) : (
-						<div className='pages'>
-							<Routes>
-								<Route path='/' element={<Home />} />
-								<Route path='/account' element={<Profile />} />
-								<Route path='/preferences' element={<InitialSetup />} />
-							</Routes>
-						</div>
-					)
-				) : (
-					<SignUp />
-				)}
-			</BrowserRouter>
+						<SignUp />
+					)}
+				</BrowserRouter>
+			) : userStatus !== 'idle' || !isAuthenticated ? (
+				<SignUp />
+			) : (
+				<Loading />
+			)}
+			{/* <FloatingShapes /> */}
 		</StyledApp>
 	);
 }
@@ -94,7 +101,7 @@ function App() {
 export default App;
 
 const StyledApp = styled.div`
-	background-color: var(--off-white);
+	/* background-color: var(--off-white); */
 
 	.pages {
 		display: flex;
@@ -102,5 +109,7 @@ const StyledApp = styled.div`
 		align-items: center;
 		justify-content: flex-start;
 		min-height: 100vh;
+		/* height: 100%; */
+		padding: 0px 32px;
 	}
 `;

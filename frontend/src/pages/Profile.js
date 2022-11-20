@@ -1,9 +1,16 @@
+import provArr from '../components/Data/Province';
 // import Zoom from 'react-medium-image-zoom';
 import Zoom from 'react-medium-image-zoom';
 import styled from 'styled-components';
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import { TransactionContext } from '../context/TransactionContext';
+
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 
 const Profile = () => {
 	const { dispatch } = useContext(TransactionContext);
@@ -73,21 +80,25 @@ const Profile = () => {
 
 	return (
 		<StyledZoom>
-			<h2>Profile</h2>
-			<Zoom classDialog={'custom-zoom'}>
-				<img alt='image of user' src={picture} />
-			</Zoom>
 			<StyledInfo>
 				<StyledForm onSubmit={handleFormSubmit}>
-					<span>Name</span>
+					<h2>Profile</h2>
+					<div className='zoom-div'>
+						<Zoom classDialog={'custom-zoom'}>
+							<img alt='image of user' src={picture} />
+						</Zoom>
+					</div>
+					<span>Nickname</span>
 					{!updateActive ? (
 						nickname ? (
 							<h2>{nickname}</h2>
 						) : (
-							<h2>add nickname</h2>
+							<h2>Add Nickname</h2>
 						)
 					) : (
-						<input
+						<TextField
+							label='Nickname'
+							variant='outlined'
 							type='text'
 							placeholder='where u at?'
 							name='nickname'
@@ -110,30 +121,24 @@ const Profile = () => {
 							<h2>add location</h2>
 						)
 					) : (
-						<select
-							placeholder='where u at?'
-							name='location'
-							value={formLocation}
-							onChange={(e) => {
-								setFormLocation(e.target.value);
-								setFormData({ ...formData, [e.target.name]: e.target.value });
-							}}
-						>
-							<option value=''>default</option>
-							<option value='Newfoundland'>P.E.I</option>
-							<option value='Prince Edward'>P.E.I</option>
-							<option value='Nova Scotia'>Nova Scotia</option>
-							<option value='New Brunswick'>New Brunswick</option>
-							<option value='Quebec'>Quebec</option>
-							<option value='Ontario'>Ontario</option>
-							<option value='Manitoba'>Manitoba</option>
-							<option value='Saskatchewan'>Saskatchewan</option>
-							<option value='Alberta'>Alberta</option>
-							<option value='British Columbia'>B.C</option>
-							<option value='Yukon'>Yukon</option>
-							<option value='North West'>North West Territories</option>
-							<option value='Nunavut'>Nunavut</option>
-						</select>
+						<FormControl fullWidth>
+							<InputLabel htmlFor='sort'>Province</InputLabel>
+							<Select
+								placeholder='where u at?'
+								name='location'
+								value={formLocation}
+								onChange={(e) => {
+									setFormLocation(e.target.value);
+									setFormData({ ...formData, [e.target.name]: e.target.value });
+								}}
+							>
+								{provArr.map((province) => (
+									<MenuItem key={province} value={province}>
+										{province.toUpperCase()}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
 					)}
 
 					<div className='button-container'>
@@ -169,20 +174,53 @@ export default Profile;
 
 const StyledZoom = styled.div`
 	border: 1px solid green;
+	display: flex;
+	flex-direction: column;
+	/* align-items: center; */
 	/* display: none; */
-	img {
-		width: 300px;
-	}
+	width: 100%;
+	padding: 64px 32px;
 `;
 
 const StyledForm = styled.form`
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	/* align-items: center; */
+	width: 100%;
+	.zoom-div {
+		/* border: 1px solid red; */
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		img {
+			width: 200px;
+			border-radius: 50%;
+			max-width: 200px;
+		}
+	}
+	.button-container {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+
+		width: 100%;
+		margin-top: 16px;
+	}
 `;
 
 const StyledInfo = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
+	h2 {
+		/* border: 1px solid blue; */
+		min-height: 56px;
+		font-size: 26px;
+		display: flex;
+		align-items: flex-end;
+		padding-bottom: 8px;
+		/* font-size: clamp(16px, 15vw, 18px); */
+	}
 `;

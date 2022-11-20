@@ -7,7 +7,7 @@ const federal = [
 ];
 
 const provincial = {
-	'newfoundland & labrador': [
+	newfoundland: [
 		{ amount: 39147, tax: 1.087 },
 		{ amount: 78294, tax: 1.145 },
 		{ amount: 139780, tax: 1.158 },

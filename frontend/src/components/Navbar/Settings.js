@@ -13,7 +13,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
 
 const Settings = () => {
-	const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+	const { loginWithPopup, logout, isAuthenticated } = useAuth0();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
 	const handleClick = (event) => {
@@ -86,7 +86,7 @@ const Settings = () => {
 						</StyledItem>
 					</MenuItem>
 				) : (
-					<MenuItem onClick={() => loginWithRedirect()}>
+					<MenuItem onClick={() => loginWithPopup()}>
 						<StyledItem>
 							<DoorBackIcon />
 							<p>Login</p>

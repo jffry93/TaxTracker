@@ -1,9 +1,17 @@
+import provArr from '../components/Data/Province';
 // import Zoom from 'react-medium-image-zoom';
 import styled from 'styled-components';
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import { TransactionContext } from '../context/TransactionContext';
 import { useNavigate } from 'react-router-dom';
+
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Province from '../components/Data/Province';
+import TextField from '@mui/material/TextField';
 
 const InitialSetup = () => {
 	const { dispatch } = useContext(TransactionContext);
@@ -15,11 +23,11 @@ const InitialSetup = () => {
 	const [formName, setFormName] = useState('');
 	const [formLocation, setFormLocation] = useState('');
 	const navigate = useNavigate();
-	console.log(formLocation);
+
 	//UPDATE USER DATA
 	const patchHandler = async (e) => {
 		e.preventDefault();
-		console.log('patch');
+
 		if (formLocation.length) {
 			const res = await fetch('/api/user/', {
 				method: 'PATCH',
@@ -29,7 +37,7 @@ const InitialSetup = () => {
 				},
 			});
 			const data = await res.json();
-			console.log(data);
+
 			setFormLocation('');
 			userDispatch({ type: 'UPDATE_USER', user: { ...data } });
 			navigate('/');
@@ -38,49 +46,44 @@ const InitialSetup = () => {
 
 	return (
 		<StyledInit>
-			<h2>Where are you located?</h2>
-			<p>It's for tax purposes...</p>
+			<h1>Where are you located?</h1>
+			<h2>It's for tax purposes...</h2>
 			<StyledForm onSubmit={patchHandler}>
-				<label>Nickname</label>
-				<input
+				<TextField
+					id='outlined-basic'
+					label='Nickname'
+					variant='outlined'
 					type='text'
-					placeholder='where u at?'
+					placeholder='Who is you?'
 					name='nickname'
 					value={formName}
 					onChange={(e) => {
 						setFormName((prev) => {
-							console.log(prev);
-							console.log(e.target.value);
 							return e.target.value;
 						});
 						setFormData({ ...formData, [e.target.name]: e.target.value });
 					}}
 				/>
-				<label>Province</label>
-				<select
-					placeholder='where u at?'
-					name='location'
-					value={formLocation}
-					onChange={(e) => {
-						setFormLocation(e.target.value);
-						setFormData({ ...formData, [e.target.name]: e.target.value });
-					}}
-				>
-					<option value=''>default</option>
-					<option value='Newfoundland'>P.E.I</option>
-					<option value='Prince Edward'>P.E.I</option>
-					<option value='Nova Scotia'>Nova Scotia</option>
-					<option value='New Brunswick'>New Brunswick</option>
-					<option value='Quebec'>Quebec</option>
-					<option value='Ontario'>Ontario</option>
-					<option value='Manitoba'>Manitoba</option>
-					<option value='Saskatchewan'>Saskatchewan</option>
-					<option value='Alberta'>Alberta</option>
-					<option value='British Columbia'>B.C</option>
-					<option value='Yukon'>Yukon</option>
-					<option value='North West'>North West Territories</option>
-					<option value='Nunavut'>Nunavut</option>
-				</select>
+
+				<FormControl fullWidth>
+					<InputLabel htmlFor='sort'>Province</InputLabel>
+					<Select
+						placeholder='where u at?'
+						name='location'
+						value={formLocation}
+						onChange={(e) => {
+							setFormLocation(e.target.value);
+							setFormData({ ...formData, [e.target.name]: e.target.value });
+						}}
+					>
+						{provArr.map((province) => (
+							<MenuItem key={province} value={province}>
+								{province.toUpperCase()}
+							</MenuItem>
+						))}
+					</Select>
+				</FormControl>
+
 				<button type='submit'>Save</button>
 			</StyledForm>
 		</StyledInit>
@@ -92,13 +95,24 @@ export default InitialSetup;
 const StyledInit = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	min-height: 100vh;
+	/* align-items: center; */
 	justify-content: center;
+	gap: 16px;
+
+	height: 100%;
+	min-height: 100vh;
+	/* border: 1px solid green; */
+	padding: 64px 32px;
 `;
 
 const StyledForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
+	gap: 16px;
+	button,
+	div {
+		width: 100%;
+	}
 `;
