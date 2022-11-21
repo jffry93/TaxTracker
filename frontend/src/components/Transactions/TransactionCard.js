@@ -72,7 +72,9 @@ const PurchaseCard = ({ transaction }) => {
 				>
 					<StyledUpper>
 						<motion.div layout='position'>
-							<strong>{transaction.type}</strong>
+							<StyledTitle open={isOpen}>
+								{transaction.type.toUpperCase()}
+							</StyledTitle>
 							{isOpen && (
 								<motion.div
 									initial={{ opacity: 0 }}
@@ -125,7 +127,7 @@ const PurchaseCard = ({ transaction }) => {
 						)}
 					</StyledUpper>
 					{isOpen ? (
-						<motion.div
+						<StyledContent
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
@@ -143,20 +145,8 @@ const PurchaseCard = ({ transaction }) => {
 										addSuffix: true,
 									})}
 								</p>
-								<div className='image-container'>
-									<ImageZoom classDialog={'custom-zoom'}>
-										<img
-											src={transaction.imageData.url}
-											alt=''
-											onClick={(e) => {
-												e.stopPropagation();
-												console.log('click');
-											}}
-										/>
-									</ImageZoom>
-								</div>
 							</StyledLower>
-						</motion.div>
+						</StyledContent>
 					) : (
 						<motion.p
 							initial={{ opacity: 0 }}
@@ -167,6 +157,19 @@ const PurchaseCard = ({ transaction }) => {
 							More Details
 						</motion.p>
 					)}
+
+					<StyledImage open={isOpen}>
+						<ImageZoom classDialog={'custom-zoom'}>
+							<img
+								src={transaction.imageData.url}
+								alt=''
+								onClick={(e) => {
+									e.stopPropagation();
+									console.log('click');
+								}}
+							/>
+						</ImageZoom>
+					</StyledImage>
 				</StyledCard>
 			</AnimatePresence>
 		</>
@@ -175,7 +178,21 @@ const PurchaseCard = ({ transaction }) => {
 
 export default PurchaseCard;
 
+const StyledImage = styled.div`
+	display: ${(props) => (props.open ? 'flex' : 'none')};
+	justify-content: space-between;
+	align-items: flex-start;
+
+	z-index: 0;
+	position: absolute;
+	bottom: 0;
+	right: 24px;
+	transform: translate(-0%, 50%);
+`;
+
 const StyledCard = styled(motion.div)`
+	position: relative;
+	overflow: hidden;
 	background-color: var(--primary);
 	padding: 16px 24px;
 	width: ${(props) => {
@@ -189,7 +206,7 @@ const StyledCard = styled(motion.div)`
 		rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
 		rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
 	img {
-		width: 64px;
+		width: 150px;
 	}
 	.more {
 		margin-top: 8px;
@@ -200,7 +217,21 @@ const StyledUpper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
+	/* gap: 12px; */
 	position: relative;
+`;
+
+const StyledContent = styled.div`
+	position: relative;
+	z-index: 1;
+`;
+
+const StyledTitle = styled.p`
+	margin-bottom: 8px;
+	font-size: 20px;
+	font-weight: bold;
+	border: 1px solid;
+	text-align: ${(props) => (props.open ? 'left' : 'center')};
 `;
 
 const StyledActionDiv = styled(motion.div)`
@@ -236,4 +267,5 @@ const StyledLower = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-end;
+	margin-top: 16px;
 `;

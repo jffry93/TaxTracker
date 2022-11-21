@@ -77,7 +77,7 @@ const Profile = () => {
 		};
 		submitState && patchHandler();
 	};
-
+	console.log(updateActive);
 	return (
 		<StyledZoom>
 			<StyledInfo>
@@ -88,7 +88,7 @@ const Profile = () => {
 							<img alt='image of user' src={picture} />
 						</Zoom>
 					</div>
-					<span>Nickname</span>
+					<StyledSpan updateActive={updateActive}>Nickname</StyledSpan>
 					{!updateActive ? (
 						nickname ? (
 							<h2>{nickname}</h2>
@@ -113,7 +113,7 @@ const Profile = () => {
 							}}
 						/>
 					)}
-					<span>Location</span>
+					<StyledSpan updateActive={updateActive}>Location</StyledSpan>
 					{!updateActive ? (
 						location ? (
 							<h2>{location}</h2>
@@ -202,11 +202,17 @@ const StyledForm = styled.form`
 	.button-container {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: 4px;
 
 		width: 100%;
 		margin-top: 16px;
 	}
+`;
+const StyledSpan = styled.span`
+	opacity: ${(props) => {
+		console.log(props);
+		return props.updateActive === true ? '0' : '1';
+	}};
 `;
 
 const StyledInfo = styled.div`

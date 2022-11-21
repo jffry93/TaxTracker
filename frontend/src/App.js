@@ -85,6 +85,7 @@ function App() {
 							</div>
 						)
 					) : (
+						//DO SOMETHING HERE TO FIX LOADING BUG
 						<SignUp />
 					)}
 				</BrowserRouter>

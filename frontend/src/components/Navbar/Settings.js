@@ -104,7 +104,7 @@ const StyledItem = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: 16px;
+	gap: 32px;
 	p {
 		font-weight: 500;
 	}

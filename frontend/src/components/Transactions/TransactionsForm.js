@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useTransactionContext } from '../../hooks/useTransactionHook';
 import useDebounce from '../../hooks/useDebounce';
 import { useAuth0 } from '@auth0/auth0-react';
+import TextField from '@mui/material/TextField';
 
 const TransactionForm = ({ open, setOpen }) => {
 	const { dispatch } = useTransactionContext();
@@ -105,15 +106,49 @@ const TransactionForm = ({ open, setOpen }) => {
 				}}
 			>
 				<div className='form-container'>
-					<label>Client:</label>
-					<input
-						type='text'
-						onChange={(e) => setClient(e.target.value)}
-						placeholder='Item on receipt'
-						value={client}
-					/>
-
-					<label className={emptyFields.includes('title') ? 'error-text' : ''}>
+					<div className='top-section'>
+						{/* CLIENT */}
+						<div className='info-container first-item'>
+							{/* <label>Client:</label> */}
+							{/* <input
+								type='text'
+								onChange={(e) => setClient(e.target.value)}
+								placeholder='Item on receipt'
+								value={client}
+							/> */}
+							<TextField
+								type='text'
+								onChange={(e) => setClient(e.target.value)}
+								value={client}
+								id='outlined-basic'
+								label='Client'
+								variant='outlined'
+							/>
+						</div>
+						{/* FUNDS */}
+						<div className='info-container second-item'>
+							<TextField
+								error={emptyFields.includes('amount') ? true : false}
+								value={amount}
+								onChange={(e) => setAmount(e.target.value)}
+								id='outlined-number'
+								label={emptyFields.includes('amount') ? 'How much?' : 'Number'}
+								type='number'
+								// InputLabelProps={{
+								// 	shrink: true,
+								// }}
+							/>
+							{/* <input
+								type='number'
+								onChange={(e) => setAmount(e.target.value)}
+								placeholder='Amount spent'
+								value={amount}
+								className={emptyFields.includes('amount') ? 'error' : ''}
+							/> */}
+						</div>
+					</div>
+					{/* TITLE LABEL AND INPUT */}
+					{/* <label className={emptyFields.includes('title') ? 'error-text' : ''}>
 						{emptyFields.includes('title') ? (
 							<div className='error-text'>
 								<RiErrorWarningLine size={24} />
@@ -125,35 +160,28 @@ const TransactionForm = ({ open, setOpen }) => {
 								Purchase Title<span>*</span>
 							</p>
 						)}
-					</label>
-					<input
+					</label> */}
+					<TextField
+						error={emptyFields.includes('title') ? true : false}
+						onChange={(e) => setTitle(e.target.value)}
+						value={title}
+						id='outlined-number'
+						label={
+							emptyFields.includes('title')
+								? "What'd you buy?"
+								: 'Purchase Title'
+						}
+						type='text'
+					/>
+					{/* <input
 						type='text'
 						onChange={(e) => setTitle(e.target.value)}
 						placeholder='Item on receipt'
 						value={title}
 						className={emptyFields.includes('title') ? 'error' : ''}
-					/>
-					<label className={emptyFields.includes('amount') ? 'error-text' : ''}>
-						{emptyFields.includes('amount') ? (
-							<div className='error-text'>
-								<RiErrorWarningLine size={24} />
-								<p>How much moneyz was it?</p>
-								<RiErrorWarningLine size={24} />
-							</div>
-						) : (
-							<p>
-								Amount CAD<span>*</span>
-							</p>
-						)}
-					</label>
-					<input
-						type='number'
-						onChange={(e) => setAmount(e.target.value)}
-						placeholder='Amount spent'
-						value={amount}
-						className={emptyFields.includes('amount') ? 'error' : ''}
-					/>
-					<label
+					/> */}
+					{/* DESCRIPTION LABEL AND INPUT */}
+					{/* <label
 						className={emptyFields.includes('description') ? 'error-text' : ''}
 					>
 						{emptyFields.includes('description') ? (
@@ -167,53 +195,50 @@ const TransactionForm = ({ open, setOpen }) => {
 								Description<span>*</span>
 							</p>
 						)}
-					</label>
-					<input
+					</label> */}
+					<TextField
+						error={emptyFields.includes('description') ? true : false}
+						id='outlined-multiline-flexible'
+						label={
+							emptyFields.includes('description')
+								? 'Purpose for purchase?'
+								: 'Description'
+						}
+						multiline
+						maxRows={4}
+						value={description}
+						onChange={(e) => setDescription(e.target.value)}
+					/>
+					{/* <input
 						type='text'
 						onChange={(e) => setDescription(e.target.value)}
 						placeholder='Purpose for purchase'
 						value={description}
 						className={emptyFields.includes('description') ? 'error' : ''}
-					/>
-					<div className='image-wrapper'>
-						<div>
-							<label
-								className={emptyFields.includes('image') ? 'error-text' : ''}
-							>
-								{emptyFields.includes('image') ? (
-									<div className='error-text'>
-										<RiErrorWarningLine size={24} />
-										<p>Add some proof</p>
-										<RiErrorWarningLine size={24} />
-									</div>
-								) : (
-									<p>
-										Document<span>*</span>
-									</p>
-								)}
-							</label>
-							<div
-								className={
-									emptyFields.includes('image')
-										? 'error image-container'
-										: 'image-container'
-								}
-							>
-								<input
-									value={imageValue}
-									type='file'
-									accept='image/*'
-									onChange={(e) => {
-										setImage(handleImgToBase64(e.target.files[0]));
-										setImageValue(e.target.value);
-									}}
-								/>
-								{image && <img src={image} alt='chosen' />}
-							</div>
-						</div>
-					</div>
-
-					<button>Add Purchase</button>
+					/> */}
+					<StyledImgDiv errorStatus={emptyFields.includes('image')}>
+						<TextField
+							error={emptyFields.includes('image') ? true : false}
+							// label='Document'
+							label={
+								emptyFields.includes('image') ? 'Add an Image' : 'Document'
+							}
+							value={imageValue}
+							type='file'
+							accept='image/*'
+							onChange={(e) => {
+								setImage(handleImgToBase64(e.target.files[0]));
+								setImageValue(e.target.value);
+							}}
+							InputLabelProps={{
+								shrink: true,
+							}}
+						/>
+					</StyledImgDiv>
+					<StyledBtnDiv>
+						<button>Add Purchase</button>
+						<button>Cancel</button>
+					</StyledBtnDiv>
 				</div>
 			</StyledForm>
 		</StyledMain>
@@ -237,6 +262,10 @@ const StyledMain = styled.div`
 			display: flex;
 			flex-direction: column;
 		}
+		button {
+			height: 51px;
+			font-size: 14px;
+		}
 	}
 `;
 
@@ -244,17 +273,16 @@ const StyledForm = styled.form`
 	.form-container {
 		display: flex;
 		flex-direction: column;
+		gap: 10px;
 
 		padding: 0 16px 32px 16px;
 		label {
 			font-size: 12px;
-			/* margin-left: 12px; */
 			margin-bottom: 2px;
 		}
 		input {
-			/* text-align: center; */
-			padding: 6px 8px;
-			margin: 0 0 4px 0;
+			/* border: 1px solid var(--vivid-pink); */
+			padding: 14px 16.5px;
 		}
 
 		input::placeholder {
@@ -272,8 +300,8 @@ const StyledForm = styled.form`
 			-moz-appearance: textfield;
 		}
 		.error {
-			border: 3px solid var(--vivid-pink);
-			border-radius: 8px;
+			border: 1px solid var(--vivid-pink);
+			border-radius: 4px;
 			display: flex;
 			justify-content: space-between;
 		}
@@ -305,21 +333,35 @@ const StyledForm = styled.form`
 			}
 		}
 	}
-
-	.image-container {
+	.top-section {
 		display: flex;
-		align-items: flex-end;
-		justify-content: space-between;
-		min-width: clamp(270px, 80vw, 400px);
-		/* gap: 16px; */
-		margin-bottom: 16px;
-		input {
-			margin: 0;
-			max-width: clamp(220px, 50vw, 400px);
+		align-items: center;
+		gap: 8px;
+		.info-container {
+			flex: 1;
+			/* width: 200px; */
 		}
 	}
-	img {
-		padding: 8px;
-		width: 50px;
+`;
+
+const StyledBtnDiv = styled.div`
+	display: flex;
+	gap: 8px;
+	button {
+		height: 51px;
+		flex: 1;
+		font-size: 14px;
+	}
+`;
+
+const StyledImgDiv = styled.div`
+	div {
+		width: 100%;
+	}
+	input {
+		width: 100%;
+		height: 23px;
+		font-size: 11px;
+		color: ${(props) => (props.errorStatus ? 'red' : 'black')};
 	}
 `;
