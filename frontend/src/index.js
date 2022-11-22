@@ -8,6 +8,7 @@ import GlobalStyle from './GlobalStyles';
 import { StyleContextProvider } from './context/StyleContext';
 import { UserProvider } from './context/UserContext';
 import FloatingShapes from './css/FloatingShapes';
+import WavyAnim from './pages/WavyAnim';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,7 +23,8 @@ root.render(
 				<UserProvider>
 					<GlobalStyle />
 					<App />
-					<FloatingShapes />
+					{/* <FloatingShapes /> */}
+					<WavyAnim />
 				</UserProvider>
 			</TransactionsContextProvider>
 		</StyleContextProvider>

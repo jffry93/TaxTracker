@@ -209,13 +209,6 @@ const TransactionForm = ({ open, setOpen }) => {
 						value={description}
 						onChange={(e) => setDescription(e.target.value)}
 					/>
-					{/* <input
-						type='text'
-						onChange={(e) => setDescription(e.target.value)}
-						placeholder='Purpose for purchase'
-						value={description}
-						className={emptyFields.includes('description') ? 'error' : ''}
-					/> */}
 					<StyledImgDiv errorStatus={emptyFields.includes('image')}>
 						<TextField
 							error={emptyFields.includes('image') ? true : false}
@@ -337,9 +330,14 @@ const StyledForm = styled.form`
 		display: flex;
 		align-items: center;
 		gap: 8px;
-		.info-container {
-			flex: 1;
-			/* width: 200px; */
+		width: 100%;
+
+		.first-child {
+		}
+		.second-item {
+			div {
+				width: 100px;
+			}
 		}
 	}
 `;

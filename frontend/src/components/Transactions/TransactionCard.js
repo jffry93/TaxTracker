@@ -185,7 +185,7 @@ const StyledImage = styled.div`
 
 	z-index: 0;
 	position: absolute;
-	bottom: 0;
+	bottom: 0%;
 	right: 24px;
 	transform: translate(-0%, 50%);
 `;

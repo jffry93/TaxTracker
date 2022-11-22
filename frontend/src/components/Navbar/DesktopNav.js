@@ -33,7 +33,6 @@ const StyledDesktopNav = styled.header`
 	z-index: 1;
 	width: 100%;
 	background-color: var(--primary);
-
 	display: flex;
 
 	.container {

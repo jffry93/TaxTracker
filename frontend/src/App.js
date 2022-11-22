@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Loading from './pages/Loading';
 import Profile from './pages/Profile';
 import SignUp from './pages/SignUp';
+import WavyAnim from './pages/WavyAnim';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useContext } from 'react';
 import { UserContext } from './context/UserContext';
@@ -80,7 +81,7 @@ function App() {
 								<Routes>
 									<Route path='/' element={<Home />} />
 									<Route path='/account' element={<Profile />} />
-									<Route path='/preferences' element={<InitialSetup />} />
+									<Route path='/preferences' element={<WavyAnim />} />
 								</Routes>
 							</div>
 						)
@@ -94,7 +95,6 @@ function App() {
 			) : (
 				<Loading />
 			)}
-			{/* <FloatingShapes /> */}
 		</StyledApp>
 	);
 }
@@ -102,8 +102,6 @@ function App() {
 export default App;
 
 const StyledApp = styled.div`
-	/* background-color: var(--off-white); */
-
 	.pages {
 		display: flex;
 		flex-direction: column;

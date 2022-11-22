@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { CgDarkMode } from 'react-icons/cg';
 import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
 import MoreIcon from '@mui/icons-material/MoreVert';
@@ -11,9 +12,15 @@ import HomeIcon from '@mui/icons-material/Home';
 import styled from 'styled-components';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
+import { useStyleContext } from '../../hooks/useStyleHook';
+import useDebounce from '../../hooks/useDebounce';
+import { HiUser } from 'react-icons/hi';
+import { ImHome } from 'react-icons/im';
+import { BiHome, BiUser, BiAdjust } from 'react-icons/bi';
 
 const Settings = () => {
 	const { loginWithPopup, logout, isAuthenticated } = useAuth0();
+	const { lightMode, setLightMode } = useStyleContext();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
 	const handleClick = (event) => {
@@ -55,7 +62,7 @@ const Settings = () => {
 				<Link to='/'>
 					<MenuItem>
 						<StyledItem>
-							<HomeIcon />
+							<BiHome size={20} />
 							<p>Home</p>
 						</StyledItem>
 					</MenuItem>
@@ -63,19 +70,27 @@ const Settings = () => {
 				<Link to='/account'>
 					<MenuItem>
 						<StyledItem>
-							<AccountCircle />
+							<BiUser size={20} />
 							<p>Profile</p>
 						</StyledItem>
 					</MenuItem>
 				</Link>
-				<Link to='/preferences'>
+				<div
+					onClick={useDebounce(() => {
+						console.log(lightMode);
+						setLightMode(!lightMode);
+					}, 500)}
+				>
 					<MenuItem>
 						<StyledItem>
-							<SettingsIcon />
-							<p>Settings</p>
+							<BiAdjust
+								size={20}
+								style={lightMode && { transform: 'scaleX(-1)' }}
+							/>
+							<p>{lightMode ? 'Dark' : 'Light'}</p>
 						</StyledItem>
 					</MenuItem>
-				</Link>
+				</div>
 				{isAuthenticated ? (
 					<MenuItem
 						onClick={() => logout({ returnTo: window.location.origin })}
