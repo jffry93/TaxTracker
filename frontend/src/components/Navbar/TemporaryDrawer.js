@@ -13,10 +13,10 @@ import { useState } from 'react';
 import TransactionCard from '../Transactions/TransactionCard';
 import { useTransactionContext } from '../../hooks/useTransactionHook';
 import styled from 'styled-components';
-import { useAuth0 } from '@auth0/auth0-react';
+// import { useAuth0 } from '@auth0/auth0-react';
 
 const TemporaryDrawer = () => {
-	const { user, isAuthenticated, isLoading } = useAuth0();
+	// const { user, isAuthenticated, isLoading } = useAuth0();
 	const { transactions, filterType, sortType, dispatch } =
 		useTransactionContext();
 	const [state, setState] = useState({

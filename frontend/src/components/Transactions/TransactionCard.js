@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { RiDeleteBin6Fill } from 'react-icons/ri';
+import { RiDeleteBin6Fill, RiEditLine } from 'react-icons/ri';
 import { useTransactionContext } from '../../hooks/useTransactionHook';
 import useDebounce from '../../hooks/useDebounce';
 //fns package
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { useState } from 'react';
-import ImageZoom from 'react-medium-image-zoom';
+import { ImFilePicture } from 'react-icons/im';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+
 import 'react-medium-image-zoom/dist/styles.css';
 import '../../css/ImageZoom.css';
 
@@ -14,7 +17,21 @@ const PurchaseCard = ({ transaction }) => {
 	// console.log(transaction);
 	const [youSure, setYouSure] = useState(true);
 	const [isOpen, setIsOpen] = useState(false);
+	const [showImage, setShowImage] = useState(false);
+	const [showDelete, setShowDelete] = useState(false);
 	const { dispatch } = useTransactionContext();
+
+	const style = {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		width: 400,
+		bgcolor: 'background.paper',
+		border: '2px solid #000',
+		boxShadow: 24,
+		p: 4,
+	};
 
 	const handleDelete = async () => {
 		const response = await fetch(
@@ -53,6 +70,7 @@ const PurchaseCard = ({ transaction }) => {
 			setYouSure(true);
 		}, 2500);
 	};
+
 	return (
 		<>
 			<AnimatePresence>
@@ -94,36 +112,81 @@ const PurchaseCard = ({ transaction }) => {
 							</p>
 						</motion.div>
 						{isOpen && (
-							<StyledActionDiv
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								exit={{ opacity: 0 }}
-								transition={{
-									width: { duration: 1, type: 'spring' },
-									opacity: { duration: 1, type: 'spring' },
-									borderRadius: { duration: 2, type: 'spring' },
-								}}
-								layout
-								yousure={youSure.toString()}
-								onClick={dubCheckHandle}
-							>
-								{youSure ? (
+							<StyledButtonContainer>
+								<StyledActionDiv
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+									transition={{
+										width: { duration: 1, type: 'spring' },
+										opacity: { duration: 1, type: 'spring' },
+										borderRadius: { duration: 2, type: 'spring' },
+									}}
+									layout
+									yousure={youSure.toString()}
+									onClick={(e) => {
+										e.stopPropagation();
+									}}
+								>
 									<div className='garbage-container'>
-										<RiDeleteBin6Fill size={20} color='white' />
+										<RiEditLine size={20} color='white' />
 									</div>
-								) : (
-									<div
-										className='confirm-container'
-										onClick={(e) => {
-											e.stopPropagation();
-											// dubCheckHandle();
-											handleDebounceDelete();
-										}}
-									>
-										<p>Are you sure?</p>
+								</StyledActionDiv>
+								<StyledActionDiv
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+									transition={{
+										width: { duration: 1, type: 'spring' },
+										opacity: { duration: 1, type: 'spring' },
+										borderRadius: { duration: 2, type: 'spring' },
+									}}
+									layout
+									yousure={youSure.toString()}
+									onClick={(e) => {
+										console.log('hello');
+										e.stopPropagation();
+										setShowImage(true);
+										console.log(showImage);
+									}}
+								>
+									<div className='garbage-container'>
+										<ImFilePicture size={20} color='white' />
 									</div>
-								)}
-							</StyledActionDiv>
+								</StyledActionDiv>
+								<StyledActionDiv
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+									transition={{
+										width: { duration: 1, type: 'spring' },
+										opacity: { duration: 1, type: 'spring' },
+										borderRadius: { duration: 2, type: 'spring' },
+									}}
+									layout
+									yousure={youSure.toString()}
+									onClick={(e) => {
+										e.stopPropagation();
+										setShowDelete(true);
+									}}
+								>
+									{youSure ? (
+										<div className='garbage-container'>
+											<RiDeleteBin6Fill size={20} color='white' />
+										</div>
+									) : (
+										<div
+											className='confirm-container'
+											onClick={(e) => {
+												e.stopPropagation();
+												// dubCheckHandle();
+											}}
+										>
+											<p>Are you sure?</p>
+										</div>
+									)}
+								</StyledActionDiv>
+							</StyledButtonContainer>
 						)}
 					</StyledUpper>
 					{isOpen ? (
@@ -157,37 +220,80 @@ const PurchaseCard = ({ transaction }) => {
 							More Details
 						</motion.p>
 					)}
-
-					<StyledImage open={isOpen}>
-						<ImageZoom classDialog={'custom-zoom'}>
-							<img
-								src={transaction.imageData.url}
-								alt=''
-								onClick={(e) => {
-									e.stopPropagation();
-									console.log('click');
-								}}
-							/>
-						</ImageZoom>
-					</StyledImage>
 				</StyledCard>
 			</AnimatePresence>
+			<Modal
+				open={showImage}
+				onClose={(e) => {
+					e.stopPropagation();
+					setShowImage(false);
+				}}
+				aria-labelledby='modal-modal-title'
+				aria-describedby='modal-modal-description'
+			>
+				<StyledBox>
+					<img
+						src={transaction.imageData.url}
+						alt=''
+						onClick={(e) => {
+							e.stopPropagation();
+							setShowImage(false);
+						}}
+					/>
+				</StyledBox>
+			</Modal>
+			<Modal
+				open={showDelete}
+				onClose={(e) => {
+					e.stopPropagation();
+					setShowDelete(false);
+				}}
+				aria-labelledby='modal-modal-title'
+				aria-describedby='modal-modal-description'
+			>
+				<StyledBox>
+					<h2>This will permanently delete the data. Are you sure?</h2>
+					<div>
+						<button
+							onClick={(e) => {
+								e.stopPropagation();
+								handleDebounceDelete();
+							}}
+						>
+							Confirm
+						</button>
+						<button
+							onClick={(e) => {
+								e.stopPropagation();
+								setShowDelete(false);
+							}}
+						>
+							Abort
+						</button>
+					</div>
+				</StyledBox>
+			</Modal>
 		</>
 	);
 };
 
 export default PurchaseCard;
 
-const StyledImage = styled.div`
-	display: ${(props) => (props.open ? 'flex' : 'none')};
-	justify-content: space-between;
-	align-items: flex-start;
+const StyledButtonContainer = styled.div`
+	display: flex;
+	gap: 8px;
+	/* border: 1px solid red; */
+`;
 
-	z-index: 0;
+const StyledBox = styled(Box)`
 	position: absolute;
-	bottom: 0%;
-	right: 24px;
-	transform: translate(-0%, 50%);
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	img {
+		width: 100%;
+	}
 `;
 
 const StyledCard = styled(motion.div)`
@@ -207,6 +313,9 @@ const StyledCard = styled(motion.div)`
 		rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
 	img {
 		width: 150px;
+	}
+	img {
+		width: 100%;
 	}
 	.more {
 		margin-top: 8px;
@@ -235,7 +344,7 @@ const StyledTitle = styled.p`
 `;
 
 const StyledActionDiv = styled(motion.div)`
-	position: absolute;
+	/* position: absolute; */
 	right: 0;
 	background-color: var(--vivid-pink);
 	border-radius: ${(props) => (props.yousure === 'true' ? '50%' : '18px')};
@@ -265,7 +374,7 @@ const StyledActionDiv = styled(motion.div)`
 
 const StyledLower = styled.div`
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: flex-end;
 	margin-top: 16px;
 `;

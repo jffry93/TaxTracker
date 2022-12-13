@@ -5,12 +5,15 @@ const User = require('../models/userModel');
 const legitCheckUser = async (req, res) => {
 	try {
 		const { email } = req.body;
+
 		let user = await User.find({ email });
+		// console.log('exists', user);
 
 		if (user.length === 0) {
 			user = await User.create({
 				...req.body,
 			});
+			// console.log('new', user);
 
 			res.status(200).json({ status: 200, msg: 'Welcome...😈', user });
 		} else {

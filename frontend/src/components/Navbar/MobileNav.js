@@ -24,6 +24,7 @@ import TemporaryDrawer from './TemporaryDrawer';
 import Settings from './Settings';
 import FormModal from './FormModal';
 import { useAuth0 } from '@auth0/auth0-react';
+import useDebounce from '../../hooks/useDebounce';
 
 const style = {
 	position: 'absolute',
@@ -39,8 +40,8 @@ const style = {
 
 const MobileNav = () => {
 	const [open, setOpen] = useState(false);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
+	const handleOpen = useDebounce(() => setOpen(true));
+	const handleClose = useDebounce(() => setOpen(false));
 	const { user, isAuthenticated, isLoading } = useAuth0();
 
 	return (
@@ -56,14 +57,20 @@ const MobileNav = () => {
 				</Toolbar>
 			</AppBar>
 			<Modal
-				keepMounted
+				// keepMounted
 				open={open}
 				onClose={handleClose}
 				aria-labelledby='keep-mounted-modal-title'
 				aria-describedby='keep-mounted-modal-description'
 			>
 				<StyledBox>
-					{isAuthenticated && <TransactionForm open={open} setOpen={setOpen} />}
+					{isAuthenticated && (
+						<TransactionForm
+							open={open}
+							setOpen={setOpen}
+							handleClose={handleClose}
+						/>
+					)}
 				</StyledBox>
 			</Modal>
 		</>

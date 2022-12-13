@@ -47,19 +47,14 @@ const StyledDiv = styled.div`
 	z-index: -1;
 	border: 1px solid red;
 	min-height: 100vh;
+	max-height: 100vh;
 	width: 100vw;
 	overflow: hidden;
-
-	.context h1 {
-		text-align: center;
-		color: #fff;
-		font-size: 50px;
-	}
 	svg {
 		transform: rotate(0deg);
 		min-width: 800px;
 		width: 100%;
-		height: 101vh;
+		height: 100vh;
 	}
 
 	@keyframes rotate {

@@ -92,7 +92,7 @@ const createTransaction = async (req, res) => {
 	}
 
 	try {
-		console.log(user);
+		// console.log(user);
 		let userData = await User.find({ email: user });
 		const { location } = userData[0];
 
@@ -138,7 +138,7 @@ const createTransaction = async (req, res) => {
 			.status(200)
 			.json({ transaction, purchaseTotal, paymentTotal, ...taxObject });
 	} catch (error) {
-		console.log(error._message);
+		// console.log(error._message);
 		res.status(400).json({
 			error: 'Highlighted fields required',
 			emptyFields,

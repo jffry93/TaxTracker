@@ -42,7 +42,7 @@ const StyledArea = styled.div`
 	top: 0;
 	z-index: -1;
 	/* border: 1px solid red; */
-	background-color: var(--off-white);
+	background-color: rgba(0, 0, 0, 0.1);
 	background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
 	width: 100%;
 	height: 100vh;
@@ -65,17 +65,17 @@ const StyledArea = styled.div`
 		0% {
 			transform: translateY(0px) rotate(0deg);
 			opacity: 1;
-			border-radius: 5%;
+			border-radius: 50%;
 		}
 
 		70% {
 			opacity: 0;
-			border-radius: 25%;
+			border-radius: 35%;
 		}
 
 		100% {
 			transform: translateY(-1000px) rotate(720deg);
-			border-radius: 0%;
+			border-radius: 50%;
 			opacity: 0;
 		}
 	}
@@ -88,7 +88,7 @@ const StyledCircle = styled.li`
 	list-style: none;
 	width: ${(props) => props.size};
 	height: ${(props) => props.size};
-	background: rgba(255, 255, 255, 0.2);
+	background: rgba(255, 255, 255, 0.25);
 	animation-delay: ${(props) => props.animation.delay};
 	animation: animate
 		${(props) =>

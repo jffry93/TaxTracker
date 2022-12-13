@@ -1,35 +1,32 @@
-import * as React from 'react';
-import { CgDarkMode } from 'react-icons/cg';
 import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import SettingsIcon from '@mui/icons-material/Settings';
 import DoorBackIcon from '@mui/icons-material/DoorBack';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
-import HomeIcon from '@mui/icons-material/Home';
 import styled from 'styled-components';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useStyleContext } from '../../hooks/useStyleHook';
 import useDebounce from '../../hooks/useDebounce';
-import { HiUser } from 'react-icons/hi';
-import { ImHome } from 'react-icons/im';
+
 import { BiHome, BiUser, BiAdjust } from 'react-icons/bi';
+import { useRef, useState } from 'react';
 
 const Settings = () => {
 	const { loginWithPopup, logout, isAuthenticated } = useAuth0();
 	const { lightMode, setLightMode } = useStyleContext();
-	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [anchorEl, setAnchorEl] = useState(null);
+	const navigate = useNavigate();
+	const settingsButton = useRef(null);
 
-	const handleClick = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
+	const handleClick = useDebounce(() => {
+		setAnchorEl(settingsButton.current);
+	});
 
-	const handleClose = () => {
+	const handleClose = useDebounce(() => {
 		setAnchorEl(null);
-	};
+	});
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
@@ -41,6 +38,7 @@ const Settings = () => {
 				variant='contained'
 				onClick={handleClick}
 				color='inherit'
+				ref={settingsButton}
 			>
 				<MoreIcon />
 			</IconButton>
@@ -59,22 +57,30 @@ const Settings = () => {
 					horizontal: 'right',
 				}}
 			>
-				<Link to='/'>
-					<MenuItem>
-						<StyledItem>
-							<BiHome size={20} />
-							<p>Home</p>
-						</StyledItem>
-					</MenuItem>
-				</Link>
-				<Link to='/account'>
-					<MenuItem>
-						<StyledItem>
-							<BiUser size={20} />
-							<p>Profile</p>
-						</StyledItem>
-					</MenuItem>
-				</Link>
+				<MenuItem
+					onClick={useDebounce(() => {
+						console.log('yoooo');
+						navigate('/');
+					})}
+				>
+					<StyledItem>
+						<BiHome size={20} />
+						<p>Home</p>
+					</StyledItem>
+				</MenuItem>
+
+				<MenuItem
+					onClick={useDebounce(() => {
+						console.log('yoooo');
+						navigate('/account');
+					})}
+				>
+					<StyledItem>
+						<BiUser size={20} />
+						<p>Profile</p>
+					</StyledItem>
+				</MenuItem>
+
 				<div
 					onClick={useDebounce(() => {
 						console.log(lightMode);
@@ -115,7 +121,7 @@ const Settings = () => {
 export default Settings;
 
 const StyledItem = styled.div`
-	width: 100%;
+	width: 120px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;

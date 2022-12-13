@@ -59,11 +59,12 @@ const getShapes = (req, res) => {
 		}
 	};
 
-	buildArray(circleArray, '20px', 1);
-	buildArray(circleArray, '30px', 2);
-	buildArray(circleArray, '50px', 2);
-	buildArray(circleArray, '120px', 1);
-	buildArray(circleArray, '60px', 2);
+	buildArray(circleArray, '20px', 12);
+	buildArray(circleArray, '30px', 20);
+	buildArray(circleArray, '50px', 5);
+	buildArray(circleArray, '120px', 3);
+	buildArray(circleArray, '60px', 12);
+	// console.log(circleArray);
 
 	res.status(200).json({ status: 200, data: circleArray });
 };

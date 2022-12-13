@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
+import useDebounce from '../hooks/useDebounce';
 
 const Profile = () => {
 	const { dispatch } = useContext(TransactionContext);
@@ -24,11 +25,9 @@ const Profile = () => {
 	const [formData, setFormData] = useState({});
 	//INDIVIDUAL INPUTS
 	const [formName, setFormName] = useState('');
-	const [formAge, setFormAge] = useState('');
 	const [formLocation, setFormLocation] = useState('');
 
-	const handleFormSubmit = (e) => {
-		e.preventDefault();
+	const handleFormSubmit = () => {
 		//FETCH IF LOCATION CHANGED
 
 		const fetchTransaction = async () => {
@@ -71,17 +70,27 @@ const Profile = () => {
 			setUpdateActive(false);
 			setSubmitState(false);
 			setFormName('');
-			setFormAge('');
+
 			setFormLocation('');
 			userDispatch({ type: 'UPDATE_USER', user: { ...data } });
 		};
 		submitState && patchHandler();
 	};
-	console.log(updateActive);
+	const debounceForm = useDebounce(handleFormSubmit);
+	const debounceOpen = useDebounce(() => setUpdateActive(true));
+	const debounceClose = useDebounce(() => {
+		setUpdateActive(false);
+	});
+
 	return (
 		<StyledZoom>
 			<StyledInfo>
-				<StyledForm onSubmit={handleFormSubmit}>
+				<StyledForm
+					onSubmit={(e) => {
+						e.preventDefault();
+						debounceForm(handleFormSubmit);
+					}}
+				>
 					<h2>Profile</h2>
 					<div className='zoom-div'>
 						<Zoom classDialog={'custom-zoom'}>
@@ -105,8 +114,8 @@ const Profile = () => {
 							value={formName}
 							onChange={(e) => {
 								setFormName((prev) => {
-									console.log(prev);
-									console.log(e.target.value);
+									// console.log(prev);
+									// console.log(e.target.value);
 									return e.target.value;
 								});
 								setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -129,7 +138,10 @@ const Profile = () => {
 								value={formLocation}
 								onChange={(e) => {
 									setFormLocation(e.target.value);
-									setFormData({ ...formData, [e.target.name]: e.target.value });
+									setFormData({
+										...formData,
+										[e.target.name]: e.target.value,
+									});
 								}}
 							>
 								{provArr.map((province) => (
@@ -144,8 +156,9 @@ const Profile = () => {
 					<div className='button-container'>
 						{!updateActive ? (
 							<button
-								onClick={() => {
-									setUpdateActive(true);
+								onClick={(e) => {
+									e.preventDefault();
+									debounceOpen();
 								}}
 							>
 								Update
@@ -160,7 +173,14 @@ const Profile = () => {
 								>
 									Save
 								</button>
-								<button onClick={() => setUpdateActive(false)}>Cancel</button>
+								<button
+									onClick={(e) => {
+										e.preventDefault();
+										debounceClose();
+									}}
+								>
+									Cancel
+								</button>
 							</>
 						)}
 					</div>
@@ -176,16 +196,19 @@ const StyledZoom = styled.div`
 	border: 1px solid green;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	/* align-items: center; */
 	/* display: none; */
+	height: 100vh;
 	width: 100%;
-	padding: 64px 32px;
+	/* padding: 64px 32px; */
 `;
 
 const StyledForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	/* align-items: center; */
+	min-height: 550px;
 	width: 100%;
 	.zoom-div {
 		/* border: 1px solid red; */
@@ -193,6 +216,7 @@ const StyledForm = styled.form`
 		flex-direction: column;
 		align-items: center;
 		width: 100%;
+		min-height: 220px;
 		img {
 			width: 200px;
 			border-radius: 50%;
@@ -210,7 +234,6 @@ const StyledForm = styled.form`
 `;
 const StyledSpan = styled.span`
 	opacity: ${(props) => {
-		console.log(props);
 		return props.updateActive === true ? '0' : '1';
 	}};
 `;

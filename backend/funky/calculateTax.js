@@ -90,7 +90,7 @@ const calculateTax = (income, location) => {
 	const fedTax = Math.round(federalTax.tax * 100) / 100;
 	// const provTax = provincialTax.tax;
 	const provTax = Math.round(provincialTax.tax * 100) / 100;
-	console.log(postDeduction + fedTax + provTax);
+	// console.log(postDeduction + fedTax + provTax);
 
 	return {
 		postDeduction,

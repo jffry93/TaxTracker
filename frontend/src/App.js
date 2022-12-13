@@ -30,6 +30,7 @@ function App() {
 				},
 			});
 			const data = await res.json();
+			console.log(data);
 
 			userDispatch({ type: 'LOG_ON', user: data.user });
 		};
@@ -110,5 +111,6 @@ const StyledApp = styled.div`
 		min-height: 100vh;
 		/* height: 100%; */
 		padding: 0px 32px;
+		overflow: hidden;
 	}
 `;

@@ -6,7 +6,7 @@ import useDebounce from '../../hooks/useDebounce';
 import { useAuth0 } from '@auth0/auth0-react';
 import TextField from '@mui/material/TextField';
 
-const TransactionForm = ({ open, setOpen }) => {
+const TransactionForm = ({ open, setOpen, handleClose }) => {
 	const { dispatch } = useTransactionContext();
 	//form values
 	const [client, setClient] = useState('');
@@ -34,6 +34,16 @@ const TransactionForm = ({ open, setOpen }) => {
 		image,
 	};
 
+	const clearForm = () => {
+		setClient('');
+		setTitle('');
+		setAmount('');
+		setDescription('');
+		setImage(null);
+		setImageValue('');
+		setError(null);
+		setEmptyFields([]);
+	};
 	const handleAddToDB = async () => {
 		const response = await fetch('/api/transactions', {
 			method: 'POST',
@@ -48,14 +58,7 @@ const TransactionForm = ({ open, setOpen }) => {
 			setEmptyFields(json.emptyFields);
 		}
 		if (response.ok) {
-			setClient('');
-			setTitle('');
-			setAmount('');
-			setDescription('');
-			setImage(null);
-			setImageValue('');
-			setError(null);
-			setEmptyFields([]);
+			clearForm();
 			console.log('New Transactions added', json);
 			dispatch({
 				type: 'CREATE_TRANSACTIONS',
@@ -87,17 +90,27 @@ const TransactionForm = ({ open, setOpen }) => {
 		handleAddToDB();
 	}, 500);
 
+	const debounceType = useDebounce(() => {
+		type === 'payment' ? setType('purchase') : setType('payment');
+	});
+
+	useEffect(() => {
+		console.log('mount');
+		return () => {
+			console.log('unmount');
+			clearForm();
+		};
+	}, []);
+
 	return (
 		<StyledMain>
 			<div className='button-container'>
 				<h2>
 					Add New <span>{type === 'payment' ? 'Invoice' : 'Receipt'}</span>
 				</h2>
-				{type === 'payment' ? (
-					<button onClick={() => setType('purchase')}>Receipt</button>
-				) : (
-					<button onClick={() => setType('payment')}>Invoice</button>
-				)}
+				<button onClick={debounceType}>
+					{type === 'payment' ? 'Invoice' : 'Receipt'}
+				</button>
 			</div>
 			<StyledForm
 				onSubmit={(e) => {
@@ -109,13 +122,6 @@ const TransactionForm = ({ open, setOpen }) => {
 					<div className='top-section'>
 						{/* CLIENT */}
 						<div className='info-container first-item'>
-							{/* <label>Client:</label> */}
-							{/* <input
-								type='text'
-								onChange={(e) => setClient(e.target.value)}
-								placeholder='Item on receipt'
-								value={client}
-							/> */}
 							<TextField
 								type='text'
 								onChange={(e) => setClient(e.target.value)}
@@ -138,29 +144,8 @@ const TransactionForm = ({ open, setOpen }) => {
 								// 	shrink: true,
 								// }}
 							/>
-							{/* <input
-								type='number'
-								onChange={(e) => setAmount(e.target.value)}
-								placeholder='Amount spent'
-								value={amount}
-								className={emptyFields.includes('amount') ? 'error' : ''}
-							/> */}
 						</div>
 					</div>
-					{/* TITLE LABEL AND INPUT */}
-					{/* <label className={emptyFields.includes('title') ? 'error-text' : ''}>
-						{emptyFields.includes('title') ? (
-							<div className='error-text'>
-								<RiErrorWarningLine size={24} />
-								<p>What'd you buy?</p>
-								<RiErrorWarningLine size={24} />
-							</div>
-						) : (
-							<p>
-								Purchase Title<span>*</span>
-							</p>
-						)}
-					</label> */}
 					<TextField
 						error={emptyFields.includes('title') ? true : false}
 						onChange={(e) => setTitle(e.target.value)}
@@ -173,29 +158,6 @@ const TransactionForm = ({ open, setOpen }) => {
 						}
 						type='text'
 					/>
-					{/* <input
-						type='text'
-						onChange={(e) => setTitle(e.target.value)}
-						placeholder='Item on receipt'
-						value={title}
-						className={emptyFields.includes('title') ? 'error' : ''}
-					/> */}
-					{/* DESCRIPTION LABEL AND INPUT */}
-					{/* <label
-						className={emptyFields.includes('description') ? 'error-text' : ''}
-					>
-						{emptyFields.includes('description') ? (
-							<div className='error-text'>
-								<RiErrorWarningLine size={24} />
-								<p>Why'd you spend moneyz?</p>
-								<RiErrorWarningLine size={24} />
-							</div>
-						) : (
-							<p>
-								Description<span>*</span>
-							</p>
-						)}
-					</label> */}
 					<TextField
 						error={emptyFields.includes('description') ? true : false}
 						id='outlined-multiline-flexible'
@@ -229,8 +191,15 @@ const TransactionForm = ({ open, setOpen }) => {
 						/>
 					</StyledImgDiv>
 					<StyledBtnDiv>
-						<button>Add Purchase</button>
-						<button>Cancel</button>
+						<button type='submit'>Add Purchase</button>
+						<button
+							onClick={(e) => {
+								e.preventDefault();
+								handleClose();
+							}}
+						>
+							Cancel
+						</button>
 					</StyledBtnDiv>
 				</div>
 			</StyledForm>
@@ -332,7 +301,11 @@ const StyledForm = styled.form`
 		gap: 8px;
 		width: 100%;
 
-		.first-child {
+		.first-item {
+			width: 100%;
+			.MuiFormControl-root {
+				width: 100%;
+			}
 		}
 		.second-item {
 			div {
