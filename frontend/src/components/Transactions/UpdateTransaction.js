@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import styled from 'styled-components';
 import { useTransactionContext } from '../../hooks/useTransactionHook';
+import useDebounce from '../../hooks/useDebounce';
 
-const UpdateTransaction = ({ transaction, setShowUpdate, setIsOpen }) => {
+const UpdateTransaction = ({
+	transaction,
+	setShowUpdate,
+	setIsOpen,
+	toggleUpdate,
+}) => {
 	const { dispatch, filterType, sortType } = useTransactionContext();
 	const [emptyFields, setEmptyFields] = useState([]);
 	const [title, setTitle] = useState(transaction.title);
@@ -11,52 +17,57 @@ const UpdateTransaction = ({ transaction, setShowUpdate, setIsOpen }) => {
 	const [amount, setAmount] = useState(transaction.amount);
 	const [description, setDescription] = useState(transaction.description);
 
+	const handleUpdate = async () => {
+		const res = await fetch(`/api/transactions/${transaction._id}`, {
+			method: 'PATCH',
+			body: JSON.stringify({
+				// ...transaction,
+				title,
+				client,
+				amount,
+				description,
+			}),
+			headers: {
+				'Content-type': 'application/json',
+			},
+		});
+		const json = await res.json();
+		console.log(json);
+		setShowUpdate(false);
+		dispatch({
+			type: 'UPDATE_TRANSACTIONS',
+			payload: json.transactions,
+			paymentTotal: json.paymentTotal,
+			purchaseTotal: json.purchaseTotal,
+			provTax: json.provTax,
+			fedTax: json.fedTax,
+			postDeduction: json.postDeduction,
+			filter: filterType,
+			sort: sortType,
+		});
+		setIsOpen(false);
+		console.log(filterType);
+		console.log(sortType);
+		// dispatch({ type: 'FILTER_TRANSACTIONS', payload: filterType });
+		// dispatch({ type: 'SORT_TRANSACTIONS', payload: sortType });
+	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		const handleUpdate = async () => {
-			const res = await fetch(`/api/transactions/${transaction._id}`, {
-				method: 'PATCH',
-				body: JSON.stringify({
-					// ...transaction,
-					title,
-					client,
-					amount,
-					description,
-				}),
-				headers: {
-					'Content-type': 'application/json',
-				},
-			});
-			const json = await res.json();
-			console.log(json);
-			setShowUpdate(false);
-			dispatch({
-				type: 'UPDATE_TRANSACTIONS',
-				payload: json.transactions,
-				paymentTotal: json.paymentTotal,
-				purchaseTotal: json.purchaseTotal,
-				provTax: json.provTax,
-				fedTax: json.fedTax,
-				postDeduction: json.postDeduction,
-				filter: filterType,
-				sort: sortType,
-			});
-			setIsOpen(false);
-			console.log(filterType);
-			console.log(sortType);
-			// dispatch({ type: 'FILTER_TRANSACTIONS', payload: filterType });
-			// dispatch({ type: 'SORT_TRANSACTIONS', payload: sortType });
-		};
 		handleUpdate();
 	};
+	const debounceClose = useDebounce(() => setShowUpdate(false));
+	const debounceUpdate = useDebounce(handleUpdate);
 
 	return (
 		<StyledForm
 			onClick={(e) => {
 				e.stopPropagation();
 			}}
-			onSubmit={handleSubmit}
+			onSubmit={(e) => {
+				e.preventDefault();
+				debounceUpdate();
+			}}
 		>
 			<TextField
 				value={client}
@@ -126,8 +137,7 @@ const UpdateTransaction = ({ transaction, setShowUpdate, setIsOpen }) => {
 					onClick={(e) => {
 						e.preventDefault();
 						e.stopPropagation();
-						setShowUpdate(false);
-						// handleClose();
+						debounceClose();
 					}}
 				>
 					Cancel

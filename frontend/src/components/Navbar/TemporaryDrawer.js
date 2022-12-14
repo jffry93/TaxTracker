@@ -13,6 +13,7 @@ import { useState } from 'react';
 import TransactionCard from '../Transactions/TransactionCard';
 import { useTransactionContext } from '../../hooks/useTransactionHook';
 import styled from 'styled-components';
+import useDebounce from '../../hooks/useDebounce';
 // import { useAuth0 } from '@auth0/auth0-react';
 
 const TemporaryDrawer = () => {
@@ -26,16 +27,12 @@ const TemporaryDrawer = () => {
 		right: false,
 	});
 
-	const toggleDrawer = (anchor, open) => (event) => {
-		if (
-			event.type === 'keydown' &&
-			(event.key === 'Tab' || event.key === 'Shift')
-		) {
-			return;
-		}
-
-		setState({ ...state, [anchor]: open });
-	};
+	const debounceOpenDrawer = useDebounce(() =>
+		setState({ ...state, ['left']: true })
+	);
+	const debounceCloseDrawer = useDebounce(() =>
+		setState({ ...state, ['left']: false })
+	);
 
 	const handleFilter = (e) => {
 		dispatch({ type: 'FILTER_TRANSACTIONS', payload: e.target.value });
@@ -53,8 +50,7 @@ const TemporaryDrawer = () => {
 				width: anchor === 'top' || anchor === 'bottom' ? 'auto' : '100%',
 			}}
 			role='presentation'
-			onClick={toggleDrawer(anchor, false)}
-			// onKeyDown={toggleDrawer(anchor, false)}
+			onClick={debounceCloseDrawer}
 		>
 			<StyledContainer
 				onClick={(e) => {
@@ -110,7 +106,7 @@ const TemporaryDrawer = () => {
 		<>
 			<IconButton
 				// disabled={!isAuthenticated}
-				onClick={toggleDrawer('left', true)}
+				onClick={debounceOpenDrawer}
 				color='inherit'
 				aria-label='open drawer'
 			>
@@ -122,7 +118,7 @@ const TemporaryDrawer = () => {
 				}}
 				anchor={'left'}
 				open={state['left']}
-				onClose={toggleDrawer('left', false)}
+				onClose={debounceCloseDrawer}
 			>
 				{list('left')}
 			</Drawer>

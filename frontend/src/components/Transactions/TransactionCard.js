@@ -47,17 +47,17 @@ const PurchaseCard = ({ transaction }) => {
 		}
 	};
 
-	const handleDebounceDelete = useDebounce(() => {
-		handleDelete();
-	}, 500);
-
-	const dubCheckHandle = () => {
-		setShowDelete(true);
-		// setTimeout(() => {
-		// 	console.log('timeout');
-		// 	setShowDelete(false);
-		// }, 2500);
-	};
+	const toggleCard = useDebounce(() => {
+		setIsOpen(!isOpen);
+		setShowUpdate(false);
+	});
+	const closeCard = useDebounce(() => setIsOpen(false));
+	const debounceDelete = useDebounce(handleDelete, 500);
+	const closeDeleteModal = useDebounce(() => setShowDelete(false));
+	const openDeleteModal = useDebounce(() => setShowDelete(true));
+	const closeImageModal = useDebounce(() => setShowImage(false));
+	const openImageModal = useDebounce(() => setShowImage(true));
+	const toggleUpdate = useDebounce(() => setShowUpdate(!showUpdate));
 
 	return (
 		<>
@@ -73,8 +73,7 @@ const PurchaseCard = ({ transaction }) => {
 					onClick={(e) => {
 						e.stopPropagation();
 						setYouSure(true);
-						setIsOpen(!isOpen);
-						setShowUpdate(false);
+						toggleCard();
 					}}
 				>
 					<StyledUpper>
@@ -119,7 +118,7 @@ const PurchaseCard = ({ transaction }) => {
 									yousure={youSure.toString()}
 									onClick={(e) => {
 										e.stopPropagation();
-										setShowUpdate(!showUpdate);
+										toggleUpdate();
 									}}
 								>
 									<div className='garbage-container'>
@@ -138,10 +137,8 @@ const PurchaseCard = ({ transaction }) => {
 									layout
 									yousure={youSure.toString()}
 									onClick={(e) => {
-										console.log('hello');
 										e.stopPropagation();
-										setShowImage(true);
-										console.log(showImage);
+										openImageModal();
 									}}
 								>
 									<div className='garbage-container'>
@@ -161,7 +158,7 @@ const PurchaseCard = ({ transaction }) => {
 									yousure={youSure.toString()}
 									onClick={(e) => {
 										e.stopPropagation();
-										dubCheckHandle();
+										openDeleteModal();
 									}}
 								>
 									{youSure ? (
@@ -227,7 +224,7 @@ const PurchaseCard = ({ transaction }) => {
 				open={showImage}
 				onClose={(e) => {
 					e.stopPropagation();
-					setShowImage(false);
+					closeImageModal();
 				}}
 				aria-labelledby='modal-modal-title'
 				aria-describedby='modal-modal-description'
@@ -238,7 +235,7 @@ const PurchaseCard = ({ transaction }) => {
 						alt=''
 						onClick={(e) => {
 							e.stopPropagation();
-							setShowImage(false);
+							closeImageModal();
 						}}
 					/>
 				</StyledBox>
@@ -247,7 +244,7 @@ const PurchaseCard = ({ transaction }) => {
 				open={showDelete}
 				onClose={(e) => {
 					e.stopPropagation();
-					setShowDelete(false);
+					closeDeleteModal();
 				}}
 				aria-labelledby='modal-modal-title'
 				aria-describedby='modal-modal-description'
@@ -259,7 +256,7 @@ const PurchaseCard = ({ transaction }) => {
 						<button
 							onClick={(e) => {
 								e.stopPropagation();
-								handleDebounceDelete();
+								debounceDelete();
 							}}
 						>
 							Confirm
@@ -267,7 +264,7 @@ const PurchaseCard = ({ transaction }) => {
 						<button
 							onClick={(e) => {
 								e.stopPropagation();
-								setShowDelete(false);
+								closeDeleteModal();
 							}}
 						>
 							Abort
@@ -288,7 +285,9 @@ const StyledButtonContainer = styled.div`
 `;
 
 const StyledModal = styled(Modal)`
-	background-color: rgba(0, 0, 0, 0.7);
+	background-color: rgba(0, 0, 0, 0.75);
+	height: 101vh;
+	box-shadow: none !important;
 `;
 
 const StyledBox = styled(Box)`

@@ -193,7 +193,7 @@ const Profile = () => {
 export default Profile;
 
 const StyledZoom = styled.div`
-	border: 1px solid green;
+	/* border: 4px solid green; */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -202,7 +202,6 @@ const StyledZoom = styled.div`
 	min-height: 100vh;
 	width: 100%;
 	/* padding-bottom: 56px; */
-	padding: 0px 16px 86px;
 `;
 
 const StyledForm = styled.form`
@@ -210,6 +209,8 @@ const StyledForm = styled.form`
 	flex-direction: column;
 	/* align-items: center; */
 	min-height: 550px;
+	padding: 32px 16px 56px;
+	/* border: 1px solid red; */
 	width: 100%;
 	.zoom-div {
 		/* border: 1px solid red; */
@@ -243,9 +244,10 @@ const StyledInfo = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
+	border: 1px solid blue;
+	min-height: 631px;
 	h2 {
-		/* border: 1px solid blue; */
 		min-height: 56px;
 		font-size: 26px;
 		display: flex;
