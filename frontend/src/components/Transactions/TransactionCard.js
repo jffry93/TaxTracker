@@ -53,10 +53,10 @@ const PurchaseCard = ({ transaction }) => {
 
 	const dubCheckHandle = () => {
 		setShowDelete(true);
-		setTimeout(() => {
-			console.log('timeout');
-			setShowDelete(false);
-		}, 2500);
+		// setTimeout(() => {
+		// 	console.log('timeout');
+		// 	setShowDelete(false);
+		// }, 2500);
 	};
 
 	return (
@@ -200,6 +200,7 @@ const PurchaseCard = ({ transaction }) => {
 								<UpdateTransaction
 									transaction={transaction}
 									setShowUpdate={setShowUpdate}
+									setIsOpen={setIsOpen}
 								/>
 							)}
 							<StyledLower>

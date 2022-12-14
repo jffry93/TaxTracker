@@ -41,6 +41,31 @@ export const transactionsReducer = (state, action) => {
 				postDeduction: action.postDeduction,
 			};
 		case 'UPDATE_TRANSACTIONS':
+			const filterArray = action.payload.filter((transaction) => {
+				if (action.filter === 'all') {
+					return transaction;
+				} else {
+					return transaction.type.toLowerCase() === action.filter.toLowerCase();
+				}
+			});
+			const sortArray = filterArray.sort((a, b) => {
+				console.log(a);
+				if (action.sort === 'recent') {
+					return new Date(b.createdAt) - new Date(a.createdAt);
+				}
+				if (action.sort === 'oldest') {
+					return new Date(a.createdAt) - new Date(b.createdAt);
+				}
+				if (action.sort === 'low-to-high') {
+					return a.amount - b.amount;
+				}
+				// Turn your strings into dates, and then subtract them
+				// to get a value that is either negative, positive, or zero.
+				if (action.sort === 'high-to-low') {
+					return b.amount - a.amount;
+				}
+				// return new Date(b.date) - new Date(a.date);
+			});
 			return {
 				...state,
 				truth: [...action.payload],
@@ -50,6 +75,7 @@ export const transactionsReducer = (state, action) => {
 				provTax: action.provTax,
 				fedTax: action.fedTax,
 				postDeduction: action.postDeduction,
+				transactions: sortArray,
 			};
 		case 'DELETE_TRANSACTIONS':
 			return {
@@ -85,11 +111,12 @@ export const transactionsReducer = (state, action) => {
 				...state,
 				sortType: action.payload,
 				transactions: state.transactions.sort((a, b) => {
+					console.log(a);
 					if (action.payload === 'recent') {
-						return new Date(b.updatedAt) - new Date(a.updatedAt);
+						return new Date(b.createdAt) - new Date(a.createdAt);
 					}
 					if (action.payload === 'oldest') {
-						return new Date(a.updatedAt) - new Date(b.updatedAt);
+						return new Date(a.createdAt) - new Date(b.createdAt);
 					}
 					if (action.payload === 'low-to-high') {
 						return a.amount - b.amount;

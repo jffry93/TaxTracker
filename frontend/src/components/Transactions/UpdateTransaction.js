@@ -3,8 +3,8 @@ import TextField from '@mui/material/TextField';
 import styled from 'styled-components';
 import { useTransactionContext } from '../../hooks/useTransactionHook';
 
-const UpdateTransaction = ({ transaction, setShowUpdate }) => {
-	const { dispatch } = useTransactionContext();
+const UpdateTransaction = ({ transaction, setShowUpdate, setIsOpen }) => {
+	const { dispatch, filterType, sortType } = useTransactionContext();
 	const [emptyFields, setEmptyFields] = useState([]);
 	const [title, setTitle] = useState(transaction.title);
 	const [client, setClient] = useState(transaction.client);
@@ -30,7 +30,7 @@ const UpdateTransaction = ({ transaction, setShowUpdate }) => {
 			});
 			const json = await res.json();
 			console.log(json);
-			// setShowUpdate(false);
+			setShowUpdate(false);
 			dispatch({
 				type: 'UPDATE_TRANSACTIONS',
 				payload: json.transactions,
@@ -39,8 +39,14 @@ const UpdateTransaction = ({ transaction, setShowUpdate }) => {
 				provTax: json.provTax,
 				fedTax: json.fedTax,
 				postDeduction: json.postDeduction,
+				filter: filterType,
+				sort: sortType,
 			});
-			// userDispatch({ type: 'UPDATE_USER', user: { ...data } });
+			setIsOpen(false);
+			console.log(filterType);
+			console.log(sortType);
+			// dispatch({ type: 'FILTER_TRANSACTIONS', payload: filterType });
+			// dispatch({ type: 'SORT_TRANSACTIONS', payload: sortType });
 		};
 		handleUpdate();
 	};
