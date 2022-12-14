@@ -78,7 +78,7 @@ const PurchaseCard = ({ transaction }) => {
 					}}
 				>
 					<StyledUpper>
-						<motion.div layout='position'>
+						<StyledTitleContainer layout='position'>
 							<StyledTitle open={isOpen}>
 								{transaction.type.toUpperCase()}
 							</StyledTitle>
@@ -103,7 +103,7 @@ const PurchaseCard = ({ transaction }) => {
 									</p>
 								</>
 							)}
-						</motion.div>
+						</StyledTitleContainer>
 						{isOpen && (
 							<StyledButtonContainer>
 								<StyledActionDiv
@@ -364,12 +364,15 @@ const StyledContent = styled.div`
 	position: relative;
 	z-index: 1;
 `;
-
+const StyledTitleContainer = styled(motion.div)`
+	width: 100%;
+	/* border: 1px solid red; */
+`;
 const StyledTitle = styled.p`
 	margin-bottom: 8px;
 	font-size: 20px;
 	font-weight: bold;
-	border: 1px solid;
+	/* border: 1px solid; */
 	text-align: ${(props) => (props.open ? 'left' : 'center')};
 `;
 

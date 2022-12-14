@@ -42,15 +42,17 @@ const WavyAnim = () => {
 export default WavyAnim;
 
 const StyledDiv = styled.div`
-	position: absolute;
+	position: fixed;
 	top: 0;
 	z-index: -1;
 	border: 1px solid red;
 	min-height: 100vh;
 	max-height: 100vh;
 	width: 100vw;
-	overflow: hidden;
+
 	svg {
+		position: fixed;
+		top: 0;
 		transform: rotate(0deg);
 		min-width: 800px;
 		width: 100%;

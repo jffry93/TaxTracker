@@ -199,9 +199,10 @@ const StyledZoom = styled.div`
 	justify-content: center;
 	/* align-items: center; */
 	/* display: none; */
-	height: 100vh;
+	min-height: 100vh;
 	width: 100%;
-	/* padding: 64px 32px; */
+	/* padding-bottom: 56px; */
+	padding: 0px 16px 86px;
 `;
 
 const StyledForm = styled.form`

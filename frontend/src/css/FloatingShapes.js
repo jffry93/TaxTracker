@@ -38,7 +38,7 @@ const FloatingShapes = () => {
 export default FloatingShapes;
 
 const StyledArea = styled.div`
-	position: absolute;
+	position: fixed;
 	top: 0;
 	z-index: -1;
 	/* border: 1px solid red; */

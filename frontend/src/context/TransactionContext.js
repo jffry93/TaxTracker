@@ -49,7 +49,6 @@ export const transactionsReducer = (state, action) => {
 				}
 			});
 			const sortArray = filterArray.sort((a, b) => {
-				console.log(a);
 				if (action.sort === 'recent') {
 					return new Date(b.createdAt) - new Date(a.createdAt);
 				}

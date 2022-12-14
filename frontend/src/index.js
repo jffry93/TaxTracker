@@ -24,7 +24,7 @@ root.render(
 					<GlobalStyle />
 					<App />
 					<WavyAnim />
-					<FloatingShapes />
+					{/* <FloatingShapes /> */}
 				</UserProvider>
 			</TransactionsContextProvider>
 		</StyleContextProvider>
