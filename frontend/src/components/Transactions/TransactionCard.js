@@ -12,26 +12,16 @@ import Box from '@mui/material/Box';
 
 import 'react-medium-image-zoom/dist/styles.css';
 import '../../css/ImageZoom.css';
+import UpdateTransaction from './UpdateTransaction';
 
 const PurchaseCard = ({ transaction }) => {
 	// console.log(transaction);
 	const [youSure, setYouSure] = useState(true);
 	const [isOpen, setIsOpen] = useState(false);
+	const [showUpdate, setShowUpdate] = useState(false);
 	const [showImage, setShowImage] = useState(false);
 	const [showDelete, setShowDelete] = useState(false);
 	const { dispatch } = useTransactionContext();
-
-	const style = {
-		position: 'absolute',
-		top: '50%',
-		left: '50%',
-		transform: 'translate(-50%, -50%)',
-		width: 400,
-		bgcolor: 'background.paper',
-		border: '2px solid #000',
-		boxShadow: 24,
-		p: 4,
-	};
 
 	const handleDelete = async () => {
 		const response = await fetch(
@@ -61,13 +51,11 @@ const PurchaseCard = ({ transaction }) => {
 		handleDelete();
 	}, 500);
 
-	const dubCheckHandle = (e) => {
-		console.log('click');
-		e.stopPropagation();
-		setYouSure(!youSure);
+	const dubCheckHandle = () => {
+		setShowDelete(true);
 		setTimeout(() => {
 			console.log('timeout');
-			setYouSure(true);
+			setShowDelete(false);
 		}, 2500);
 	};
 
@@ -86,6 +74,7 @@ const PurchaseCard = ({ transaction }) => {
 						e.stopPropagation();
 						setYouSure(true);
 						setIsOpen(!isOpen);
+						setShowUpdate(false);
 					}}
 				>
 					<StyledUpper>
@@ -93,23 +82,27 @@ const PurchaseCard = ({ transaction }) => {
 							<StyledTitle open={isOpen}>
 								{transaction.type.toUpperCase()}
 							</StyledTitle>
-							{isOpen && (
-								<motion.div
-									initial={{ opacity: 0 }}
-									animate={{ opacity: 1 }}
-									exit={{ opacity: 0 }}
-									transition={{ opacity: { duration: 1, type: 'spring' } }}
-									layout
-								>
-									<h2>Client</h2>
-									<p>{transaction.client}</p>
-								</motion.div>
+							{!showUpdate && (
+								<>
+									{isOpen && (
+										<motion.div
+											initial={{ opacity: 0 }}
+											animate={{ opacity: 1 }}
+											exit={{ opacity: 0 }}
+											transition={{ opacity: { duration: 1, type: 'spring' } }}
+											layout
+										>
+											<h2>Client</h2>
+											<p>{transaction.client}</p>
+										</motion.div>
+									)}
+									<h4>Item</h4>
+									<p>{transaction.title}</p>
+									<p className='title'>
+										<strong>Amount: </strong>${transaction.amount} CAD
+									</p>
+								</>
 							)}
-							<h4>Item</h4>
-							<p>{transaction.title}</p>
-							<p className='title'>
-								<strong>Amount: </strong>${transaction.amount} CAD
-							</p>
 						</motion.div>
 						{isOpen && (
 							<StyledButtonContainer>
@@ -126,6 +119,7 @@ const PurchaseCard = ({ transaction }) => {
 									yousure={youSure.toString()}
 									onClick={(e) => {
 										e.stopPropagation();
+										setShowUpdate(!showUpdate);
 									}}
 								>
 									<div className='garbage-container'>
@@ -167,7 +161,7 @@ const PurchaseCard = ({ transaction }) => {
 									yousure={youSure.toString()}
 									onClick={(e) => {
 										e.stopPropagation();
-										setShowDelete(true);
+										dubCheckHandle();
 									}}
 								>
 									{youSure ? (
@@ -179,7 +173,6 @@ const PurchaseCard = ({ transaction }) => {
 											className='confirm-container'
 											onClick={(e) => {
 												e.stopPropagation();
-												// dubCheckHandle();
 											}}
 										>
 											<p>Are you sure?</p>
@@ -198,10 +191,17 @@ const PurchaseCard = ({ transaction }) => {
 							layout
 						>
 							{/* <p>{transaction.description}</p> */}
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-								Perferendis quibusdam natus ?
-							</p>
+							{!showUpdate ? (
+								<p>
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+									Perferendis quibusdam natus ?
+								</p>
+							) : (
+								<UpdateTransaction
+									transaction={transaction}
+									setShowUpdate={setShowUpdate}
+								/>
+							)}
 							<StyledLower>
 								<p className='time-stamp'>
 									{formatDistanceToNow(new Date(transaction.createdAt), {
@@ -222,7 +222,7 @@ const PurchaseCard = ({ transaction }) => {
 					)}
 				</StyledCard>
 			</AnimatePresence>
-			<Modal
+			<StyledModal
 				open={showImage}
 				onClose={(e) => {
 					e.stopPropagation();
@@ -241,8 +241,8 @@ const PurchaseCard = ({ transaction }) => {
 						}}
 					/>
 				</StyledBox>
-			</Modal>
-			<Modal
+			</StyledModal>
+			<StyledModal
 				open={showDelete}
 				onClose={(e) => {
 					e.stopPropagation();
@@ -251,9 +251,10 @@ const PurchaseCard = ({ transaction }) => {
 				aria-labelledby='modal-modal-title'
 				aria-describedby='modal-modal-description'
 			>
-				<StyledBox>
-					<h2>This will permanently delete the data. Are you sure?</h2>
-					<div>
+				<StyledDeleteBox>
+					<h2>This will permanently delete the data.</h2>
+					<h2>Are you sure?</h2>
+					<div className='button-container'>
 						<button
 							onClick={(e) => {
 								e.stopPropagation();
@@ -271,8 +272,8 @@ const PurchaseCard = ({ transaction }) => {
 							Abort
 						</button>
 					</div>
-				</StyledBox>
-			</Modal>
+				</StyledDeleteBox>
+			</StyledModal>
 		</>
 	);
 };
@@ -285,17 +286,45 @@ const StyledButtonContainer = styled.div`
 	/* border: 1px solid red; */
 `;
 
+const StyledModal = styled(Modal)`
+	background-color: rgba(0, 0, 0, 0.7);
+`;
+
 const StyledBox = styled(Box)`
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 100%;
+	padding: 32px;
 	img {
 		width: 100%;
 	}
 `;
 
+const StyledDeleteBox = styled(Box)`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #1e1e1e;
+	border-radius: 12px;
+	padding: 48px 32px 60px;
+	h2 {
+		min-width: 250px;
+	}
+	h2:first-child {
+		margin-bottom: 16px;
+	}
+	.button-container {
+		display: flex;
+		gap: 8px;
+		margin-top: 32px;
+		button {
+			flex: 1;
+		}
+	}
+`;
 const StyledCard = styled(motion.div)`
 	position: relative;
 	overflow: hidden;

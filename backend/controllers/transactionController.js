@@ -218,7 +218,34 @@ const updateTransaction = async (req, res) => {
 	if (!payment) {
 		return res.status(404).json({ error: 'No such Payment' });
 	}
-	res.status(200).json(payment);
+	const { user } = payment;
+	let currentUser = await User.findOne({ email: user });
+	// console.log(currentUser);
+	const { location } = currentUser;
+	const transactions = await Transaction.find({ user: user }).sort({
+		createdAt: -1,
+	});
+	// console.log(transactions);
+	//PAYMENT TOTAL OF CURRENT USER LOGGED IN
+	const payments = await Transaction.find({ type: 'payment', user: user });
+	let paymentTotal = payments.reduce((prevValue, currentItem) => {
+		return prevValue + currentItem.amount;
+	}, 0);
+	//PURCHASE TOTAL OF CURRENT USER LOGGED IN
+	const purchase = await Transaction.find({
+		type: 'purchase',
+		user: user,
+	});
+	let purchaseTotal = purchase.reduce((prevValue, currentItem) => {
+		return prevValue + currentItem.amount;
+	}, 0);
+	//CALCULATE TAX
+	const remainingIncome = paymentTotal - purchaseTotal;
+	const taxObject = calculateTax(remainingIncome, location.toLowerCase());
+	console.log({ transactions, paymentTotal, purchaseTotal, ...taxObject });
+	res
+		.status(200)
+		.json({ transactions, paymentTotal, purchaseTotal, ...taxObject });
 };
 
 module.exports = {

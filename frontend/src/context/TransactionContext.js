@@ -40,6 +40,17 @@ export const transactionsReducer = (state, action) => {
 				fedTax: action.fedTax,
 				postDeduction: action.postDeduction,
 			};
+		case 'UPDATE_TRANSACTIONS':
+			return {
+				...state,
+				truth: [...action.payload],
+				// transactions: [action.payload, ...state.transactions],
+				paymentTotal: action.paymentTotal,
+				purchaseTotal: action.purchaseTotal,
+				provTax: action.provTax,
+				fedTax: action.fedTax,
+				postDeduction: action.postDeduction,
+			};
 		case 'DELETE_TRANSACTIONS':
 			return {
 				...state,

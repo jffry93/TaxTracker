@@ -1,10 +1,15 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import styled from 'styled-components';
+import useDebounce from '../hooks/useDebounce';
 
 const SignUp = () => {
 	const { loginWithRedirect, logout, isAuthenticated, loginWithPopup } =
 		useAuth0();
+
+	const debounceLogin = useDebounce(() => {
+		loginWithRedirect();
+	});
 	return (
 		<StyledContainer>
 			<StyledContext>
@@ -15,13 +20,7 @@ const SignUp = () => {
 						for instant <br /> access
 					</h1>
 				</div>
-				<button
-					onClick={() => {
-						loginWithPopup();
-					}}
-				>
-					SIGN UP
-				</button>
+				<button onClick={debounceLogin}>SIGN UP</button>
 			</StyledContext>
 		</StyledContainer>
 	);

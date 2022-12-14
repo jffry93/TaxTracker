@@ -14,7 +14,7 @@ import { BiHome, BiUser, BiAdjust } from 'react-icons/bi';
 import { useRef, useState } from 'react';
 
 const Settings = () => {
-	const { loginWithPopup, logout, isAuthenticated } = useAuth0();
+	const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
 	const { lightMode, setLightMode } = useStyleContext();
 	const [anchorEl, setAnchorEl] = useState(null);
 	const navigate = useNavigate();
@@ -107,7 +107,7 @@ const Settings = () => {
 						</StyledItem>
 					</MenuItem>
 				) : (
-					<MenuItem onClick={() => loginWithPopup()}>
+					<MenuItem onClick={() => loginWithRedirect()}>
 						<StyledItem>
 							<DoorBackIcon />
 							<p>Login</p>
