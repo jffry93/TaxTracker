@@ -4,14 +4,19 @@ import { useTransactionContext } from '../hooks/useTransactionHook';
 import { useStyleContext } from '../hooks/useStyleHook';
 import { useAuth0 } from '@auth0/auth0-react';
 
-//components
+// components
+import InitialSetup from '../pages/InitialSetup';
 import TransactionForm from '../components/Transactions/TransactionsForm';
 import TransactionCard from '../components/Transactions/TransactionCard';
 import DoughnutChart from '../components/Chartjs/Doughnut';
 import ChartInfo from '../components/Chartjs/ChartInfo';
+import { UserContext } from '../context/UserContext';
+import { useContext } from 'react';
 
 const Home = () => {
 	const { transactions, dispatch, postDeduction } = useTransactionContext();
+	const { userStatus, userInfo, legitCheck, loadingObj, userDispatch } =
+		useContext(UserContext);
 
 	const { viewWidth, mobileBreakpoint } = useStyleContext();
 	const { user, isAuthenticated, isLoading } = useAuth0();
@@ -21,7 +26,7 @@ const Home = () => {
 	}
 	return (
 		<>
-			{isAuthenticated && transactions && (
+			{loadingObj.transactions !== 'loading' && transactions ? (
 				<StyledData>
 					{/* <StyledTitle>TaxTracker</StyledTitle> */}
 					<StyledMain>
@@ -35,11 +40,31 @@ const Home = () => {
 					</StyledMain>
 					<ChartInfo />
 				</StyledData>
-			)}
-			{isAuthenticated && transactions && viewWidth > mobileBreakpoint && (
-				<TransactionForm />
+			) : (
+				loadingObj.transactions === 'checked' && <InitialSetup />
 			)}
 		</>
+
+		//  <>
+		//  	{isAuthenticated && transactions && (
+		//  		<StyledData>
+		//  			{/* <StyledTitle>TaxTracker</StyledTitle> */}
+		//  			<StyledMain>
+		//  				<div className='chart'>
+		//  					<div className='container'>
+		//  						<strong>INCOME</strong>
+		//  						<h1>${Math.floor(postDeduction)}</h1>
+		//  					</div>
+		//  					<DoughnutChart />
+		//  				</div>
+		//  			</StyledMain>
+		//  			<ChartInfo />
+		//  		</StyledData>
+		//  	)}
+		//  	{isAuthenticated && transactions && viewWidth > mobileBreakpoint && (
+		//  		<TransactionForm />
+		//  	)}
+		//  </>
 	);
 };
 

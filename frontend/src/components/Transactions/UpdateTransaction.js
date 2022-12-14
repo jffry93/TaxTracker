@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import styled from 'styled-components';
 import { useTransactionContext } from '../../hooks/useTransactionHook';
 import useDebounce from '../../hooks/useDebounce';
+import { style } from '@mui/system';
 
 const UpdateTransaction = ({
 	transaction,
@@ -69,21 +70,40 @@ const UpdateTransaction = ({
 				debounceUpdate();
 			}}
 		>
+			<StyledTop>
+				<TextField
+					value={client}
+					error={emptyFields.includes('client') ? true : false}
+					id='outlined-number'
+					className='client-input'
+					label={emptyFields.includes('client') ? "What'd you buy?" : 'Client'}
+					type='text'
+					onClick={(e) => {
+						e.stopPropagation();
+					}}
+					onChange={(e) => {
+						e.stopPropagation();
+						setClient(e.target.value);
+					}}
+				/>
+				<TextField
+					value={amount}
+					error={emptyFields.includes('amount') ? true : false}
+					className='amount-input'
+					id='outlined-number'
+					label={emptyFields.includes('amount') ? "What'd you buy?" : 'Amount'}
+					type='number'
+					onClick={(e) => {
+						e.stopPropagation();
+					}}
+					onChange={(e) => {
+						e.stopPropagation();
+						setAmount(e.target.value);
+					}}
+				/>
+			</StyledTop>
 			<TextField
-				value={client}
-				error={emptyFields.includes('client') ? true : false}
-				id='outlined-number'
-				label={emptyFields.includes('client') ? "What'd you buy?" : 'Client'}
-				type='text'
-				onClick={(e) => {
-					e.stopPropagation();
-				}}
-				onChange={(e) => {
-					e.stopPropagation();
-					setClient(e.target.value);
-				}}
-			/>
-			<TextField
+				className='title-input'
 				error={emptyFields.includes('title') ? true : false}
 				onClick={(e) => {
 					e.stopPropagation();
@@ -100,23 +120,12 @@ const UpdateTransaction = ({
 				type='text'
 			/>
 			<TextField
-				value={amount}
-				error={emptyFields.includes('amount') ? true : false}
-				id='outlined-number'
-				label={emptyFields.includes('amount') ? "What'd you buy?" : 'Amount'}
-				type='number'
-				onClick={(e) => {
-					e.stopPropagation();
-				}}
-				onChange={(e) => {
-					e.stopPropagation();
-					setAmount(e.target.value);
-				}}
-			/>
-			<TextField
+				multiline
+				rows={2}
+				className='description-input'
 				value={description}
 				error={emptyFields.includes('description') ? true : false}
-				id='outlined-number'
+				id='outlined-multiline-flexible'
 				label={
 					emptyFields.includes('description')
 						? "What'd you buy?"
@@ -131,7 +140,7 @@ const UpdateTransaction = ({
 					setDescription(e.target.value);
 				}}
 			/>
-			<div>
+			<StyledButtonContainer>
 				<button type='submit'>Update</button>
 				<button
 					onClick={(e) => {
@@ -142,14 +151,39 @@ const UpdateTransaction = ({
 				>
 					Cancel
 				</button>
-			</div>
+			</StyledButtonContainer>
 		</StyledForm>
 	);
 };
 
 export default UpdateTransaction;
-
+const StyledButtonContainer = styled.div`
+	display: flex;
+	gap: 8px;
+	button {
+		flex: 1;
+	}
+`;
+const StyledTop = styled.div`
+	display: flex;
+	gap: 8px;
+	.client-input {
+		width: 100%;
+	}
+	.amount-input {
+		width: 100px;
+	}
+`;
 const StyledForm = styled.form`
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 16px 0 0 0;
 	width: 100%;
-	border: 1px solid red;
+	/* .title-input {
+		width: 100%;
+	}
+	.description-input {
+		width: 100%;
+	} */
 `;

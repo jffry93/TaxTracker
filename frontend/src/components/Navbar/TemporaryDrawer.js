@@ -14,6 +14,8 @@ import TransactionCard from '../Transactions/TransactionCard';
 import { useTransactionContext } from '../../hooks/useTransactionHook';
 import styled from 'styled-components';
 import useDebounce from '../../hooks/useDebounce';
+import '../../css/MaterialSelect.css';
+
 // import { useAuth0 } from '@auth0/auth0-react';
 
 const TemporaryDrawer = () => {
@@ -45,7 +47,7 @@ const TemporaryDrawer = () => {
 
 	//THE CONTAINER THAT SLIDES IN
 	const list = (anchor) => (
-		<Box
+		<StyledBox
 			sx={{
 				width: anchor === 'top' || anchor === 'bottom' ? 'auto' : '100%',
 			}}
@@ -87,7 +89,7 @@ const TemporaryDrawer = () => {
 					</Select>
 				</FormControl>
 			</StyledContainer>
-			<Divider />
+			{/* <Divider /> */}
 			<StyledCards>
 				{transactions &&
 					transactions.map((transaction, index) => {
@@ -99,7 +101,7 @@ const TemporaryDrawer = () => {
 						);
 					})}
 			</StyledCards>
-		</Box>
+		</StyledBox>
 	);
 
 	return (
@@ -112,21 +114,33 @@ const TemporaryDrawer = () => {
 			>
 				<MenuIcon />
 			</IconButton>
-			<Drawer
+			<StyledDrawer
 				PaperProps={{
-					sx: { width: '100vw' },
+					sx: { width: '100vw', backgroundColor: 'transparent' },
 				}}
 				anchor={'left'}
 				open={state['left']}
 				onClose={debounceCloseDrawer}
 			>
 				{list('left')}
-			</Drawer>
+			</StyledDrawer>
 		</>
 	);
 };
 
 export default TemporaryDrawer;
+
+const StyledDrawer = styled(Drawer)`
+	background-color: transparent;
+`;
+const StyledDropdown = styled(FormControl)`
+	/* background-color: transparent; */
+	border: 5px solid red;
+`;
+
+const StyledBox = styled(Box)`
+	background-color: none;
+`;
 
 const StyledCards = styled.div`
 	min-height: calc(100vh - 80px);
@@ -136,11 +150,18 @@ const StyledCards = styled.div`
 	align-items: center;
 	/* justify-content: center; */
 	gap: 24px;
+	/* background-color: none; */
+	/* background-color: rgba(255, 255, 255, 0.8); */
 `;
 const StyledContainer = styled.div`
+	position: sticky;
+	top: 0;
+	z-index: 1;
 	display: flex;
 	gap: 16px;
 	padding: 24px 16px 8px;
+	border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
+	background-color: rgba(255, 255, 255, 0.8);
 	label {
 		position: absolute;
 		top: -15%;

@@ -10,6 +10,18 @@ const reducerFunction = (state, action) => {
 				userStatus: 'active',
 				userInfo: { ...state.user, ...action.user },
 				legitCheck: true,
+				loadingObj: {
+					...state.loadingObj,
+					user: 'verified', //loading, checked, verify
+				},
+			};
+		case 'CHECK_TRANSACTIONS':
+			return {
+				...state,
+				loadingObj: {
+					...state.loadingObj,
+					transactions: action.check, //loading, checked, verify
+				},
 			};
 		case 'FAILED':
 			return {
@@ -32,6 +44,10 @@ export const UserProvider = ({ children }) => {
 		userStatus: 'idle',
 		userInfo: {},
 		legitCheck: false,
+		loadingObj: {
+			user: 'loading', //loading, checked, verify
+			transactions: 'loading', //loading, checked, verify
+		},
 	};
 	const [state, userDispatch] = useReducer(reducerFunction, initialState);
 

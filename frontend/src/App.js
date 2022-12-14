@@ -17,22 +17,28 @@ import InitialSetup from './pages/InitialSetup';
 function App() {
 	const { user, isAuthenticated, isLoading } = useAuth0();
 	const { dispatch } = useContext(TransactionContext);
-	const { userStatus, userInfo, legitCheck, userDispatch } =
+	const { userStatus, userInfo, legitCheck, loadingObj, userDispatch } =
 		useContext(UserContext);
 
 	useEffect(() => {
 		const fetchGetHandler = async () => {
-			const res = await fetch('/api/user/', {
-				method: 'POST',
-				body: JSON.stringify(user),
-				headers: {
-					'Content-type': 'application/json',
-				},
-			});
-			const data = await res.json();
-			console.log(data);
-
-			userDispatch({ type: 'LOG_ON', user: data.user });
+			try {
+				const res = await fetch('/api/user/', {
+					method: 'POST',
+					body: JSON.stringify(user),
+					headers: {
+						'Content-type': 'application/json',
+					},
+				});
+				const data = await res.json();
+				console.log(data);
+				userDispatch({ type: 'LOG_ON', user: data.user });
+			} catch (err) {
+				console.log(
+					'there was an error fetching the user data from mongo',
+					err
+				);
+			}
 		};
 		isAuthenticated && fetchGetHandler();
 	}, [isAuthenticated]);
@@ -60,8 +66,10 @@ function App() {
 					fedTax: json.fedTax,
 					postDeduction: json.postDeduction,
 				});
+				userDispatch({ type: 'CHECK_TRANSACTIONS', check: 'verified' });
 			} else {
 				userDispatch({ type: 'FAILED' });
+				userDispatch({ type: 'CHECK_TRANSACTIONS', check: 'checked' });
 			}
 		};
 		if (isAuthenticated) {
@@ -70,33 +78,56 @@ function App() {
 	}, [isAuthenticated, userInfo]);
 
 	return (
-		<StyledApp>
-			{isAuthenticated ? (
-				<BrowserRouter>
-					{isAuthenticated && userInfo.location && <Navbar />}
-					{isAuthenticated ? (
-						!userInfo.location && legitCheck ? (
-							<InitialSetup />
-						) : (
-							<div className='pages'>
-								<Routes>
-									<Route path='/' element={<Home />} />
-									<Route path='/account' element={<Profile />} />
-									<Route path='/preferences' element={<WavyAnim />} />
-								</Routes>
-							</div>
-						)
+		<BrowserRouter>
+			<div>
+				{loadingObj.user === 'verified' && userInfo.location && <Navbar />}
+				{isAuthenticated && loadingObj.user === 'verified' ? (
+					<div className='pages'>
+						<Routes>
+							<Route path='/' element={<Home />} />
+							<Route path='/account' element={<Profile />} />
+							<Route path='/preferences' element={<WavyAnim />} />
+						</Routes>
+					</div>
+				) : !isLoading && loadingObj.user === 'loading' ? (
+					loadingObj.user === 'verified' || isAuthenticated ? (
+						<Loading />
 					) : (
-						//DO SOMETHING HERE TO FIX LOADING BUG
 						<SignUp />
-					)}
-				</BrowserRouter>
-			) : userStatus !== 'idle' || !isAuthenticated ? (
-				<SignUp />
-			) : (
-				<Loading />
-			)}
-		</StyledApp>
+					)
+				) : (
+					<Loading />
+				)}
+			</div>
+		</BrowserRouter>
+
+		// <StyledApp>
+		// 	{isAuthenticated ? (
+		// 		<BrowserRouter>
+		// 			{isAuthenticated && userInfo.location && <Navbar />}
+		// 			{isAuthenticated ? (
+		// 				!userInfo.location && legitCheck ? (
+		// 					<InitialSetup />
+		// 				) : (
+		// 					<div className='pages'>
+		// 						<Routes>
+		// 							<Route path='/' element={<Home />} />
+		// 							<Route path='/account' element={<Profile />} />
+		// 							<Route path='/preferences' element={<WavyAnim />} />
+		// 						</Routes>
+		// 					</div>
+		// 				)
+		// 			) : (
+		// 				//DO SOMETHING HERE TO FIX LOADING BUG
+		// 				<SignUp />
+		// 			)}
+		// 		</BrowserRouter>
+		// 	) : userStatus !== 'idle' || !isAuthenticated ? (
+		// 		<SignUp />
+		// 	) : (
+		// 		<Loading />
+		// 	)}
+		// </StyledApp>
 	);
 }
 

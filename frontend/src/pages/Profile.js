@@ -209,7 +209,7 @@ const StyledForm = styled.form`
 	flex-direction: column;
 	/* align-items: center; */
 	min-height: 550px;
-	padding: 32px 16px 56px;
+	padding: 32px 32px 56px;
 	/* border: 1px solid red; */
 	width: 100%;
 	.zoom-div {
