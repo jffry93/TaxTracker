@@ -1,13 +1,14 @@
-import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import { useTransactionContext } from '../../../hooks/useTransactionHook';
 import useDebounce from '../../../hooks/useDebounce';
 import { useAuth0 } from '@auth0/auth0-react';
 import TransactionForm from './TransactionForm';
+import TypeContainer from './TypeContainer';
+import addTransaction from '../../../utils/addTransaction';
+import { StyledMain } from '../../../styles/StyledTransactionForm';
 
 const TransactionFormContainer = ({ open, setOpen, handleClose }) => {
 	const { dispatch } = useTransactionContext();
-	//form values
 	const [client, setClient] = useState('');
 	const [title, setTitle] = useState('');
 	const [amount, setAmount] = useState('');
@@ -40,39 +41,16 @@ const TransactionFormContainer = ({ open, setOpen, handleClose }) => {
 		setImageValue('');
 		setEmptyFields([]);
 	};
-	const handleAddToDB = async () => {
-		const response = await fetch('/api/transactions', {
-			method: 'POST',
-			body: JSON.stringify(transactions),
-			headers: {
-				'Content-type': 'application/json',
-			},
-		});
-		const json = await response.json();
-		if (!response.ok) {
-			// setError(json.error);
-			setEmptyFields(json.emptyFields);
-		}
-		if (response.ok) {
-			clearForm();
-			console.log('New Transactions added', json);
-			dispatch({
-				type: 'CREATE_TRANSACTIONS',
-				payload: json.transaction,
-				paymentTotal: json.paymentTotal,
-				purchaseTotal: json.purchaseTotal,
-				provTax: json.provTax,
-				fedTax: json.fedTax,
-				postDeduction: json.postDeduction,
-			});
-			if (open) {
-				setOpen(false);
-			}
-		}
-	};
 
 	const handleDebounce = useDebounce(() => {
-		handleAddToDB();
+		addTransaction(
+			transactions,
+			setEmptyFields,
+			clearForm,
+			dispatch,
+			open,
+			setOpen
+		);
 	}, 500);
 
 	const debounceType = useDebounce(() => {
@@ -89,14 +67,7 @@ const TransactionFormContainer = ({ open, setOpen, handleClose }) => {
 
 	return (
 		<StyledMain>
-			<div className='button-container'>
-				<h2>
-					Add New <span>{type === 'payment' ? 'Invoice' : 'Receipt'}</span>
-				</h2>
-				<button onClick={debounceType}>
-					{type === 'payment' ? 'Invoice' : 'Receipt'}
-				</button>
-			</div>
+			<TypeContainer type={type} debounceType={debounceType} />
 			<TransactionForm
 				handleDebounce={handleDebounce}
 				handleClose={handleClose}
@@ -118,25 +89,3 @@ const TransactionFormContainer = ({ open, setOpen, handleClose }) => {
 };
 
 export default TransactionFormContainer;
-
-const StyledMain = styled.div`
-	flex: 1;
-	min-width: clamp(270px, 80vw, 400px);
-	width: 100%;
-	color: white;
-	.button-container {
-		/* border: 5px solid red; */
-		margin: 16px 16px;
-		display: flex;
-		justify-content: space-between;
-		gap: 16px;
-		h2 {
-			display: flex;
-			flex-direction: column;
-		}
-		button {
-			height: 51px;
-			font-size: 14px;
-		}
-	}
-`;

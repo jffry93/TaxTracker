@@ -8,6 +8,10 @@ const ImageModal = ({ showImage, setShowImage, imageData }) => {
 	return (
 		<StyledModal
 			open={showImage}
+			onClick={(e) => {
+				e.stopPropagation();
+				closeImageModal();
+			}}
 			onClose={(e) => {
 				e.stopPropagation();
 				closeImageModal();
