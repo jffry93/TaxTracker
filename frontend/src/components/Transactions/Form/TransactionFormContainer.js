@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
-import { useTransactionContext } from '../../hooks/useTransactionHook';
-import useDebounce from '../../hooks/useDebounce';
+import { useTransactionContext } from '../../../hooks/useTransactionHook';
+import useDebounce from '../../../hooks/useDebounce';
 import { useAuth0 } from '@auth0/auth0-react';
 import TransactionForm from './TransactionForm';
 

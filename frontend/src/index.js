@@ -12,22 +12,21 @@ import WavyAnim from './pages/WavyAnim';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	// <React.StrictMode>
-	<Auth0Provider
-		domain={process.env.REACT_APP_AUTH0_DOMAIN}
-		clientId={process.env.REACT_APP_AUTH0_CLIENTID}
-		redirectUri={window.location.origin}
-	>
-		<StyleContextProvider>
-			<TransactionsContextProvider>
-				<UserProvider>
-					<GlobalStyle />
-					<App />
-					<WavyAnim />
-					{/* <FloatingShapes /> */}
-				</UserProvider>
-			</TransactionsContextProvider>
-		</StyleContextProvider>
-	</Auth0Provider>
-	// </React.StrictMode>
+	<React.StrictMode>
+		<Auth0Provider
+			domain={process.env.REACT_APP_AUTH0_DOMAIN}
+			clientId={process.env.REACT_APP_AUTH0_CLIENTID}
+			redirectUri={window.location.origin}
+		>
+			<StyleContextProvider>
+				<TransactionsContextProvider>
+					<UserProvider>
+						<GlobalStyle />
+						<App />
+						<WavyAnim />
+					</UserProvider>
+				</TransactionsContextProvider>
+			</StyleContextProvider>
+		</Auth0Provider>
+	</React.StrictMode>
 );

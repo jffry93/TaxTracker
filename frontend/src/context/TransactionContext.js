@@ -109,7 +109,7 @@ export const transactionsReducer = (state, action) => {
 				...state,
 				sortType: action.payload,
 				transactions: state.transactions.sort((a, b) => {
-					console.log(a);
+					// console.log(a);
 					if (action.payload === 'recent') {
 						return new Date(b.createdAt) - new Date(a.createdAt);
 					}

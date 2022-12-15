@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { useAuth0 } from '@auth0/auth0-react';
-import TransactionFormContainer from '../Transactions/TransactionFormContainer';
+import TransactionFormContainer from '../Transactions/Form/TransactionFormContainer';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 

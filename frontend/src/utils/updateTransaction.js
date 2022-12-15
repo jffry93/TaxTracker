@@ -1,4 +1,4 @@
-const patchTransaction = async (userInfo, callback) => {
+const updateTransaction = async (userInfo, callback) => {
 	const response = await fetch('/api/transactions/user', {
 		method: 'POST',
 		body: JSON.stringify(userInfo),
@@ -7,8 +7,6 @@ const patchTransaction = async (userInfo, callback) => {
 		},
 	});
 	const json = await response.json();
-	// console.log(json.paymentTotal - json.purchaseTotal);
-	// console.log(json.provTax + json.fedTax + json.postDeduction);
 
 	if (response.ok) {
 		callback({
@@ -23,4 +21,4 @@ const patchTransaction = async (userInfo, callback) => {
 	}
 };
 
-export default patchTransaction;
+export default updateTransaction;

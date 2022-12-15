@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
-import handleImgToBase64 from '../../utils/handleImgToBase64';
+import handleImgToBase64 from '../../../utils/handleImgToBase64';
 
 const TransactionForm = ({
 	handleDebounce,

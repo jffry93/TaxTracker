@@ -1,6 +1,5 @@
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
-
 //Material UI Componenets
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -8,10 +7,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 
-import TemporaryDrawer from './TemporaryDrawer';
-import Settings from './Settings';
-import useDebounce from '../../hooks/useDebounce';
-import TransactionModal from '../Modals/TransactionModal';
+import TemporaryDrawer from './Drawer/TemporaryDrawer';
+import Settings from './Setting/Settings';
+import useDebounce from '../../../hooks/useDebounce';
+import TransactionModal from '../../Modals/TransactionModal';
 
 const MobileNav = () => {
 	const [open, setOpen] = useState(false);

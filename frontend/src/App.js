@@ -17,12 +17,10 @@ function App() {
 	const { user, isAuthenticated, isLoading } = useAuth0();
 	const { dispatch } = useContext(TransactionContext);
 	const { userInfo, loadingObj, userDispatch } = useContext(UserContext);
-
+	//------FETCH TRANSACTION DATA -------//
 	useEffect(() => {
 		isAuthenticated && fetchUserHandler(user, userDispatch);
 	}, [isAuthenticated, user, userDispatch]);
-
-	//------FETCH TRANSACTION DATA -------//
 	//GET REQUEST
 	useEffect(() => {
 		isAuthenticated && fetchInitialTransactions(user, dispatch, userDispatch);

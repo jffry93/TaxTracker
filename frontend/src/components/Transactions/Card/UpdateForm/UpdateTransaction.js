@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import styled from 'styled-components';
-import { useTransactionContext } from '../../hooks/useTransactionHook';
-import useDebounce from '../../hooks/useDebounce';
-import { style } from '@mui/system';
+import {
+	StyledForm,
+	StyledTop,
+	StyledButtonContainer,
+} from '../../../../styles/StyledCard';
+import { useTransactionContext } from '../../../../hooks/useTransactionHook';
+import useDebounce from '../../../../hooks/useDebounce';
 
 const UpdateTransaction = ({
 	transaction,
@@ -47,16 +50,10 @@ const UpdateTransaction = ({
 			sort: sortType,
 		});
 		setIsOpen(false);
-		console.log(filterType);
-		console.log(sortType);
-		// dispatch({ type: 'FILTER_TRANSACTIONS', payload: filterType });
-		// dispatch({ type: 'SORT_TRANSACTIONS', payload: sortType });
+		// console.log(filterType);
+		// console.log(sortType);
 	};
-	const handleSubmit = (e) => {
-		e.preventDefault();
 
-		handleUpdate();
-	};
 	const debounceClose = useDebounce(() => setShowUpdate(false));
 	const debounceUpdate = useDebounce(handleUpdate);
 
@@ -157,33 +154,3 @@ const UpdateTransaction = ({
 };
 
 export default UpdateTransaction;
-const StyledButtonContainer = styled.div`
-	display: flex;
-	gap: 8px;
-	button {
-		flex: 1;
-	}
-`;
-const StyledTop = styled.div`
-	display: flex;
-	gap: 8px;
-	.client-input {
-		width: 100%;
-	}
-	.amount-input {
-		width: 100px;
-	}
-`;
-const StyledForm = styled.form`
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-	padding: 16px 0 0 0;
-	width: 100%;
-	/* .title-input {
-		width: 100%;
-	}
-	.description-input {
-		width: 100%;
-	} */
-`;

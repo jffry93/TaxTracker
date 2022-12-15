@@ -3,7 +3,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useTransactionContext } from '../../hooks/useTransactionHook';
+import { useTransactionContext } from '../../../../hooks/useTransactionHook';
 
 const FilterSort = () => {
 	const { filterType, sortType, dispatch } = useTransactionContext();

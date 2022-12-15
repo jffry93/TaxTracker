@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 import { useTransactionContext } from '../hooks/useTransactionHook';
 import { useAuth0 } from '@auth0/auth0-react';
-
 // components
 import InitialSetup from '../pages/InitialSetup';
-
 import DoughnutChart from '../components/Chartjs/Doughnut';
 import ChartInfo from '../components/Chartjs/ChartInfo';
 import { UserContext } from '../context/UserContext';
@@ -23,7 +21,6 @@ const Home = () => {
 		<>
 			{loadingObj.transactions !== 'loading' && transactions ? (
 				<StyledData>
-					{/* <StyledTitle>TaxTracker</StyledTitle> */}
 					<StyledMain>
 						<div className='chart'>
 							<div className='container'>
@@ -64,7 +61,6 @@ const StyledMain = styled.div`
 		margin: auto;
 		width: 270px;
 		height: 270px;
-
 		position: relative;
 		.container {
 			position: absolute;

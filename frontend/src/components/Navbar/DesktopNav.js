@@ -5,11 +5,11 @@ import { useAuth0 } from '@auth0/auth0-react';
 //COMPONENTS
 import Login from '../Auth0/Login';
 import Logout from '../Auth0/Logout';
-import { useState, useRef, useEffect } from 'react';
+import { useRef } from 'react';
 
 const DesktopNav = () => {
-	const { user, isAuthenticated, isLoading } = useAuth0();
-	const [height, setHeight] = useState(0);
+	const { user } = useAuth0();
+
 	const ref = useRef(null);
 
 	return (
@@ -28,7 +28,6 @@ export default DesktopNav;
 
 const StyledDesktopNav = styled.header`
 	position: relative;
-
 	top: 0;
 	z-index: 1;
 	width: 100%;

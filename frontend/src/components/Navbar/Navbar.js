@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import useDebounce from '../../hooks/useDebounce';
 import { useStyleContext } from '../../hooks/useStyleHook';
 import DesktopNav from './DesktopNav';
-import MobileNav from './MobileNav';
+import MobileNav from '../Navbar/Mobile/MobileNav';
 
 const Navbar = () => {
 	const { dispatch, viewWidth, mobileBreakpoint } = useStyleContext();
@@ -15,7 +15,6 @@ const Navbar = () => {
 	useEffect(() => {
 		// subscribe to window resize event "onComponentDidMount"
 		window.addEventListener('resize', handleDebounce);
-
 		return () => {
 			// unsubscribe "onComponentDestroy"
 			window.removeEventListener('resize', handleResizeWindow);
