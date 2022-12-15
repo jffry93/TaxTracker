@@ -2,11 +2,10 @@ import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
-import DoorBackIcon from '@mui/icons-material/DoorBack';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import styled from 'styled-components';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useStyleContext } from '../../hooks/useStyleHook';
 import useDebounce from '../../hooks/useDebounce';
 
@@ -14,7 +13,7 @@ import { BiHome, BiUser, BiAdjust } from 'react-icons/bi';
 import { useRef, useState } from 'react';
 
 const Settings = () => {
-	const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+	const { logout } = useAuth0();
 	const { lightMode, setLightMode } = useStyleContext();
 	const [anchorEl, setAnchorEl] = useState(null);
 	const navigate = useNavigate();
@@ -59,7 +58,6 @@ const Settings = () => {
 			>
 				<MenuItem
 					onClick={useDebounce(() => {
-						console.log('yoooo');
 						navigate('/');
 					})}
 				>
@@ -71,7 +69,6 @@ const Settings = () => {
 
 				<MenuItem
 					onClick={useDebounce(() => {
-						console.log('yoooo');
 						navigate('/account');
 					})}
 				>
@@ -81,39 +78,26 @@ const Settings = () => {
 					</StyledItem>
 				</MenuItem>
 
-				<div
+				<MenuItem
 					onClick={useDebounce(() => {
-						console.log(lightMode);
 						setLightMode(!lightMode);
 					}, 500)}
 				>
-					<MenuItem>
-						<StyledItem>
-							<BiAdjust
-								size={20}
-								style={lightMode && { transform: 'scaleX(-1)' }}
-							/>
-							<p>{lightMode ? 'Dark' : 'Light'}</p>
-						</StyledItem>
-					</MenuItem>
-				</div>
-				{isAuthenticated ? (
-					<MenuItem
-						onClick={() => logout({ returnTo: window.location.origin })}
-					>
-						<StyledItem>
-							<MeetingRoomIcon />
-							<p>Logout</p>
-						</StyledItem>
-					</MenuItem>
-				) : (
-					<MenuItem onClick={() => loginWithRedirect()}>
-						<StyledItem>
-							<DoorBackIcon />
-							<p>Login</p>
-						</StyledItem>
-					</MenuItem>
-				)}
+					<StyledItem>
+						<BiAdjust
+							size={20}
+							style={lightMode && { transform: 'scaleX(-1)' }}
+						/>
+						<p>{lightMode ? 'Dark' : 'Light'}</p>
+					</StyledItem>
+				</MenuItem>
+
+				<MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
+					<StyledItem>
+						<MeetingRoomIcon />
+						<p>Logout</p>
+					</StyledItem>
+				</MenuItem>
 			</Popover>
 		</div>
 	);

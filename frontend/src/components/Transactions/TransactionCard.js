@@ -51,7 +51,7 @@ const PurchaseCard = ({ transaction }) => {
 		setIsOpen(!isOpen);
 		setShowUpdate(false);
 	});
-	const closeCard = useDebounce(() => setIsOpen(false));
+
 	const debounceDelete = useDebounce(handleDelete, 500);
 	const closeDeleteModal = useDebounce(() => setShowDelete(false));
 	const openDeleteModal = useDebounce(() => setShowDelete(true));
@@ -365,7 +365,6 @@ const StyledContent = styled.div`
 `;
 const StyledTitleContainer = styled(motion.div)`
 	width: 100%;
-	/* border: 1px solid red; */
 `;
 const StyledTitle = styled.p`
 	margin-bottom: 8px;

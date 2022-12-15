@@ -7,7 +7,7 @@ import { TransactionsContextProvider } from './context/TransactionContext';
 import GlobalStyle from './GlobalStyles';
 import { StyleContextProvider } from './context/StyleContext';
 import { UserProvider } from './context/UserContext';
-import FloatingShapes from './css/FloatingShapes';
+
 import WavyAnim from './pages/WavyAnim';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

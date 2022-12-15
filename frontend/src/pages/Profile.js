@@ -1,10 +1,12 @@
 import provArr from '../components/Data/Province';
 // import Zoom from 'react-medium-image-zoom';
 import Zoom from 'react-medium-image-zoom';
+
 import styled from 'styled-components';
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import { TransactionContext } from '../context/TransactionContext';
+import patchTransactions from '../utils/patchTransactions';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,7 +19,7 @@ const Profile = () => {
 	const { dispatch } = useContext(TransactionContext);
 	//USER CONTEXT
 	const { userInfo, userDispatch } = useContext(UserContext);
-	const { picture, nickname, email, location, age } = userInfo;
+	const { picture, nickname, email, location } = userInfo;
 	//TOGGLING STATE
 	const [updateActive, setUpdateActive] = useState(false);
 	const [submitState, setSubmitState] = useState(false);
@@ -29,33 +31,9 @@ const Profile = () => {
 
 	const handleFormSubmit = () => {
 		//FETCH IF LOCATION CHANGED
-
-		const fetchTransaction = async () => {
-			const response = await fetch('/api/transactions/user', {
-				method: 'POST',
-				body: JSON.stringify(userInfo),
-				headers: {
-					'Content-type': 'application/json',
-				},
-			});
-			const json = await response.json();
-			// console.log(json.paymentTotal - json.purchaseTotal);
-			// console.log(json.provTax + json.fedTax + json.postDeduction);
-
-			if (response.ok) {
-				dispatch({
-					type: 'SET_TRANSACTIONS',
-					transactions: json.transactions,
-					paymentTotal: json.paymentTotal,
-					purchaseTotal: json.purchaseTotal,
-					provTax: json.provTax,
-					fedTax: json.fedTax,
-					postDeduction: json.postDeduction,
-				});
-			}
-		};
-
-		fetchTransaction();
+		formName.length &&
+			formLocation.length &&
+			patchTransactions(userInfo, dispatch);
 
 		//UPDATE USER DATA
 		const patchHandler = async () => {
@@ -70,7 +48,6 @@ const Profile = () => {
 			setUpdateActive(false);
 			setSubmitState(false);
 			setFormName('');
-
 			setFormLocation('');
 			userDispatch({ type: 'UPDATE_USER', user: { ...data } });
 		};
@@ -94,28 +71,21 @@ const Profile = () => {
 					<h2>Profile</h2>
 					<div className='zoom-div'>
 						<Zoom classDialog={'custom-zoom'}>
-							<img alt='image of user' src={picture} />
+							<img alt='This is the user' src={picture} width='500' />
 						</Zoom>
 					</div>
 					<StyledSpan updateActive={updateActive}>Nickname</StyledSpan>
 					{!updateActive ? (
-						nickname ? (
-							<h2>{nickname}</h2>
-						) : (
-							<h2>Add Nickname</h2>
-						)
+						<h2>{nickname ? nickname : 'Add Nickname'}</h2>
 					) : (
 						<TextField
 							label='Nickname'
 							variant='outlined'
 							type='text'
-							placeholder='where u at?'
 							name='nickname'
 							value={formName}
 							onChange={(e) => {
 								setFormName((prev) => {
-									// console.log(prev);
-									// console.log(e.target.value);
 									return e.target.value;
 								});
 								setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -134,6 +104,7 @@ const Profile = () => {
 							<InputLabel htmlFor='sort'>Province</InputLabel>
 							<Select
 								placeholder='where u at?'
+								variant='outlined'
 								name='location'
 								value={formLocation}
 								onChange={(e) => {
@@ -193,27 +164,23 @@ const Profile = () => {
 export default Profile;
 
 const StyledZoom = styled.div`
-	/* border: 4px solid green; */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	/* align-items: center; */
-	/* display: none; */
+
 	min-height: 100vh;
 	width: 100%;
-	/* padding-bottom: 56px; */
 `;
 
 const StyledForm = styled.form`
 	display: flex;
 	flex-direction: column;
-	/* align-items: center; */
+
 	min-height: 550px;
 	padding: 32px 32px 56px;
-	/* border: 1px solid red; */
+
 	width: 100%;
 	.zoom-div {
-		/* border: 1px solid red; */
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -245,7 +212,6 @@ const StyledInfo = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-	border: 1px solid blue;
 	min-height: 631px;
 	h2 {
 		min-height: 56px;
@@ -253,6 +219,5 @@ const StyledInfo = styled.div`
 		display: flex;
 		align-items: flex-end;
 		padding-bottom: 8px;
-		/* font-size: clamp(16px, 15vw, 18px); */
 	}
 `;

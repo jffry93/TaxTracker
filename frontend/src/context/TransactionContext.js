@@ -1,5 +1,4 @@
-import { createContext, useReducer, useEffect } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
+import { createContext, useReducer } from 'react';
 
 export const TransactionContext = createContext();
 
@@ -63,7 +62,7 @@ export const transactionsReducer = (state, action) => {
 				if (action.sort === 'high-to-low') {
 					return b.amount - a.amount;
 				}
-				// return new Date(b.date) - new Date(a.date);
+				return undefined;
 			});
 			return {
 				...state,
@@ -126,6 +125,7 @@ export const transactionsReducer = (state, action) => {
 						return b.amount - a.amount;
 					}
 					// return new Date(b.date) - new Date(a.date);
+					return undefined;
 				}),
 			};
 		case 'TEST':
@@ -139,7 +139,6 @@ export const transactionsReducer = (state, action) => {
 };
 
 export const TransactionsContextProvider = ({ children }) => {
-	const { user, isAuthenticated, isLoading } = useAuth0();
 	const [state, dispatch] = useReducer(transactionsReducer, initialState);
 
 	return (
