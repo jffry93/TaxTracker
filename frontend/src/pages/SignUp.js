@@ -35,14 +35,14 @@ const StyledContainer = styled.div`
 	justify-content: center;
 
 	height: 100vh;
-	border: 1px solid white;
+	/* border: 1px solid white; */
 	padding: 64px;
 
 	/* background-color: var(--off-white); */
 `;
 const StyledContext = styled.div`
 	height: 100%;
-	max-height: 370px;
+	max-height: 320px;
 	display: flex;
 	flex-direction: column;
 	/* align-items: center; */

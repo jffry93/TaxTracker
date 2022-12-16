@@ -1,4 +1,4 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer, useState } from 'react';
 
 export const TransactionContext = createContext();
 
@@ -140,9 +140,12 @@ export const transactionsReducer = (state, action) => {
 
 export const TransactionsContextProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(transactionsReducer, initialState);
+	const [openForm, setOpenForm] = useState(false);
 
 	return (
-		<TransactionContext.Provider value={{ ...state, dispatch }}>
+		<TransactionContext.Provider
+			value={{ ...state, dispatch, openForm, setOpenForm }}
+		>
 			{children}
 		</TransactionContext.Provider>
 	);

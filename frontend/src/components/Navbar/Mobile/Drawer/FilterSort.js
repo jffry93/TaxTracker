@@ -23,7 +23,7 @@ const FilterSort = () => {
 				e.stopPropagation();
 			}}
 		>
-			<FormControl fullWidth>
+			<FormControl className='input-container'>
 				<InputLabel htmlFor='card-types'>Filter</InputLabel>
 				<Select
 					id='filter-input'
@@ -37,7 +37,7 @@ const FilterSort = () => {
 					<MenuItem value='payment'>Payments</MenuItem>
 				</Select>
 			</FormControl>
-			<FormControl fullWidth>
+			<FormControl className='input-container'>
 				<InputLabel htmlFor='sort'>Sort</InputLabel>
 				<Select
 					id='sort'
@@ -63,10 +63,15 @@ const StyledContainer = styled.div`
 	top: 0;
 	z-index: 1;
 	display: flex;
-	gap: 16px;
-	padding: 24px 16px 8px;
+	justify-content: center;
+	gap: 24px;
+	padding: 32px 24px 16px;
 	border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
 	background-color: rgba(255, 255, 255, 0.8);
+	.input-container {
+		flex: 1;
+		/* max-width: 250px; */
+	}
 	label {
 		position: absolute;
 		top: -15%;

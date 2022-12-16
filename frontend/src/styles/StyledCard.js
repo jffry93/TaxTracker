@@ -8,9 +8,9 @@ export const StyledCard = styled(motion.div)`
 	padding: 16px 24px;
 	width: ${(props) => {
 		if (!props.open) {
-			return 'clamp(220px, 50vw, 400px)';
+			return 'clamp(220px, 45vw, 250px)';
 		} else {
-			return '100%';
+			return `clamp(320px, 60vw, 370px)`;
 		}
 	}};
 	box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,

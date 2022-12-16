@@ -3,10 +3,9 @@ import { useTransactionContext } from '../hooks/useTransactionHook';
 import { useAuth0 } from '@auth0/auth0-react';
 // components
 import InitialSetup from '../pages/InitialSetup';
-import DoughnutChart from '../components/Chartjs/Doughnut';
-import ChartInfo from '../components/Chartjs/ChartInfo';
 import { UserContext } from '../context/UserContext';
 import { useContext } from 'react';
+import InfoContainer from '../components/Transactions/Information/InfoContainer';
 
 const Home = () => {
 	const { transactions, postDeduction } = useTransactionContext();
@@ -20,18 +19,7 @@ const Home = () => {
 	return (
 		<>
 			{loadingObj.transactions !== 'loading' && transactions ? (
-				<StyledData>
-					<StyledMain>
-						<div className='chart'>
-							<div className='container'>
-								<strong>INCOME</strong>
-								<h1>${Math.floor(postDeduction)}</h1>
-							</div>
-							<DoughnutChart />
-						</div>
-					</StyledMain>
-					<ChartInfo />
-				</StyledData>
+				<InfoContainer />
 			) : (
 				loadingObj.transactions === 'checked' && <InitialSetup />
 			)}

@@ -12,6 +12,7 @@ import { UserContext } from './context/UserContext';
 import { TransactionContext } from './context/TransactionContext';
 import fetchUserHandler from './utils/fetchUserHandler';
 import fetchInitialTransactions from './utils/fetchInitialTransactions';
+import styled from 'styled-components';
 
 function App() {
 	const { user, isAuthenticated, isLoading } = useAuth0();
@@ -28,7 +29,7 @@ function App() {
 
 	return (
 		<BrowserRouter>
-			<div>
+			<StyledApp>
 				{loadingObj.user === 'verified' && userInfo.location && <Navbar />}
 				{isAuthenticated && loadingObj.user === 'verified' ? (
 					<div className='pages'>
@@ -47,9 +48,17 @@ function App() {
 				) : (
 					<Loading />
 				)}
-			</div>
+			</StyledApp>
 		</BrowserRouter>
 	);
 }
 
 export default App;
+
+const StyledApp = styled.div`
+	.pages {
+		max-width: 400px;
+		/* width: 100%; */
+		margin: auto;
+	}
+`;

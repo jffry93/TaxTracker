@@ -11,11 +11,12 @@ import TemporaryDrawer from './Drawer/TemporaryDrawer';
 import Settings from './Setting/Settings';
 import useDebounce from '../../../hooks/useDebounce';
 import TransactionModal from '../../Modals/TransactionModal';
+import { useTransactionContext } from '../../../hooks/useTransactionHook';
 
 const MobileNav = () => {
-	const [open, setOpen] = useState(false);
-	const handleOpen = useDebounce(() => setOpen(true));
-	const handleClose = useDebounce(() => setOpen(false));
+	const { openForm, setOpenForm } = useTransactionContext();
+	const handleOpen = useDebounce(() => setOpenForm(true));
+	const handleClose = useDebounce(() => setOpenForm(false));
 
 	return (
 		<>
@@ -31,8 +32,8 @@ const MobileNav = () => {
 			</AppBar>
 			<TransactionModal
 				handleClose={handleClose}
-				open={open}
-				setOpen={setOpen}
+				open={openForm}
+				setOpen={setOpenForm}
 			/>
 		</>
 	);

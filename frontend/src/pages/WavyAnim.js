@@ -44,7 +44,7 @@ const StyledDiv = styled.div`
 	position: fixed;
 	top: 0;
 	z-index: -1;
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	min-height: 100vh;
 	max-height: 100vh;
 	width: 100vw;
