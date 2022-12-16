@@ -65,7 +65,7 @@ button{
   /* background-color: #594334; */
   background-color: var(--vivid-pink);
   color: white;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 input {
   border-radius: 4px;

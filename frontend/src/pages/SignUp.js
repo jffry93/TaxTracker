@@ -33,24 +33,25 @@ const StyledContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-
 	height: 100vh;
-	/* border: 1px solid white; */
-	padding: 64px;
-
-	/* background-color: var(--off-white); */
+	padding: 64px 40px;
 `;
 const StyledContext = styled.div`
 	height: 100%;
-	max-height: 320px;
+	max-height: 370px;
 	display: flex;
 	flex-direction: column;
-	/* align-items: center; */
 	justify-content: space-between;
+	button {
+		margin-top: 36px;
+		font-size: 20px;
+		padding: 16px;
+		width: 100%;
+		max-width: 327px;
+	}
 `;
 
 const StyledTitle = styled.h1`
-	/* font-size: 60px; */
-	font-size: clamp(3.125rem, 4vw, 60px);
+	font-size: clamp(3.125rem, 20vw, 60px);
 	margin-bottom: 32px;
 `;

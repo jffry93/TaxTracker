@@ -32,7 +32,7 @@ const StyledMain = styled.div`
 	display: flex;
 	flex-direction: column;
 
-	min-height: 631px;
+	min-height: 647px;
 	padding: 32px 32px 56px;
 
 	width: 100%;

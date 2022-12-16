@@ -15,6 +15,8 @@ const Danger = () => {
 export default Danger;
 
 const StyledTitle = styled.div`
+	position: relative;
+	top: 40px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

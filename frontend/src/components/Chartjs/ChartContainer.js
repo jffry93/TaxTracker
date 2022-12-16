@@ -46,6 +46,8 @@ const StyledContainer = styled.div`
 `;
 
 const StyledMain = styled.div`
+	/* display: flex;
+	flex-direction: column; */
 	width: 100%;
 	padding: 0px 0px 16px;
 	.chart {

@@ -8,7 +8,9 @@ const StartTracking = () => {
 	return (
 		<StyledContainer>
 			<h1>Ready to track your income?</h1>
-			<button onClick={useDebounce(() => setOpenForm(true))}>Click Here</button>
+			<button onClick={useDebounce(() => setOpenForm(true))}>
+				Press me 👇🏼
+			</button>
 		</StyledContainer>
 	);
 };
@@ -33,7 +35,7 @@ const StyledContainer = styled.div`
 		font-size: 32px;
 	}
 	button {
-		margin-top: 32px;
+		margin-top: 36px;
 		font-size: 24px;
 		padding: 16px;
 		width: 100%;

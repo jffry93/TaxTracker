@@ -18,6 +18,7 @@ export const StyledForm = styled.form`
 		}
 	}
 `;
+
 export const StyledSpan = styled.span`
 	opacity: ${(props) => {
 		return props.updateActive === true ? '0' : '1';
@@ -31,4 +32,7 @@ export const StyledButtonContainer = styled.div`
 
 	width: 100%;
 	margin-top: 16px;
+	button {
+		font-size: 24px;
+	}
 `;
