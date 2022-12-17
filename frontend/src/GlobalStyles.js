@@ -18,32 +18,49 @@ const GlobalStyle = createGlobalStyle`
   --dark-text: black;
 
   ${(props) =>
-		props.theme
-			? `
-      //dark mode
-
-      --wave-primary: #C7D3dd;
-      --wave-text: #37393a;
-      --wave-color-1: #AAAAAA;//top outer, button, bottom inner //dark color with light text
-      --wave-color-2:   #BBBBBB; // inner top and text ring
-      --wave-color-6:   #FFFFFF; // inner top and text ring
-      --wave-color-3: #eeeeee;// button
-      --wave-color-4: #DDDDDD;//bottom outer
-      --wave-color-5: #CCCCCC;//background //dark color with light text
-  `
-			: `  
+    props.theme
+      ? `
       //light mode
 
       --wave-primary: #C7D3dd;
-      --wave-text: #37393a;
-      --wave-color-1: #433633;//top outer, button, bottom inner //dark color with light text
-      --wave-color-2:   #F7F0F5; // inner top and text ring
-      --wave-color-3: #DECBB7;// undefined
-      --wave-color-4: #8F857D;//bottom outer
-      --wave-color-5: #5C5552;//background //dark color with light text
+      --wave-text: #012a4a;
+      --wave-color-1: #468faf;//top outer, button, bottom inner //dark color with light text
+      --wave-color-2:   #CEE5F2; // inner top and text ring
       --wave-color-6:   #FFFFFF; // inner top and text ring
+      --wave-color-3: #37393A;// button
+      --wave-color-4: #61a5c2;//bottom outer
+      --wave-color-5: #a9d6e5;//background //dark color with light text
+  `
+      : `  
+      //dark mode
+
+      --wave-primary: #C7D3dd;
+      --wave-text: #eeeeee;
+      --wave-color-1: #7C98B3;//top outer, button, bottom inner //dark color with light text
+      --wave-color-2:   #CEE5F2; // inner top and text ring
+      --wave-color-3: #37393A;// undefined
+      --wave-color-4: #ACCBE1;//bottom outer
+      --wave-color-5: #274060;//background //dark color with light text
+      --wave-color-6:   #FFFFFF; // inner top and text ring
+
+      
   `}
 
+/* --wave-text: #012a4a; 
+--wave-color-1: #468faf; //top outer blob and button and inner bottom
+  --wave-color-2: #CEE5F2; //inner top blob, thin stripe in bottom blob
+  --wave-color-3: #37393A; // font for now
+  --wave-color-4: #61a5c2; //outer bottom blob
+  --wave-color-5: #a9d6e5; // background */
+
+
+  //blue option
+  /* --wave-text: #eeeeee; 
+--wave-color-1: #00A6FB; //top outer blob and button and inner bottom
+  --wave-color-2: #003554; //inner top blob, thin stripe in bottom blob
+  --wave-color-3: #37393A; // font for now
+  --wave-color-4: #006494; //outer bottom blob
+  --wave-color-5: #0582CA; // background */
 
 }
 
@@ -95,8 +112,8 @@ button{
   font-weight: 500;
   border: none;
   /* background-color: #594334; */
-  background-color: var(--wave-color-3);
-  color: var(--wave-color-1);
+  background-color: #637081;
+  color: #eeeeee;
 
   border-radius: 8px;
 }
