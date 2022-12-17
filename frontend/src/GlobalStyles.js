@@ -16,6 +16,17 @@ const GlobalStyle = createGlobalStyle`
   --eggshell: #eae2ce;
   --light-text: white;
   --dark-text: black;
+
+--wave-color-1: #7E8D85;
+  --wave-color-2:   #F0F7F4;
+  --wave-color-3: #A2E3C4;
+  --wave-color-4: #B3BFB8;
+  --wave-color-5: #3C493F;
+  /* --wave-color-1: #5e565a;
+  --wave-color-2: #e4b363;
+  --wave-color-3: #e8e9eb;
+  --wave-color-4: #e0dfd5;
+  --wave-color-5: #313638; */
 }
 
 h1{
@@ -54,7 +65,7 @@ p{
 body{
   font-family: 'Poppins';
   /* background-color:var(--primary) ; */
-  color: var(--eggshell);
+  color: var(--wave-color-2);
 }
 a{
   text-decoration: none ;
@@ -65,7 +76,7 @@ button{
   font-size: 17px;
   border: none;
   /* background-color: #594334; */
-  background-color: var(--vivid-pink);
+  background-color: var(--wave-color-1);
   color: white;
   border-radius: 8px;
 }
