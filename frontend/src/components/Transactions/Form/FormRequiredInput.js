@@ -1,4 +1,4 @@
-import TextField from '@mui/material/TextField';
+import { StyledTextField } from '../../../styles/StyledTransactionForm';
 
 const FormRequiredInput = ({
 	name,
@@ -10,7 +10,7 @@ const FormRequiredInput = ({
 	msg,
 }) => {
 	return (
-		<TextField
+		<StyledTextField
 			error={emptyFields.includes(name) ? true : false}
 			value={state}
 			onChange={(e) => setState(e.target.value)}

@@ -1,9 +1,9 @@
 import React from 'react';
-import TextField from '@mui/material/TextField';
 import handleImgToBase64 from '../../../utils/handleImgToBase64';
 import {
 	StyledForm,
 	StyledImgDiv,
+	StyledTextField,
 } from '../../../styles/StyledTransactionForm';
 import FormInput from './FormInput';
 import FormRequiredInput from './FormRequiredInput';
@@ -68,7 +68,7 @@ const TransactionForm = ({
 					msg='Description'
 				/>
 				<StyledImgDiv errorStatus={emptyFields.includes('image')}>
-					<TextField
+					<StyledTextField
 						error={emptyFields.includes('image') ? true : false}
 						label={emptyFields.includes('image') ? 'Add an Image' : 'Document'}
 						value={imageValue}

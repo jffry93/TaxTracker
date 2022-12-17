@@ -35,7 +35,7 @@ const GlobalStyle = createGlobalStyle`
       //light mode
 
       --wave-primary: #C7D3dd;
-      --wave-text: #37393a;
+      --wave-text: #eeeeee;
       --wave-color-1: #433633;//top outer, button, bottom inner //dark color with light text
       --wave-color-2:   #F7F0F5; // inner top and text ring
       --wave-color-3: #DECBB7;// undefined

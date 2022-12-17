@@ -2,18 +2,19 @@ import { useTransactionContext } from '../../hooks/useTransactionHook';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import getPercentage from '../../utils/getPercentage';
-
-ChartJS.register(Title);
-// ChartJS.register(Tooltip);
-// const tooltip = ChartJS.defaults.plugins.tooltip;
-// tooltip.enabled = true;
-// tooltip.backgroundColor = '#666';
-// console.log(ChartJS.defaults.plugins.tooltip);
+import { useStyleContext } from '../../hooks/useStyleHook';
 
 const DoughnutChart = () => {
-	ChartJS.register(ArcElement, Tooltip, Legend);
+	ChartJS.register(ArcElement, Tooltip, Legend, Title);
 	const { purchaseTotal, provTax, fedTax, postDeduction } =
 		useTransactionContext();
+	const { lightMode } = useStyleContext();
+	console.log(lightMode);
+	const text = lightMode ? 'white' : 'black';
+	const color1 = lightMode ? '#EEEEEE' : '#AAAAAA';
+	const color2 = lightMode ? '#DDDDDD' : '#BBBBBB';
+	const color3 = lightMode ? '#BBBBBB' : '#DDDDDD';
+	const color4 = lightMode ? '#AAAAAA' : '#EEEEEE';
 
 	const data = {
 		labels: ['INCOME', 'PURCHASE', 'PROV TAX', 'FED TAX'],
@@ -21,18 +22,8 @@ const DoughnutChart = () => {
 			{
 				label: 'hello',
 				data: [postDeduction, purchaseTotal, provTax, fedTax],
-				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'#075026',
-					'#0a591b',
-				],
-				borderColor: [
-					'rgba(255, 99, 132, 1)',
-					'rgba(54, 162, 235, 1)',
-					'#36eb60',
-					'#0fc360',
-				],
+				backgroundColor: [color1, color2, color3, color4],
+				borderColor: [color1, color2, color3, color4],
 				borderWidth: 1,
 			},
 		],
@@ -89,7 +80,7 @@ const DoughnutChart = () => {
 					padding: 15,
 					boxHeight: 20,
 					boxWidth: 20,
-					color: 'green',
+					color: text,
 					font: {
 						size: 12,
 					},
@@ -97,7 +88,7 @@ const DoughnutChart = () => {
 				title: {
 					display: true,
 					text: 'LEGEND',
-					color: 'green',
+					color: text,
 					font: {
 						size: 18,
 						weight: 'bold',

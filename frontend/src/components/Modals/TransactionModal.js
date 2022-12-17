@@ -35,8 +35,7 @@ const StyledBox = styled(Box)`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-
-	background-color: #615d6c;
+	background-color: var(--wave-color-1);
 	border-radius: 1rem;
 
 	box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
