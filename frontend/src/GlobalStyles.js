@@ -17,16 +17,34 @@ const GlobalStyle = createGlobalStyle`
   --light-text: white;
   --dark-text: black;
 
---wave-color-1: #7E8D85;
-  --wave-color-2:   #F0F7F4;
-  --wave-color-3: #A2E3C4;
-  --wave-color-4: #B3BFB8;
-  --wave-color-5: #3C493F;
-  /* --wave-color-1: #5e565a;
-  --wave-color-2: #e4b363;
-  --wave-color-3: #e8e9eb;
-  --wave-color-4: #e0dfd5;
-  --wave-color-5: #313638; */
+  ${(props) =>
+		props.theme
+			? `
+      //dark mode
+
+      --wave-primary: #C7D3dd;
+      --wave-text: #37393a;
+      --wave-color-1: #AAAAAA;//top outer, button, bottom inner //dark color with light text
+      --wave-color-2:   #BBBBBB; // inner top and text ring
+      --wave-color-6:   #FFFFFF; // inner top and text ring
+      --wave-color-3: #eeeeee;// button
+      --wave-color-4: #DDDDDD;//bottom outer
+      --wave-color-5: #CCCCCC;//background //dark color with light text
+  `
+			: `  
+      //light mode
+
+      --wave-primary: #C7D3dd;
+      --wave-text: #37393a;
+      --wave-color-1: #433633;//top outer, button, bottom inner //dark color with light text
+      --wave-color-2:   #F7F0F5; // inner top and text ring
+      --wave-color-3: #DECBB7;// undefined
+      --wave-color-4: #8F857D;//bottom outer
+      --wave-color-5: #5C5552;//background //dark color with light text
+      --wave-color-6:   #FFFFFF; // inner top and text ring
+  `}
+
+
 }
 
 h1{
@@ -65,19 +83,21 @@ p{
 body{
   font-family: 'Poppins';
   /* background-color:var(--primary) ; */
-  color: var(--wave-color-2);
+  color: var(--wave-text);
 }
 a{
   text-decoration: none ;
 }
 
 button{
-  padding: 12px;
+  padding: 8px 12px;
   font-size: 17px;
+  font-weight: 500;
   border: none;
   /* background-color: #594334; */
-  background-color: var(--wave-color-1);
-  color: white;
+  background-color: var(--wave-color-3);
+  color: var(--wave-color-1);
+
   border-radius: 8px;
 }
 input {

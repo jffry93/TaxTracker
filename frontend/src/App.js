@@ -13,11 +13,14 @@ import { TransactionContext } from './context/TransactionContext';
 import fetchUserHandler from './utils/fetchUserHandler';
 import fetchInitialTransactions from './utils/fetchInitialTransactions';
 import styled from 'styled-components';
+import GlobalStyle from './GlobalStyles';
+import { useStyleContext } from './hooks/useStyleHook';
 
 function App() {
 	const { user, isAuthenticated, isLoading } = useAuth0();
 	const { dispatch } = useContext(TransactionContext);
 	const { userInfo, loadingObj, userDispatch } = useContext(UserContext);
+	const { lightMode } = useStyleContext();
 	//------FETCH TRANSACTION DATA -------//
 	useEffect(() => {
 		isAuthenticated && fetchUserHandler(user, userDispatch);
@@ -29,6 +32,7 @@ function App() {
 
 	return (
 		<BrowserRouter>
+			<GlobalStyle theme={lightMode} />
 			<StyledApp>
 				{loadingObj.user === 'verified' && userInfo.location && <Navbar />}
 				{isAuthenticated && loadingObj.user === 'verified' ? (

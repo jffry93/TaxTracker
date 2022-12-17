@@ -21,7 +21,6 @@ root.render(
 		<StyleContextProvider>
 			<TransactionsContextProvider>
 				<UserProvider>
-					<GlobalStyle />
 					<App />
 					<WavyAnim />
 				</UserProvider>

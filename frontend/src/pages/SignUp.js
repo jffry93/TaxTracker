@@ -4,8 +4,7 @@ import styled from 'styled-components';
 import useDebounce from '../hooks/useDebounce';
 
 const SignUp = () => {
-	const { loginWithRedirect, logout, isAuthenticated, loginWithPopup } =
-		useAuth0();
+	const { loginWithRedirect } = useAuth0();
 
 	const debounceLogin = useDebounce(() => {
 		loginWithRedirect();
