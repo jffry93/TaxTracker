@@ -36,7 +36,7 @@ const StyledContainer = styled.div`
 	}
 	button {
 		margin-top: 36px;
-		font-size: 24px;
+		font-size: 20px;
 		padding: 16px;
 		width: 100%;
 		max-width: 327px;

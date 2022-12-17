@@ -33,6 +33,6 @@ export const StyledButtonContainer = styled.div`
 	width: 100%;
 	margin-top: 16px;
 	button {
-		font-size: 24px;
+		font-size: 20px;
 	}
 `;

@@ -14,6 +14,8 @@ const GlobalStyle = createGlobalStyle`
   --off-white: #1e1e1e;
   --error: #e7195a;
   --eggshell: #eae2ce;
+  --light-text: white;
+  --dark-text: black;
 }
 
 h1{
