@@ -14,8 +14,8 @@ const ChartContainer = () => {
 					{postDeduction < 0 && <Danger />}
 					<div className='chart'>
 						<div className='container'>
-							<strong>INCOME</strong>
-							<h1>${Math.floor(postDeduction)}</h1>
+							<h1>INCOME</h1>
+							<h2>${Math.floor(postDeduction)}</h2>
 						</div>
 						<DoughnutChart />
 					</div>
@@ -35,41 +35,47 @@ const StyledData = styled.div`
 	justify-content: center;
 
 	min-height: 100vh;
-	padding-bottom: 56px;
 	width: 100%;
 	max-width: 1200px;
+	padding: 0 32px 56px;
 	margin: 0 auto;
 `;
 
 const StyledContainer = styled.div`
-	/* border: 1px solid green; */
+	width: 100%;
 `;
 
 const StyledMain = styled.div`
-	/* display: flex;
-	flex-direction: column; */
 	width: 100%;
-	padding: 0px 0px 16px;
+	padding: 24px 0px 16px;
 	.chart {
 		margin: auto;
-		width: 320px;
-		height: 250px;
-		position: relative;
+		width: 100%;
+
 		.container {
 			width: 50px;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			/* text-align: ; */
+			/* 
 			position: absolute;
-			top: 60%;
-			left: 66%;
-			transform: translate(-50%, -50%);
+			top: 45%;
+			left: 47%;
+			transform: translate(-50%, -50%); */
+			/* border: 1px solid red; */
 			strong {
 				margin-left: 16px;
-				font-size: 20px;
+				font-size: 24px;
 			}
 			h1 {
 				font-size: 40px;
+				/* width: 100%; */
+				/* border: 1px solid red; */
+			}
+			h2 {
+				font-size: 32px;
+				margin: 8px 0 16px;
 			}
 		}
 	}

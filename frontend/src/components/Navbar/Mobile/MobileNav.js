@@ -1,5 +1,4 @@
 import { styled } from '@mui/material/styles';
-import { useState } from 'react';
 //Material UI Componenets
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -49,15 +48,6 @@ const MobileNav = () => {
 };
 
 export default MobileNav;
-
-// const StyledFab = styled(Fab)({
-// 	position: 'absolute',
-// 	zIndex: 1,
-// 	top: -30,
-// 	left: 0,
-// 	right: 0,
-// 	margin: '0 auto',
-// });
 
 const StyledFab = styled(Fab)`
 	position: absolute;

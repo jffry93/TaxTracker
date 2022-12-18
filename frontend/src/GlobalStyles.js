@@ -110,7 +110,7 @@ a{
 }
 
 button{
-  padding: 8px 12px;
+  padding: 12px 16px;
   font-size: 17px;
   font-weight: 500;
   border: none;
