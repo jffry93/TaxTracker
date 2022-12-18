@@ -4,7 +4,8 @@ import styled from 'styled-components';
 export const StyledCard = styled(motion.div)`
 	position: relative;
 	overflow: hidden;
-	background-color: var(--primary);
+	background-color: var(--wave-color-1);
+	color: var(--wave-text);
 	padding: 16px 24px;
 	width: ${(props) => {
 		if (!props.open) {
@@ -64,7 +65,7 @@ export const StyledButtonContainer = styled.div`
 export const StyledActionDiv = styled(motion.div)`
 	/* position: absolute; */
 	right: 0;
-	background-color: var(--vivid-pink);
+	background-color: var(--wave-color-4);
 	border-radius: 50%;
 	.confirm-container {
 		height: 35px;

@@ -20,10 +20,19 @@ const MobileNav = () => {
 
 	return (
 		<>
-			<AppBar position='fixed' color='primary' sx={{ top: 'auto', bottom: 0 }}>
+			<AppBar
+				position='fixed'
+				color='primary'
+				sx={{ top: 'auto', bottom: 0, backgroundColor: 'var(--wave-color-1)' }}
+			>
 				<Toolbar>
 					<TemporaryDrawer />
-					<StyledFab onClick={handleOpen} color='secondary' aria-label='add'>
+					<StyledFab
+						onClick={handleOpen}
+						sx={{ backgroundColor: 'var(--wave-color-4)' }}
+						color='secondary'
+						aria-label='add'
+					>
 						<AddIcon />
 					</StyledFab>
 					<Box sx={{ flexGrow: 1 }} />
@@ -41,11 +50,23 @@ const MobileNav = () => {
 
 export default MobileNav;
 
-const StyledFab = styled(Fab)({
-	position: 'absolute',
-	zIndex: 1,
-	top: -30,
-	left: 0,
-	right: 0,
-	margin: '0 auto',
-});
+// const StyledFab = styled(Fab)({
+// 	position: 'absolute',
+// 	zIndex: 1,
+// 	top: -30,
+// 	left: 0,
+// 	right: 0,
+// 	margin: '0 auto',
+// });
+
+const StyledFab = styled(Fab)`
+	position: absolute;
+	z-index: 1;
+	top: -30px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	&:hover {
+		background-color: var(--wave-color-3);
+	}
+`;

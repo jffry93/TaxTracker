@@ -53,12 +53,14 @@ const SettingButtons = () => {
 		<>
 			{buttonsArray.map((button, index) => {
 				return (
-					<MenuItem key={button.name + index} onClick={button.func}>
-						<StyledItem>
-							{button.icon()}
-							<p>{button.name}</p>
-						</StyledItem>
-					</MenuItem>
+					<StyledMenuItem key={button.name + index}>
+						<MenuItem onClick={button.func}>
+							<StyledItem>
+								{button.icon()}
+								<p>{button.name}</p>
+							</StyledItem>
+						</MenuItem>
+					</StyledMenuItem>
 				);
 			})}
 		</>
@@ -66,6 +68,11 @@ const SettingButtons = () => {
 };
 
 export default SettingButtons;
+const StyledMenuItem = styled.div`
+	&:hover {
+		background-color: var(--wave-color-3);
+	}
+`;
 
 const StyledItem = styled.div`
 	width: 120px;
@@ -73,6 +80,7 @@ const StyledItem = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	gap: 32px;
+
 	p {
 		font-weight: 500;
 	}

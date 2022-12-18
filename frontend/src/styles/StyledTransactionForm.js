@@ -1,10 +1,12 @@
+import { TextField } from '@mui/material';
 import styled from 'styled-components';
 
 export const StyledMain = styled.div`
 	flex: 1;
 	min-width: clamp(270px, 80vw, 400px);
 	width: 100%;
-	color: white;
+	/* color: var(--wave-text); */
+
 	.button-container {
 		/* border: 5px solid red; */
 		margin: 16px 16px;
@@ -18,6 +20,7 @@ export const StyledMain = styled.div`
 		button {
 			height: 51px;
 			font-size: 14px;
+			color: var(--wave-text);
 		}
 	}
 `;
@@ -27,14 +30,17 @@ export const StyledForm = styled.form`
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
+		color: var(--wave-text);
 
 		padding: 0 16px 32px 16px;
 		label {
 			font-size: 12px;
 			margin-bottom: 2px;
+			color: var(--wave-text);
 		}
 		input {
 			padding: 14px 16.5px;
+			color: var(--wave-text);
 		}
 
 		input::placeholder {
@@ -78,6 +84,7 @@ export const StyledBtnDiv = styled.div`
 		height: 51px;
 		flex: 1;
 		font-size: 14px;
+		color: var(--wave-text);
 	}
 `;
 
@@ -90,5 +97,22 @@ export const StyledImgDiv = styled.div`
 		height: 23px;
 		font-size: 11px;
 		color: ${(props) => (props.errorStatus ? 'red' : 'black')};
+	}
+`;
+
+export const StyledTextField = styled(TextField)`
+	/* border: 0.5px white solid !important; */
+	& label.Mui-focused {
+		color: var(--wave-text);
+		/* border: 0.5px white solid; */
+	}
+	& .MuiOutlinedInput-root {
+		/* border: 0.2px white solid; */
+		& fieldset {
+			border: 0.2px var(--wave-text) solid;
+		}
+		&.Mui-focused fieldset {
+			border: 0.2px var(--wave-text) solid;
+		}
 	}
 `;

@@ -12,7 +12,7 @@ export const StyledDeleteBox = styled(Box)`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background-color: #1e1e1e;
+	background-color: var(--wave-color-1);
 	border-radius: 12px;
 	padding: 48px 32px 60px;
 	h2 {
