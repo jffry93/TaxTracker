@@ -40,7 +40,7 @@ const TransactionForm = ({
 					<div className='info-container second-item'>
 						<FormRequiredInput
 							type='number'
-							name='number'
+							name='amount'
 							state={amount}
 							setState={setAmount}
 							emptyFields={emptyFields}

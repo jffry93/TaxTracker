@@ -18,8 +18,8 @@ const GlobalStyle = createGlobalStyle`
   --dark-text: black;
 
   ${(props) =>
-    props.theme
-      ? `
+		props.theme
+			? `
       //light mode
 
       --wave-primary: #C7D3dd;
@@ -30,8 +30,10 @@ const GlobalStyle = createGlobalStyle`
       --wave-color-3: #37393A;// button
       --wave-color-4: #61a5c2;//bottom outer
       --wave-color-5: #a9d6e5;//background //dark color with light text
+      --wave-color-6:   #FFFFFF; // inner top and text ring
+      --settings-bg: #CEE5F2;
   `
-      : `  
+			: `  
       //dark mode
 
       --wave-primary: #C7D3dd;
@@ -42,7 +44,7 @@ const GlobalStyle = createGlobalStyle`
       --wave-color-4: #ACCBE1;//bottom outer
       --wave-color-5: #274060;//background //dark color with light text
       --wave-color-6:   #FFFFFF; // inner top and text ring
-
+      --settings-bg: #7C98B3;
       
   `}
 
@@ -51,7 +53,8 @@ const GlobalStyle = createGlobalStyle`
   --wave-color-2: #CEE5F2; //inner top blob, thin stripe in bottom blob
   --wave-color-3: #37393A; // font for now
   --wave-color-4: #61a5c2; //outer bottom blob
-  --wave-color-5: #a9d6e5; // background */
+  --wave-color-5: #a9d6e5; // background 
+  */
 
 
   //blue option
@@ -127,6 +130,13 @@ input {
   max-width: 1200px ;
   margin: 0 auto;
   padding: 0px 32px ;
+}
+.MuiList-root{
+  background-color:var(--wave-color-2);
+  color: var(--wave-text);
+  li:hover{
+    background-color: rgba(150,150,150,0.1)
+  }
 }
 `;
 

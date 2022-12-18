@@ -69,8 +69,9 @@ const SettingButtons = () => {
 
 export default SettingButtons;
 const StyledMenuItem = styled.div`
+	background-color: var(--settings-bg);
 	&:hover {
-		background-color: var(--wave-color-3);
+		background-color: var(--settings-bg);
 	}
 `;
 
@@ -82,11 +83,11 @@ const StyledItem = styled.div`
 	gap: 32px;
 
 	p {
+		color: var(--wave-text);
 		font-weight: 500;
 	}
-	button {
-		background-color: transparent;
-		color: black;
-		padding: 8px;
+	svg {
+		color: var(--wave-text);
+		/* padding: 8px; */
 	}
 `;

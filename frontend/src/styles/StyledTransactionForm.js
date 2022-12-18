@@ -6,6 +6,15 @@ export const StyledMain = styled.div`
 	min-width: clamp(270px, 80vw, 400px);
 	width: 100%;
 	/* color: var(--wave-text); */
+	button {
+		font-size: 14px;
+		height: 51px;
+		background-color: var(--wave-color-1);
+		color: var(--wave-color-2);
+	}
+	button:hover {
+		background-color: var(--wave-color-4);
+	}
 
 	.button-container {
 		/* border: 5px solid red; */
@@ -17,11 +26,6 @@ export const StyledMain = styled.div`
 			display: flex;
 			flex-direction: column;
 		}
-		button {
-			height: 51px;
-			font-size: 14px;
-			color: var(--wave-text);
-		}
 	}
 `;
 
@@ -31,7 +35,6 @@ export const StyledForm = styled.form`
 		flex-direction: column;
 		gap: 10px;
 		color: var(--wave-text);
-
 		padding: 0 16px 32px 16px;
 		label {
 			font-size: 12px;
@@ -81,11 +84,12 @@ export const StyledBtnDiv = styled.div`
 	display: flex;
 	gap: 8px;
 	button {
-		height: 51px;
+		/* height: 51px; */
 		flex: 1;
-		font-size: 14px;
-		color: var(--wave-text);
 	}
+	/* button:last-child {
+		background-color: var(--wave-color-2);
+	} */
 `;
 
 export const StyledImgDiv = styled.div`
@@ -96,23 +100,32 @@ export const StyledImgDiv = styled.div`
 		width: 100%;
 		height: 23px;
 		font-size: 11px;
-		color: ${(props) => (props.errorStatus ? 'red' : 'black')};
+		color: ${(props) =>
+			props.errorStatus ? 'var(--error)' : 'var(--wave-text)'}!important;
 	}
 `;
 
 export const StyledTextField = styled(TextField)`
-	/* border: 0.5px white solid !important; */
+	label {
+		color: ${(props) =>
+			props.error ? 'var(--error)' : 'var(--wave-text)'}!important;
+	}
+	.MuiOutlinedInput-root {
+	}
+
 	& label.Mui-focused {
-		color: var(--wave-text);
-		/* border: 0.5px white solid; */
+		color: ${(props) => (props.error ? 'var(--error)' : 'var(--wave-text)')};
 	}
 	& .MuiOutlinedInput-root {
-		/* border: 0.2px white solid; */
 		& fieldset {
 			border: 0.2px var(--wave-text) solid;
 		}
+		& fieldset:hover {
+			border: 1px green solid;
+		}
 		&.Mui-focused fieldset {
-			border: 0.2px var(--wave-text) solid;
+			border: 0.2px
+				${(props) => (props.error ? 'var(--error)' : 'var(--wave-text)')} solid;
 		}
 	}
 `;

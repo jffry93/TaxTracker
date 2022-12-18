@@ -4,7 +4,7 @@ const FormInput = ({ state, setState }) => {
 	const styles = (theme) => ({
 		notchedOutline: {
 			borderWidth: '1px',
-			borderColor: 'yellow !important',
+			// borderColor: 'yellow !important',
 		},
 	});
 	return (

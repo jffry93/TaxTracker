@@ -23,7 +23,7 @@ export const widthReducer = (state, action) => {
 
 export const StyleContextProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(widthReducer, initialState);
-	const [lightMode, setLightMode] = useState(false);
+	const [lightMode, setLightMode] = useState(true);
 	const [dangerZone, setDangerZone] = useState(false);
 
 	return (

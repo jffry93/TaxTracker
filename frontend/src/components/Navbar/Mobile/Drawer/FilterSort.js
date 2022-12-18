@@ -58,6 +58,12 @@ const FilterSort = () => {
 
 export default FilterSort;
 
+// const StyledMenuItem = styled(MenuItem)`
+// 	&:hover {
+// 		background-color: blue !important;
+// 	}
+// `;
+
 const StyledContainer = styled.div`
 	position: sticky;
 	top: 0;
@@ -67,14 +73,30 @@ const StyledContainer = styled.div`
 	gap: 24px;
 	padding: 32px 24px 16px;
 	border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: var(--wave-color-1);
+	color: var(--wave-text);
 	.input-container {
 		flex: 1;
 		/* max-width: 250px; */
+		fieldset {
+			border: none;
+		}
+		.MuiInputBase-root {
+			color: var(--wave-text);
+			outline: 1px solid var(--wave-text);
+		}
 	}
+
 	label {
+		color: var(--wave-text);
 		position: absolute;
 		top: -15%;
 		padding-bottom: 16px;
+	}
+	label:focus {
+		color: red;
+	}
+	.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+		color: var(--wave-text);
 	}
 `;

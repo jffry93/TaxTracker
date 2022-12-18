@@ -10,11 +10,11 @@ const DoughnutChart = () => {
 		useTransactionContext();
 	const { lightMode } = useStyleContext();
 	console.log(lightMode);
-	const text = lightMode ? 'white' : 'black';
-	const color1 = lightMode ? '#EEEEEE' : '#AAAAAA';
-	const color2 = lightMode ? '#DDDDDD' : '#BBBBBB';
-	const color3 = lightMode ? '#BBBBBB' : '#DDDDDD';
-	const color4 = lightMode ? '#AAAAAA' : '#EEEEEE';
+	const text = lightMode ? '#012a4a' : '#eeeeee';
+	const color1 = lightMode ? '#468faf' : '#AAAAAA';
+	const color2 = lightMode ? '#61a5c2' : '#BBBBBB';
+	const color3 = lightMode ? '#DDDDDD' : '#DDDDDD';
+	const color4 = lightMode ? '#FFFFFF' : '#EEEEEE';
 
 	const data = {
 		labels: ['INCOME', 'PURCHASE', 'PROV TAX', 'FED TAX'],
@@ -23,7 +23,7 @@ const DoughnutChart = () => {
 				label: 'hello',
 				data: [postDeduction, purchaseTotal, provTax, fedTax],
 				backgroundColor: [color1, color2, color3, color4],
-				borderColor: [color1, color2, color3, color4],
+				borderColor: [color1 + 80, color2 + 90, color3, color4],
 				borderWidth: 1,
 			},
 		],
