@@ -3,9 +3,7 @@ import styled from 'styled-components';
 
 export const StyledMain = styled.div`
 	flex: 1;
-	min-width: clamp(270px, 80vw, 400px);
 	width: 100%;
-	/* color: var(--wave-text); */
 	button {
 		font-size: 14px;
 		height: 51px;
@@ -17,7 +15,6 @@ export const StyledMain = styled.div`
 	}
 
 	.button-container {
-		/* border: 5px solid red; */
 		margin: 16px 16px;
 		display: flex;
 		justify-content: space-between;
@@ -84,12 +81,8 @@ export const StyledBtnDiv = styled.div`
 	display: flex;
 	gap: 8px;
 	button {
-		/* height: 51px; */
 		flex: 1;
 	}
-	/* button:last-child {
-		background-color: var(--wave-color-2);
-	} */
 `;
 
 export const StyledImgDiv = styled.div`

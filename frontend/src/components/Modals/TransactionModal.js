@@ -8,7 +8,7 @@ const TransactionModal = ({ handleClose, open, setOpen }) => {
 	const { isAuthenticated } = useAuth0();
 
 	return (
-		<Modal
+		<StyledModal
 			// keepMounted
 			open={open}
 			onClose={handleClose}
@@ -24,20 +24,24 @@ const TransactionModal = ({ handleClose, open, setOpen }) => {
 					/>
 				)}
 			</StyledBox>
-		</Modal>
+		</StyledModal>
 	);
 };
 
 export default TransactionModal;
 
+const StyledModal = styled(Modal)`
+	padding: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
 const StyledBox = styled(Box)`
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	max-width: 336px;
+	width: 100%;
 	background-color: var(--wave-color-5);
 	border-radius: 1rem;
-
 	box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
 		rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
 		rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;

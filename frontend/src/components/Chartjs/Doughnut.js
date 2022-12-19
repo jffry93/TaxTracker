@@ -1,6 +1,6 @@
 import { useTransactionContext } from '../../hooks/useTransactionHook';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
+import { Doughnut, Pie } from 'react-chartjs-2';
 import getPercentage from '../../utils/getPercentage';
 import { useStyleContext } from '../../hooks/useStyleHook';
 
@@ -23,7 +23,7 @@ const DoughnutChart = () => {
 				label: 'hello',
 				data: [postDeduction, purchaseTotal, provTax, fedTax],
 				backgroundColor: [color1, color2, color3, color4],
-				borderColor: [color1 + 80, color2 + 90, color3, color4],
+				borderColor: ['#FFFFFF80', '#DDDDDD80', '#BBBBBB80', '#AAAAAA80'],
 				borderWidth: 1,
 			},
 		],
@@ -94,7 +94,7 @@ const DoughnutChart = () => {
 						weight: 'bold',
 					},
 				},
-				display: true,
+				display: false,
 				position: 'left',
 			},
 			scales: {

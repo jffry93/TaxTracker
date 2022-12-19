@@ -37,13 +37,20 @@ export default ChartInfo;
 
 const StyledContainer = styled.div`
 	width: 100%;
-	padding: 16px 32px 0;
+	/* padding: 16px 32px 0; */
 
 	.container {
 		padding: 0;
-		margin: 16px 8px;
+		margin: 16px 0px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		strong {
+			font-size: 24px;
+		}
+		h3 {
+			font-size: 24px;
+			color: var(--wave-text);
+		}
 	}
 `;
