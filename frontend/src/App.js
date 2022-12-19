@@ -40,7 +40,8 @@ function App() {
 						<Routes>
 							<Route path='/' element={<Home />} />
 							<Route path='/account' element={<Profile />} />
-							<Route path='/preferences' element={<WavyAnim />} />
+							<Route path='*' element={<Home />} />
+							{/* <Route path='/preferences' element={<WavyAnim />} /> */}
 						</Routes>
 					</div>
 				) : !isLoading && loadingObj.user === 'loading' ? (

@@ -29,7 +29,7 @@ const StyledContainer = styled.div`
 	padding: 0 24px;
 
 	h1 {
-		font-size: 50px;
+		font-size: 48px;
 	}
 	h2 {
 		font-size: 32px;

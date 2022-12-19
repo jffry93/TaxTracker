@@ -4,11 +4,9 @@ import styled from 'styled-components';
 const Danger = () => {
 	return (
 		<StyledTitle>
-			<h1>
-				😵😵‍💫<span>Get it</span>😵‍💫😵
-			</h1>
+			<h1>😵😵‍💫Get it😵‍💫😵</h1>
 			<h2>together!!</h2>
-			<p>She's gonna leave you!!</p>
+			<p>She's going to leave you!!</p>
 		</StyledTitle>
 	);
 };
@@ -25,15 +23,16 @@ const StyledTitle = styled.div`
 	margin: 0 24px 16px;
 	h1 {
 		width: fit-content;
-		font-size: clamp(32px, 10vw, 50px);
+		font-size: clamp(32px, 10vw, 40px);
 
 		display: flex;
 		justify-content: space-between;
 	}
 	h2 {
-		font-size: clamp(32px, 10vw, 50px);
+		font-size: clamp(32px, 10vw, 48px);
 	}
 	p {
-		margin-top: 32px;
+		font-weight: 400;
+		margin-top: 24px;
 	}
 `;
