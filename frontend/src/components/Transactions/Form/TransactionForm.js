@@ -45,7 +45,7 @@ const TransactionForm = ({
 							setState={setAmount}
 							emptyFields={emptyFields}
 							errorMsg='How much?'
-							msg='Number'
+							msg='Amount'
 						/>
 					</div>
 				</div>

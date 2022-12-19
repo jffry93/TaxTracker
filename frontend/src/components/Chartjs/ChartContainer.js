@@ -10,17 +10,22 @@ const ChartContainer = () => {
 	return (
 		<StyledData>
 			<StyledContainer>
-				<StyledMain>
-					{postDeduction < 0 && <Danger />}
-					<div className='chart'>
-						<div className='container'>
-							<h1>INCOME</h1>
-							<h2>${Math.floor(postDeduction)}</h2>
-						</div>
-						<DoughnutChart />
-					</div>
-				</StyledMain>
-				<ChartInfo />
+				{postDeduction < 0 ? (
+					<Danger />
+				) : (
+					<>
+						<StyledMain>
+							<div className='chart'>
+								<div className='container'>
+									<h1>INCOME</h1>
+									<h2>${Math.floor(postDeduction)}</h2>
+								</div>
+								<DoughnutChart />
+							</div>
+						</StyledMain>
+						<ChartInfo />
+					</>
+				)}
 			</StyledContainer>
 		</StyledData>
 	);

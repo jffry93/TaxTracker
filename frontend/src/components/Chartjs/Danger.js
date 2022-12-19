@@ -8,6 +8,7 @@ const Danger = () => {
 				😵😵‍💫<span>Get it</span>😵‍💫😵
 			</h1>
 			<h2>together!!</h2>
+			<p>She's gonna leave you!!</p>
 		</StyledTitle>
 	);
 };
@@ -23,12 +24,16 @@ const StyledTitle = styled.div`
 
 	margin: 0 24px 16px;
 	h1 {
-		width: 100%;
-		font-size: 42px;
+		width: fit-content;
+		font-size: clamp(32px, 10vw, 50px);
+
 		display: flex;
 		justify-content: space-between;
 	}
 	h2 {
-		font-size: 42px;
+		font-size: clamp(32px, 10vw, 50px);
+	}
+	p {
+		margin-top: 32px;
 	}
 `;

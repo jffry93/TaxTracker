@@ -7,7 +7,7 @@ const TypeContainer = ({ type, debounceType }) => {
 				Add New <span>{type === 'payment' ? 'Invoice' : 'Receipt'}</span>
 			</h2>
 			<button onClick={debounceType}>
-				{type === 'payment' ? 'Invoice' : 'Receipt'}
+				{type !== 'payment' ? 'Invoice' : 'Receipt'}
 			</button>
 		</div>
 	);
