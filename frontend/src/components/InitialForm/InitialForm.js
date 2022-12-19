@@ -54,6 +54,7 @@ const InitialForm = ({
 				setFormLocation={setFormLocation}
 				formData={formData}
 				setFormData={setFormData}
+				setEmptyFields={setEmptyFields}
 			/>
 
 			<button type='submit'>Save</button>

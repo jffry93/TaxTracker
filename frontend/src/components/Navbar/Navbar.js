@@ -21,7 +21,12 @@ const Navbar = () => {
 		};
 	}, []);
 
-	return <>{viewWidth > mobileBreakpoint ? <DesktopNav /> : <MobileNav />}</>;
+	return (
+		<>
+			{/* {viewWidth > mobileBreakpoint ? <DesktopNav /> : <MobileNav />} */}
+			<MobileNav />
+		</>
+	);
 };
 
 export default Navbar;

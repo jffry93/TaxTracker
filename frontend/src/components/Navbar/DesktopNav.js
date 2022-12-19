@@ -14,12 +14,12 @@ const DesktopNav = () => {
 
 	return (
 		<StyledDesktopNav>
-			<div ref={ref} className='container'>
+			{/* <div ref={ref} className='container'>
 				<Link to='/'>
 					<h3>Tax Tracker</h3>
 				</Link>
 				<div>{!user ? <Login /> : <Logout />}</div>
-			</div>
+			</div> */}
 		</StyledDesktopNav>
 	);
 };
