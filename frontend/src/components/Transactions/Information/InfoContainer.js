@@ -1,5 +1,3 @@
-import React from 'react';
-import styled from 'styled-components';
 import { useTransactionContext } from '../../../hooks/useTransactionHook';
 import ChartContainer from '../../Chartjs/ChartContainer';
 import StartTracking from '../Initial/StartTracking';
