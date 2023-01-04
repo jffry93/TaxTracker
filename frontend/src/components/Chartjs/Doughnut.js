@@ -9,12 +9,12 @@ const DoughnutChart = () => {
 	const { purchaseTotal, provTax, fedTax, postDeduction } =
 		useTransactionContext();
 	const { lightMode } = useStyleContext();
-	console.log(lightMode);
-	const text = lightMode ? '#012a4a' : '#eeeeee';
-	const color1 = lightMode ? '#468faf' : '#AAAAAA';
-	const color2 = lightMode ? '#61a5c2' : '#BBBBBB';
-	const color3 = lightMode ? '#DDDDDD' : '#DDDDDD';
-	const color4 = lightMode ? '#FFFFFF' : '#EEEEEE';
+
+	const text = lightMode ? 'black' : 'black';
+	const color1 = lightMode ? 'rgb(0 134 140)' : '#AAAAAA';
+	const color2 = lightMode ? 'rgb(35 92 111)' : '#BBBBBB';
+	const color3 = lightMode ? 'rgb(236 125 72)' : '#DDDDDD';
+	const color4 = lightMode ? 'rgb(255 161 122)' : '#EEEEEE';
 
 	const data = {
 		labels: ['INCOME', 'PURCHASE', 'PROV TAX', 'FED TAX'],
@@ -23,8 +23,14 @@ const DoughnutChart = () => {
 				label: 'hello',
 				data: [postDeduction, purchaseTotal, provTax, fedTax],
 				backgroundColor: [color1, color2, color3, color4],
-				borderColor: ['#FFFFFF80', '#DDDDDD80', '#BBBBBB80', '#AAAAAA80'],
+				borderColor: [
+					'rgb(255 161 122)',
+					'rgb(236 125 72)',
+					'rgb(35 92 111)',
+					'rgb(0 134 140)',
+				],
 				borderWidth: 1,
+				hoverOffset: 4,
 			},
 		],
 	};
@@ -44,8 +50,10 @@ const DoughnutChart = () => {
 			// 	},
 			// },
 			tooltip: {
-				xAlign: 'right',
-				backgroundColor: 'purple',
+				// xAlign: 'right',
+				titleColor: text,
+				bodyColor: text,
+				backgroundColor: 'rgb(241 237 255)',
 				callbacks: {
 					// label: function (context) {
 					// 	return;

@@ -52,6 +52,7 @@ const DeleteModal = ({ showDelete, setShowDelete, transaction }) => {
 				<h2>Are you sure?</h2>
 				<div className='button-container'>
 					<button
+						className='secondary'
 						onClick={(e) => {
 							e.stopPropagation();
 							debounceDelete();

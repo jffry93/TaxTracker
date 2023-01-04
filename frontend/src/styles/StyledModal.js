@@ -12,6 +12,8 @@ export const StyledDeleteBox = styled(Box)`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+
+	max-width: 400px;
 	background-color: var(--wave-color-5);
 	border-radius: 12px;
 	padding: 48px 32px 60px;
@@ -27,6 +29,12 @@ export const StyledDeleteBox = styled(Box)`
 		margin-top: 32px;
 		button {
 			flex: 1;
+		}
+		.secondary {
+			background-color: var(--wave-color-3);
+			&:hover {
+				background-color: var(--secondary);
+			}
 		}
 	}
 `;

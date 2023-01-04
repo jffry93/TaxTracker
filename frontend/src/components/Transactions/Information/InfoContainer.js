@@ -3,9 +3,9 @@ import ChartContainer from '../../Chartjs/ChartContainer';
 import StartTracking from '../Initial/StartTracking';
 
 const InfoContainer = () => {
-	const { transactions } = useTransactionContext();
+	const { truth } = useTransactionContext();
 	// console.log(transactions);
-	return <>{transactions.length ? <ChartContainer /> : <StartTracking />}</>;
+	return <>{truth.length ? <ChartContainer /> : <StartTracking />}</>;
 };
 
 export default InfoContainer;

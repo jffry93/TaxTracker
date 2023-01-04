@@ -8,7 +8,8 @@ import { useContext } from 'react';
 import InfoContainer from '../components/Transactions/Information/InfoContainer';
 
 const Home = () => {
-	const { transactions } = useTransactionContext();
+	const { truth } = useTransactionContext();
+	console.log(truth);
 	const { loadingObj } = useContext(UserContext);
 
 	const { isLoading } = useAuth0();
@@ -18,7 +19,7 @@ const Home = () => {
 	}
 	return (
 		<>
-			{loadingObj.transactions !== 'loading' && transactions ? (
+			{loadingObj.transactions !== 'loading' && truth ? (
 				<InfoContainer />
 			) : (
 				loadingObj.transactions === 'checked' && <InitialSetup />

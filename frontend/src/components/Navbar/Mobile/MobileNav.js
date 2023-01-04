@@ -22,13 +22,13 @@ const MobileNav = () => {
 			<AppBar
 				position='fixed'
 				color='primary'
-				sx={{ top: 'auto', bottom: 0, backgroundColor: 'var(--wave-color-1)' }}
+				sx={{ top: 'auto', bottom: 0, backgroundColor: 'var(--primary)' }}
 			>
 				<Toolbar>
 					<TemporaryDrawer />
 					<StyledFab
 						onClick={handleOpen}
-						sx={{ backgroundColor: 'var(--wave-color-4)' }}
+						sx={{ backgroundColor: 'var(--primary)' }}
 						color='secondary'
 						aria-label='add'
 					>
@@ -57,6 +57,6 @@ const StyledFab = styled(Fab)`
 	right: 0;
 	margin: 0 auto;
 	&:hover {
-		background-color: var(--wave-color-3);
+		background-color: var(--primary-accent);
 	}
 `;

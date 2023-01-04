@@ -12,6 +12,7 @@ const initialState = {
 	fedTax: null,
 	postDeduction: null,
 	test: 'string',
+	truth: null,
 };
 
 export const transactionsReducer = (state, action) => {

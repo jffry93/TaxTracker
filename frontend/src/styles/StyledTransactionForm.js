@@ -7,11 +7,12 @@ export const StyledMain = styled.div`
 	button {
 		font-size: 14px;
 		height: 51px;
-		background-color: var(--wave-color-1);
-		color: var(--wave-color-2);
 	}
-	button:hover {
-		background-color: var(--wave-color-4);
+	.secondary-btn {
+		background-color: var(--wave-color-3);
+		&:hover {
+			background-color: var(--secondary);
+		}
 	}
 
 	.button-container {

@@ -43,7 +43,7 @@ const StyledData = styled.div`
 	width: 100%;
 	max-width: 1200px;
 	padding: 0 32px 56px;
-	margin: 0 auto;
+	/* margin: 0 auto; */
 `;
 
 const StyledContainer = styled.div`

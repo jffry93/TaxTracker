@@ -71,30 +71,30 @@ const StyledFormControl = styled(FormControl)`
 		border: none;
 	}
 	label {
-		color: var(--wave-text);
 		position: absolute;
 		top: -15%;
 		padding-bottom: 16px;
 	}
 
-	.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
-		color: var(--wave-text);
-	}
-
 	.MuiInputBase-root {
-		color: var(--wave-text);
-		outline: 1px solid var(--wave-text);
+		outline: 1px solid var(--off-white);
+	}
+	.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
+	.MuiInputBase-root,
+	svg,
+	label {
+		color: var(--off-white);
 	}
 
 	&:hover {
 		label,
 		svg {
-			color: var(--wave-color-5) !important;
+			color: var(--wave-color-1) !important;
 			transition: unset;
 		}
 		.MuiInputBase-root {
-			color: var(--wave-color-5) !important;
-			outline: 1px solid var(--wave-color-5);
+			color: var(--wave-color-1) !important;
+			outline: 1px solid var(--wave-color-1);
 		}
 	}
 `;
@@ -108,5 +108,5 @@ const StyledContainer = styled.div`
 	gap: 24px;
 	padding: 32px 24px 16px;
 	border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
-	background-color: var(--wave-color-1);
+	background-color: var(--primary);
 `;
