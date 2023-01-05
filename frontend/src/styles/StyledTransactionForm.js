@@ -76,6 +76,11 @@ export const StyledForm = styled.form`
 			}
 		}
 	}
+	.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+		&:hover {
+			outline: 1px solid var(--off-white);
+		}
+	}
 `;
 
 export const StyledBtnDiv = styled.div`
@@ -103,8 +108,6 @@ export const StyledTextField = styled(TextField)`
 	label {
 		color: ${(props) =>
 			props.error ? 'var(--error)' : 'var(--wave-text)'}!important;
-	}
-	.MuiOutlinedInput-root {
 	}
 
 	& label.Mui-focused {

@@ -59,4 +59,7 @@ const StyledFab = styled(Fab)`
 	&:hover {
 		background-color: var(--primary-accent);
 	}
+	.css-3bmhjh-MuiPaper-root-MuiPopover-paper {
+		background-color: none !important;
+	}
 `;

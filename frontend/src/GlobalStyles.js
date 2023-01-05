@@ -7,11 +7,9 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box ;
 }
 :root {
-  /* --primary: #6C9A8B;
-  --secondary: #A1683A; */
   --vivid-pink: #E8998D;
   --misty-rose: #EED2CC;
-  --off-white: #F1F1E6;
+  
   --error: #e7195a;
   --eggshell: #eae2ce;
   --light-text: white;
@@ -22,8 +20,7 @@ const GlobalStyle = createGlobalStyle`
 		props.theme
 			? `
       //light mode
-
-      
+      --off-white: #F1F1E6;
       --wave-text: #19271D;
       --wave-color-1: #00868C;//top outer, button, bottom inner //dark color with light text
       --wave-color-2:   #F1EDFF; // inner top and text ring
@@ -40,18 +37,18 @@ const GlobalStyle = createGlobalStyle`
   `
 			: `  
       //dark mode
-
-      --wave-primary: #C7D3dd;
-      --wave-text: #eeeeee;
-      --wave-color-1: #7C98B3;//top outer, button, bottom inner //dark color with light text
-      --wave-color-2:   #CEE5F2; // inner top and text ring
+      --off-white: #b3b3b3;
+      --wave-text: #dddddd;
+      --wave-color-1: #404040;//top outer, button, bottom inner //dark color with light text
+      --wave-color-2:   #181818; // inner top and text ring
       --wave-color-3: #37393A;// undefined
-      --wave-color-4: #ACCBE1;//bottom outer
-      --wave-color-5: #274060;//background //dark color with light text
-      --wave-color-6:   #FFFFFF; // inner top and text ring
-      --settings-bg: #7C98B3;
-      --primary: #012a4a;
-      --secondary: #00B08C;
+      --wave-color-4: #282828;//bottom outer
+      --wave-color-5: #121212;//background //dark color with light text
+
+      --settings-bg: #282828;
+      --primary: #121212;
+      --primary-accent: #404040;
+      --secondary: #181818;
   `}
 
 }

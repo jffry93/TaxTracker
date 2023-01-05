@@ -1,9 +1,10 @@
 import Popover from '@mui/material/Popover';
+import styled from 'styled-components';
 import SettingButtons from './SettingButtons';
 
 const SettingsPopup = ({ anchorEl, open, handleClose }) => {
 	return (
-		<Popover
+		<StyledPopover
 			open={open}
 			anchorEl={anchorEl}
 			onClose={handleClose}
@@ -17,8 +18,14 @@ const SettingsPopup = ({ anchorEl, open, handleClose }) => {
 			}}
 		>
 			<SettingButtons />
-		</Popover>
+		</StyledPopover>
 	);
 };
 
 export default SettingsPopup;
+
+const StyledPopover = styled(Popover)`
+	.css-3bmhjh-MuiPaper-root-MuiPopover-paper {
+		background-color: unset;
+	}
+`;
