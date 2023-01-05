@@ -7,6 +7,8 @@ import { useContext, useRef, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import ProfileForm from '../components/ProfilePage/ProfileForm';
 import { BsCameraFill } from 'react-icons/bs';
+import { pageAnimation } from '../styles/StyledAnimations';
+import { motion } from 'framer-motion';
 
 const Profile = () => {
 	const [updateActive, setUpdateActive] = useState(false);
@@ -20,7 +22,7 @@ const Profile = () => {
 	};
 
 	return (
-		<StyledInfo>
+		<StyledInfo variants={pageAnimation} initial='hidden' animate='show'>
 			<StyledMain>
 				<StyledTitle>
 					<h2>Profile</h2>
@@ -118,7 +120,7 @@ const StyledMain = styled.div`
 	}
 `;
 
-const StyledInfo = styled.div`
+const StyledInfo = styled(motion.div)`
 	display: flex;
 	flex-direction: column;
 	align-items: center;

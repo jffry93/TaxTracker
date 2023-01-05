@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import InitialForm from '../components/InitialForm/InitialForm';
+import { motion } from 'framer-motion';
+import { pageAnimation } from '../styles/StyledAnimations';
 
 const InitialSetup = () => {
 	const [emptyFields, setEmptyFields] = useState([]);
@@ -16,7 +18,7 @@ const InitialSetup = () => {
 	}, []);
 
 	return (
-		<StyledInit>
+		<StyledInit variants={pageAnimation} initial='hidden' animate='show'>
 			<h1>Where are you located?</h1>
 			<h2>It's for tax purposes...</h2>
 			<InitialForm
@@ -31,7 +33,7 @@ const InitialSetup = () => {
 
 export default InitialSetup;
 
-const StyledInit = styled.div`
+const StyledInit = styled(motion.div)`
 	/* background-color: black; */
 	display: flex;
 	flex-direction: column;

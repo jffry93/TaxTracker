@@ -1,5 +1,7 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { useTransactionContext } from '../../hooks/useTransactionHook';
+import { pageAnimation } from '../../styles/StyledAnimations';
 import ChartInfo from './ChartInfo';
 import Danger from './Danger';
 import DoughnutChart from './Doughnut';
@@ -8,7 +10,7 @@ const ChartContainer = () => {
 	const { postDeduction } = useTransactionContext();
 
 	return (
-		<StyledData>
+		<StyledData variants={pageAnimation} initial='hidden' animate='show'>
 			<StyledContainer>
 				{postDeduction < 0 ? (
 					<Danger />
@@ -33,7 +35,7 @@ const ChartContainer = () => {
 
 export default ChartContainer;
 
-const StyledData = styled.div`
+const StyledData = styled(motion.div)`
 	display: flex;
 	flex-direction: column;
 	align-items: center;

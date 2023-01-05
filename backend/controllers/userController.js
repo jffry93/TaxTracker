@@ -6,7 +6,7 @@ const { cloudinary } = require('../utils/cloudinary');
 const legitCheckUser = async (req, res) => {
 	try {
 		const { email } = req.body;
-		console.log(req.body);
+		// console.log(req.body);
 		let user = await User.find({ email });
 		// console.log('exists', user);
 
@@ -37,7 +37,7 @@ const updateUser = async (req, res) => {
 		const uploadResponse = await cloudinary.uploader.upload(imageValue, {
 			upload_preset: 'vr6hp6xz',
 		});
-		console.log(uploadResponse.url);
+		// console.log(uploadResponse.url);
 		console.log('added to cloudinary');
 		patchObject = { ...patchObject, picture: uploadResponse.url };
 	}

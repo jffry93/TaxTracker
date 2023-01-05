@@ -14,6 +14,7 @@ import fetchInitialTransactions from './utils/fetchInitialTransactions';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyles';
 import { useStyleContext } from './hooks/useStyleHook';
+import { AnimatePresence } from 'framer-motion';
 
 function App() {
 	const { user, isAuthenticated, isLoading } = useAuth0();
@@ -31,28 +32,30 @@ function App() {
 
 	return (
 		<BrowserRouter>
-			<GlobalStyle theme={lightMode} />
-			<StyledApp>
-				{loadingObj.user === 'verified' && userInfo.location && <Navbar />}
-				{isAuthenticated && loadingObj.user === 'verified' ? (
-					<div className='pages'>
-						<Routes>
-							<Route path='/' element={<Home />} />
-							<Route path='/account' element={<Profile />} />
-							<Route path='*' element={<Home />} />
-							{/* <Route path='/preferences' element={<WavyAnim />} /> */}
-						</Routes>
-					</div>
-				) : !isLoading && loadingObj.user === 'loading' ? (
-					loadingObj.user === 'verified' || isAuthenticated ? (
-						<Loading />
+			<AnimatePresence exitsBeforeEnter>
+				<GlobalStyle theme={lightMode} />
+				<StyledApp>
+					{loadingObj.user === 'verified' && userInfo.location && <Navbar />}
+					{isAuthenticated && loadingObj.user === 'verified' ? (
+						<div className='pages'>
+							<Routes>
+								<Route path='/' element={<Home />} />
+								<Route path='/account' element={<Profile />} />
+								<Route path='*' element={<Home />} />
+								{/* <Route path='/preferences' element={<WavyAnim />} /> */}
+							</Routes>
+						</div>
+					) : !isLoading && loadingObj.user === 'loading' ? (
+						loadingObj.user === 'verified' || isAuthenticated ? (
+							<Loading />
+						) : (
+							<SignUp />
+						)
 					) : (
-						<SignUp />
-					)
-				) : (
-					<Loading />
-				)}
-			</StyledApp>
+						<Loading />
+					)}
+				</StyledApp>
+			</AnimatePresence>
 		</BrowserRouter>
 	);
 }

@@ -1,12 +1,14 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 import styled from 'styled-components';
 import useDebounce from '../../../hooks/useDebounce';
 import { useTransactionContext } from '../../../hooks/useTransactionHook';
+import { pageAnimation } from '../../../styles/StyledAnimations';
 
 const StartTracking = () => {
 	const { setOpenForm } = useTransactionContext();
 	return (
-		<StyledContainer>
+		<StyledContainer variants={pageAnimation} initial='hidden' animate='show'>
 			<h1>Ready to track your income?</h1>
 			<button onClick={useDebounce(() => setOpenForm(true))}>
 				Press me 👇🏼
@@ -17,7 +19,7 @@ const StartTracking = () => {
 
 export default StartTracking;
 
-const StyledContainer = styled.div`
+const StyledContainer = styled(motion.div)`
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
