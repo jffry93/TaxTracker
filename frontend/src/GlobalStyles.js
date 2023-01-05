@@ -7,63 +7,49 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box ;
 }
 :root {
-  --primary: #6C9A8B;
-  --secondary: #A1683A;
   --vivid-pink: #E8998D;
   --misty-rose: #EED2CC;
-  --off-white: #1e1e1e;
+  
   --error: #e7195a;
   --eggshell: #eae2ce;
   --light-text: white;
   --dark-text: black;
+  --wave-color-3: #fa904a;// button
 
   ${(props) =>
 		props.theme
 			? `
       //light mode
+      --off-white: #F1F1E6;
+      --wave-text: #19271D;
+      --wave-color-1: #00868C;//top outer, button, bottom inner //dark color with light text
+      --wave-color-2:   #F1EDFF; // inner top and text ring
+      --wave-color-3: #fa904a;// button
+      --wave-color-4:#FFA17A ;//bottom outer
+      --wave-color-5: #F1EDFF;//background //dark color with light text
+      
+      --settings-bg: #F1EDFF;
+      --primary: #235C6F;
+      --primary-accent: #007181;
+      --secondary:#FFA17A;
+      
 
-      --wave-primary: #C7D3dd;
-      --wave-text: #012a4a;
-      --wave-color-1: #468faf;//top outer, button, bottom inner //dark color with light text
-      --wave-color-2:   #CEE5F2; // inner top and text ring
-      --wave-color-6:   #FFFFFF; // inner top and text ring
-      --wave-color-3: #37393A;// button
-      --wave-color-4: #61a5c2;//bottom outer
-      --wave-color-5: #a9d6e5;//background //dark color with light text
-      --wave-color-6:   #FFFFFF; // inner top and text ring
-      --settings-bg: #CEE5F2;
   `
 			: `  
       //dark mode
-
-      --wave-primary: #C7D3dd;
-      --wave-text: #eeeeee;
-      --wave-color-1: #7C98B3;//top outer, button, bottom inner //dark color with light text
-      --wave-color-2:   #CEE5F2; // inner top and text ring
+      --off-white: #b3b3b3;
+      --wave-text: #dddddd;
+      --wave-color-1: #404040;//top outer, button, bottom inner //dark color with light text
+      --wave-color-2:   #181818; // inner top and text ring
       --wave-color-3: #37393A;// undefined
-      --wave-color-4: #ACCBE1;//bottom outer
-      --wave-color-5: #274060;//background //dark color with light text
-      --wave-color-6:   #FFFFFF; // inner top and text ring
-      --settings-bg: #7C98B3;
-      
+      --wave-color-4: #282828;//bottom outer
+      --wave-color-5: #121212;//background //dark color with light text
+
+      --settings-bg: #282828;
+      --primary: #121212;
+      --primary-accent: #404040;
+      --secondary: #181818;
   `}
-
-/* --wave-text: #012a4a; 
---wave-color-1: #468faf; //top outer blob and button and inner bottom
-  --wave-color-2: #CEE5F2; //inner top blob, thin stripe in bottom blob
-  --wave-color-3: #37393A; // font for now
-  --wave-color-4: #61a5c2; //outer bottom blob
-  --wave-color-5: #a9d6e5; // background 
-  */
-
-
-  //blue option
-  /* --wave-text: #eeeeee; 
---wave-color-1: #00A6FB; //top outer blob and button and inner bottom
-  --wave-color-2: #003554; //inner top blob, thin stripe in bottom blob
-  --wave-color-3: #37393A; // font for now
-  --wave-color-4: #006494; //outer bottom blob
-  --wave-color-5: #0582CA; // background */
 
 }
 
@@ -115,11 +101,16 @@ button{
   font-weight: 500;
   border: none;
   /* background-color: #594334; */
-  background-color: #637081;
+  background-color: var(--primary-accent);
   color: #eeeeee;
-
+  
   border-radius: 8px;
+  cursor: pointer;
+  &:hover{
+    background-color: var(--wave-color-1);
+  }
 }
+
 input {
   border-radius: 4px;
   padding: 6px 4px;

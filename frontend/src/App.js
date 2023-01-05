@@ -5,7 +5,6 @@ import Home from './pages/Home';
 import Loading from './pages/Loading';
 import Profile from './pages/Profile';
 import SignUp from './pages/SignUp';
-import WavyAnim from './pages/WavyAnim';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useContext } from 'react';
 import { UserContext } from './context/UserContext';

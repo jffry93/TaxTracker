@@ -6,6 +6,7 @@ const ButtonContainer = ({ handleClose }) => {
 		<StyledBtnDiv>
 			<button type='submit'>Add Purchase</button>
 			<button
+				className='secondary-btn'
 				onClick={(e) => {
 					e.preventDefault();
 					handleClose();

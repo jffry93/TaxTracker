@@ -7,11 +7,12 @@ export const StyledMain = styled.div`
 	button {
 		font-size: 14px;
 		height: 51px;
-		background-color: var(--wave-color-1);
-		color: var(--wave-color-2);
 	}
-	button:hover {
-		background-color: var(--wave-color-4);
+	.secondary-btn {
+		background-color: var(--wave-color-3);
+		&:hover {
+			background-color: var(--secondary);
+		}
 	}
 
 	.button-container {
@@ -75,6 +76,11 @@ export const StyledForm = styled.form`
 			}
 		}
 	}
+	.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+		&:hover {
+			outline: 1px solid var(--off-white);
+		}
+	}
 `;
 
 export const StyledBtnDiv = styled.div`
@@ -102,8 +108,6 @@ export const StyledTextField = styled(TextField)`
 	label {
 		color: ${(props) =>
 			props.error ? 'var(--error)' : 'var(--wave-text)'}!important;
-	}
-	.MuiOutlinedInput-root {
 	}
 
 	& label.Mui-focused {

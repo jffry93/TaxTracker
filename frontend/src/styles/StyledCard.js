@@ -6,6 +6,7 @@ export const StyledCard = styled(motion.div)`
 	overflow: hidden;
 	background-color: var(--wave-color-2);
 	color: var(--wave-text);
+	cursor: pointer;
 	padding: 16px 24px;
 	width: ${(props) => {
 		if (!props.open) {
@@ -65,10 +66,10 @@ export const StyledButtonContainer = styled.div`
 export const StyledActionDiv = styled(motion.div)`
 	/* position: absolute; */
 	right: 0;
-	background-color: var(--wave-color-1);
+	background-color: var(--primary);
 	border-radius: 50%;
 	&:hover {
-		background-color: var(--wave-color-4);
+		background-color: var(--primary-accent);
 	}
 	.confirm-container {
 		height: 35px;

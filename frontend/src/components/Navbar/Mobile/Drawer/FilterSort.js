@@ -4,7 +4,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useTransactionContext } from '../../../../hooks/useTransactionHook';
-import { useState } from 'react';
 
 const FilterSort = () => {
 	const { filterType, sortType, dispatch } = useTransactionContext();
@@ -24,9 +23,10 @@ const FilterSort = () => {
 				e.stopPropagation();
 			}}
 		>
-			<StyledFormControl className='filter'>
+			<StyledFormControl>
 				<InputLabel htmlFor='card-types'>Filter</InputLabel>
 				<Select
+					MenuProps={{ disablePortal: true }}
 					id='filter-input'
 					name='card-types'
 					value={filterType}
@@ -40,9 +40,10 @@ const FilterSort = () => {
 					<MenuItem value='payment'>Payments</MenuItem>
 				</Select>
 			</StyledFormControl>
-			<StyledFormControl className='sort'>
+			<StyledFormControl>
 				<InputLabel htmlFor='sort'>Sort</InputLabel>
 				<Select
+					MenuProps={{ disablePortal: true }}
 					id='sort'
 					name='sort'
 					value={sortType}
@@ -70,46 +71,30 @@ const StyledFormControl = styled(FormControl)`
 		border: none;
 	}
 	label {
-		color: var(--wave-text);
 		position: absolute;
 		top: -15%;
 		padding-bottom: 16px;
 	}
 
-	.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
-		color: var(--wave-text);
-	}
-
 	.MuiInputBase-root {
-		color: var(--wave-text);
-		outline: 1px solid var(--wave-text);
+		outline: 1px solid var(--off-white);
+	}
+	.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
+	.MuiInputBase-root,
+	svg,
+	label {
+		color: var(--off-white);
 	}
 
 	&:hover {
+		label,
 		svg {
-			color: var(--wave-color-5);
-		}
-		label {
-			color: var(--wave-color-5);
+			color: var(--wave-color-1) !important;
+			transition: unset;
 		}
 		.MuiInputBase-root {
-			&:hover {
-				color: var(--wave-color-5);
-				outline: 1px solid var(--wave-color-5);
-				svg {
-					color: var(--wave-color-5);
-				}
-				label {
-					color: var(--wave-color-5);
-				}
-			}
-		}
-		.MuiFormControl-root {
-			&:hover {
-				.MuiInputBase-root {
-					color: var(--wave-color-5);
-				}
-			}
+			color: var(--wave-color-1) !important;
+			outline: 1px solid var(--wave-color-1);
 		}
 	}
 `;
@@ -123,9 +108,5 @@ const StyledContainer = styled.div`
 	gap: 24px;
 	padding: 32px 24px 16px;
 	border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
-	background-color: var(--wave-color-1);
-	/* color: var(--wave-text); */
-	.sort,
-	.filter {
-	}
+	background-color: var(--primary);
 `;
