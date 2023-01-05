@@ -1,8 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import useDebounce from '../../../../hooks/useDebounce';
+import { UserContext } from '../../../../context/UserContext';
 import { useStyleContext } from '../../../../hooks/useStyleHook';
 import MenuItem from '@mui/material/MenuItem';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
@@ -11,6 +12,11 @@ import { BiHome, BiUser, BiAdjust } from 'react-icons/bi';
 const SettingButtons = () => {
 	const { logout } = useAuth0();
 	const { lightMode, setLightMode } = useStyleContext();
+	const {
+		userInfo: { email },
+	} = useContext(UserContext);
+	console.log(email);
+
 	const navigate = useNavigate();
 	const debounceHome = useDebounce(() => {
 		navigate('/');
@@ -18,7 +24,17 @@ const SettingButtons = () => {
 	const debounceProfile = useDebounce(() => {
 		navigate('/account');
 	});
-	const debounceLightMode = useDebounce(() => {
+	const debounceLightMode = useDebounce(async () => {
+		const response = await fetch('/api/user/', {
+			method: 'PATCH',
+			body: JSON.stringify({ lightTheme: !lightMode, email }),
+			headers: {
+				'Content-type': 'application/json',
+			},
+		});
+		const json = await response.json();
+		console.log(json);
+
 		setLightMode(!lightMode);
 	});
 	const handleLogout = useDebounce(() =>

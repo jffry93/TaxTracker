@@ -27,8 +27,8 @@ const userSchema = new Schema(
 		location: {
 			type: String,
 		},
-		age: {
-			type: Number,
+		lightTheme: {
+			type: Boolean,
 		},
 	},
 	{ timestamps: true }

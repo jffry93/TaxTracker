@@ -19,10 +19,10 @@ function App() {
 	const { user, isAuthenticated, isLoading } = useAuth0();
 	const { dispatch } = useContext(TransactionContext);
 	const { userInfo, loadingObj, userDispatch } = useContext(UserContext);
-	const { lightMode } = useStyleContext();
+	const { lightMode, setLightMode } = useStyleContext();
 	//------FETCH TRANSACTION DATA -------//
 	useEffect(() => {
-		isAuthenticated && fetchUserHandler(user, userDispatch);
+		isAuthenticated && fetchUserHandler(user, userDispatch, setLightMode);
 	}, [isAuthenticated, user, userDispatch]);
 	//GET REQUEST
 	useEffect(() => {
