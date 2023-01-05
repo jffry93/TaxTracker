@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const { cloudinary } = require('../utils/cloudinary');
 // const mongoose = require('mongoose');
 
 //ADD USER
@@ -12,7 +13,7 @@ const legitCheckUser = async (req, res) => {
 		if (user.length === 0) {
 			user = await User.create({
 				...req.body,
-				lightTheme: false,
+				lightTheme: true,
 			});
 			// console.log('new', user);
 
@@ -29,15 +30,22 @@ const legitCheckUser = async (req, res) => {
 };
 //UPDATE USER
 const updateUser = async (req, res) => {
-	const { email } = req.body;
-	// if (!mongoose.Types.ObjectId.isValid(id)) {
-	// 	return res.status(404).json({ error: 'No such payment' });
-	// }
+	const { email, imageValue } = req.body;
+	let patchObject = req.body;
+
+	if (imageValue) {
+		const uploadResponse = await cloudinary.uploader.upload(imageValue, {
+			upload_preset: 'vr6hp6xz',
+		});
+		console.log(uploadResponse.url);
+		console.log('added to cloudinary');
+		patchObject = { ...patchObject, picture: uploadResponse.url };
+	}
 
 	const user = await User.findOneAndUpdate(
 		{ email: email },
 
-		{ ...req.body },
+		{ ...patchObject },
 		{
 			new: true,
 		}
@@ -46,6 +54,7 @@ const updateUser = async (req, res) => {
 	if (!user) {
 		return res.status(404).json({ error: 'No such User' });
 	}
+
 	res.status(200).json(user);
 };
 

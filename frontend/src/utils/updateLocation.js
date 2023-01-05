@@ -1,7 +1,14 @@
-const updateLocation = async (formData, email, dispatch, callback) => {
+const updateLocation = async (
+	formData,
+	email,
+	dispatch,
+	callback,
+	imageValue
+) => {
+	console.log(formData);
 	const res = await fetch('/api/user/', {
 		method: 'PATCH',
-		body: JSON.stringify({ ...formData, email }),
+		body: JSON.stringify({ ...formData, email, imageValue }),
 		headers: {
 			'Content-type': 'application/json',
 		},

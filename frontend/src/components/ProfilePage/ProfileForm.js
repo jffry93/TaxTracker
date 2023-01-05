@@ -9,30 +9,38 @@ import ProfileFormButtons from './ProfileFormButtons';
 import NicknameInput from './NicknameInput';
 import LocationInput from './LocationInput';
 
-const ProfileForm = () => {
+const ProfileForm = ({
+	updateActive,
+	setUpdateActive,
+	setImageValue,
+	imageValue,
+}) => {
 	const { dispatch } = useContext(TransactionContext);
 	const { userInfo, userDispatch } = useContext(UserContext);
 	const { nickname, email, location } = userInfo;
 	//TOGGLING STATE
-	const [updateActive, setUpdateActive] = useState(false);
+
 	const [submitState, setSubmitState] = useState(false);
 	const [formData, setFormData] = useState({});
 	const [formName, setFormName] = useState('');
 	const [formLocation, setFormLocation] = useState('');
 
+	const resetForm = () => {
+		setUpdateActive(false);
+		setSubmitState(false);
+		setFormName('');
+		setFormData({});
+		setFormLocation('');
+		setImageValue(null);
+	};
 	const handleFormSubmit = () => {
-		const resetForm = () => {
-			setUpdateActive(false);
-			setSubmitState(false);
-			setFormName('');
-			setFormLocation('');
-		};
 		//FETCH IF LOCATION CHANGED
 		formName.length &&
 			formLocation.length &&
 			updateTransaction(userInfo, dispatch);
 
-		submitState && updateLocation(formData, email, userDispatch, resetForm);
+		submitState &&
+			updateLocation(formData, email, userDispatch, resetForm, imageValue);
 	};
 
 	const debounceForm = useDebounce(handleFormSubmit);
@@ -61,6 +69,7 @@ const ProfileForm = () => {
 				setFormData={setFormData}
 			/>
 			<ProfileFormButtons
+				resetForm={resetForm}
 				updateActive={updateActive}
 				setUpdateActive={setUpdateActive}
 				setSubmitState={setSubmitState}

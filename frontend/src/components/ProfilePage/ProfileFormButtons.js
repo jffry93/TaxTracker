@@ -3,6 +3,7 @@ import useDebounce from '../../hooks/useDebounce';
 import { StyledButtonContainer } from '../../styles/StyledProfile';
 
 const ProfileFormButtons = ({
+	resetForm,
 	updateActive,
 	setUpdateActive,
 	setSubmitState,
@@ -10,6 +11,7 @@ const ProfileFormButtons = ({
 	const debounceOpen = useDebounce(() => setUpdateActive(true));
 	const debounceClose = useDebounce(() => {
 		setUpdateActive(false);
+		resetForm();
 	});
 	return (
 		<StyledButtonContainer>
