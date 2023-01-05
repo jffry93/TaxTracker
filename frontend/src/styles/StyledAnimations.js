@@ -18,7 +18,7 @@ export const pageAnimation = {
 };
 
 export const slideUp = {
-	hidden: { y: 250, opacity: 0 },
+	hidden: { y: 150, opacity: 0 },
 	show: {
 		opacity: 1,
 		y: 0,

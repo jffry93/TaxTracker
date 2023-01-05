@@ -1,6 +1,5 @@
 import MoreInfo from '.././Components/MoreInfo';
 import { StyledCard } from '../../../../styles/StyledCard';
-// import { AnimatePresence } from 'framer-motion';
 import useDebounce from '../../../../hooks/useDebounce';
 import { useState } from 'react';
 import MainInfo from './MainInfo';
