@@ -78,9 +78,9 @@ const TransactionForm = ({
 							setImage(handleImgToBase64(e.target.files[0], setImage));
 							setImageValue(e.target.value);
 						}}
-						// InputLabelProps={{
-						// 	shrink: true,
-						// }}
+						InputLabelProps={{
+							shrink: true,
+						}}
 					/>
 				</StyledImgDiv>
 				<ButtonContainer handleClose={handleClose} />
