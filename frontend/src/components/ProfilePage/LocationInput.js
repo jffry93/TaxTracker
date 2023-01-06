@@ -1,3 +1,4 @@
+import uuid from 'react-uuid';
 import React from 'react';
 import provArr from '../../components/Data/Province';
 import InputLabel from '@mui/material/InputLabel';
@@ -40,7 +41,7 @@ const LocationInput = ({
 						}}
 					>
 						{provArr.map((province) => (
-							<MenuItem key={province} value={province}>
+							<MenuItem key={uuid()} value={province}>
 								{province.toUpperCase()}
 							</MenuItem>
 						))}

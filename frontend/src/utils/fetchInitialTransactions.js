@@ -1,12 +1,15 @@
 const fetchInitialTransactions = async (user, callback, callback2) => {
 	try {
-		const response = await fetch('/api/transactions/user', {
-			method: 'POST',
-			body: JSON.stringify(user),
-			headers: {
-				'Content-type': 'application/json',
-			},
-		});
+		const response = await fetch(
+			process.env.REACT_APP_BACKEND_URL + '/api/transactions/user',
+			{
+				method: 'POST',
+				body: JSON.stringify(user),
+				headers: {
+					'Content-type': 'application/json',
+				},
+			}
+		);
 		const json = await response.json();
 
 		if (response.ok) {

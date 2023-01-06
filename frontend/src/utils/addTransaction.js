@@ -6,13 +6,16 @@ export const addTransaction = async (
 	open,
 	setOpen
 ) => {
-	const response = await fetch('/api/transactions', {
-		method: 'POST',
-		body: JSON.stringify(transactions),
-		headers: {
-			'Content-type': 'application/json',
-		},
-	});
+	const response = await fetch(
+		process.env.REACT_APP_BACKEND_URL + '/api/transactions',
+		{
+			method: 'POST',
+			body: JSON.stringify(transactions),
+			headers: {
+				'Content-type': 'application/json',
+			},
+		}
+	);
 	const json = await response.json();
 	if (!response.ok) {
 		// setError(json.error);

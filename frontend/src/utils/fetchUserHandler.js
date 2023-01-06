@@ -1,7 +1,7 @@
 const fetchGetHandler = async (user, callback, callback2) => {
 	try {
 		console.log(user);
-		const res = await fetch('/api/user/', {
+		const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/user/', {
 			method: 'POST',
 			body: JSON.stringify(user),
 			headers: {

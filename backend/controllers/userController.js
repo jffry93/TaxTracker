@@ -25,7 +25,7 @@ const legitCheckUser = async (req, res) => {
 		}
 	} catch (err) {
 		console.log(err);
-		res.status(500).json({ status: 200, msg: 'oof...🤕', user });
+		res.status(500).json({ status: 500, msg: 'oof...🤕', user });
 	}
 };
 //UPDATE USER

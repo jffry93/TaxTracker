@@ -6,7 +6,7 @@ const updateLocation = async (
 	imageValue
 ) => {
 	console.log(formData);
-	const res = await fetch('/api/user/', {
+	const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/user/', {
 		method: 'PATCH',
 		body: JSON.stringify({ ...formData, email, imageValue }),
 		headers: {

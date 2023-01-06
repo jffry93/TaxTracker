@@ -6,6 +6,7 @@ import {
 import { RiDeleteBin6Fill, RiEditLine } from 'react-icons/ri';
 import { ImFilePicture } from 'react-icons/im';
 import useDebounce from '../../../../hooks/useDebounce';
+import uuid from 'react-uuid';
 
 const CardActions = ({
 	setShowDelete,
@@ -40,7 +41,7 @@ const CardActions = ({
 			{actionsObject.map((action, i) => {
 				return (
 					<StyledActionDiv
-						key={action.name}
+						key={uuid()}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}

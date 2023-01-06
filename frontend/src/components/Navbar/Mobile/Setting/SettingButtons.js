@@ -8,6 +8,7 @@ import { useStyleContext } from '../../../../hooks/useStyleHook';
 import MenuItem from '@mui/material/MenuItem';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import { BiHome, BiUser, BiAdjust } from 'react-icons/bi';
+import uuid from 'react-uuid';
 
 const SettingButtons = () => {
 	const { logout } = useAuth0();
@@ -25,13 +26,16 @@ const SettingButtons = () => {
 		navigate('/account');
 	});
 	const debounceLightMode = useDebounce(async () => {
-		const response = await fetch('/api/user/', {
-			method: 'PATCH',
-			body: JSON.stringify({ lightTheme: !lightMode, email }),
-			headers: {
-				'Content-type': 'application/json',
-			},
-		});
+		const response = await fetch(
+			process.env.REACT_APP_BACKEND_URL + '/api/user/',
+			{
+				method: 'PATCH',
+				body: JSON.stringify({ lightTheme: !lightMode, email }),
+				headers: {
+					'Content-type': 'application/json',
+				},
+			}
+		);
 		const json = await response.json();
 		console.log(json);
 
@@ -69,7 +73,7 @@ const SettingButtons = () => {
 		<>
 			{buttonsArray.map((button, index) => {
 				return (
-					<StyledMenuItem key={button.name + index}>
+					<StyledMenuItem key={uuid()}>
 						<MenuItem onClick={button.func}>
 							<StyledItem>
 								{button.icon()}

@@ -22,19 +22,23 @@ const UpdateTransaction = ({
 	const [description, setDescription] = useState(transaction.description);
 
 	const handleUpdate = async () => {
-		const res = await fetch(`/api/transactions/${transaction._id}`, {
-			method: 'PATCH',
-			body: JSON.stringify({
-				// ...transaction,
-				title,
-				client,
-				amount,
-				description,
-			}),
-			headers: {
-				'Content-type': 'application/json',
-			},
-		});
+		const res = await fetch(
+			process.env.REACT_APP_BACKEND_URL +
+				`/api/transactions/${transaction._id}`,
+			{
+				method: 'PATCH',
+				body: JSON.stringify({
+					// ...transaction,
+					title,
+					client,
+					amount,
+					description,
+				}),
+				headers: {
+					'Content-type': 'application/json',
+				},
+			}
+		);
 		const json = await res.json();
 		console.log(json);
 		setShowUpdate(false);

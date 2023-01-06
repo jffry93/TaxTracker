@@ -32,30 +32,30 @@ function App() {
 
 	return (
 		<BrowserRouter>
-			<AnimatePresence exitsBeforeEnter>
-				<GlobalStyle theme={lightMode} />
-				<StyledApp>
-					{loadingObj.user === 'verified' && userInfo.location && <Navbar />}
-					{isAuthenticated && loadingObj.user === 'verified' ? (
-						<div className='pages'>
-							<Routes>
-								<Route path='/' element={<Home />} />
-								<Route path='/account' element={<Profile />} />
-								<Route path='*' element={<Home />} />
-								{/* <Route path='/preferences' element={<WavyAnim />} /> */}
-							</Routes>
-						</div>
-					) : !isLoading && loadingObj.user === 'loading' ? (
-						loadingObj.user === 'verified' || isAuthenticated ? (
-							<Loading />
-						) : (
-							<SignUp />
-						)
-					) : (
+			{/* <AnimatePresence exitsBeforeEnter> */}
+			<GlobalStyle theme={lightMode} />
+			<StyledApp>
+				{loadingObj.user === 'verified' && userInfo.location && <Navbar />}
+				{isAuthenticated && loadingObj.user === 'verified' ? (
+					<div className='pages'>
+						<Routes>
+							<Route path='/' element={<Home />} />
+							<Route path='/account' element={<Profile />} />
+							<Route path='*' element={<Home />} />
+							{/* <Route path='/preferences' element={<WavyAnim />} /> */}
+						</Routes>
+					</div>
+				) : !isLoading && loadingObj.user === 'loading' ? (
+					loadingObj.user === 'verified' || isAuthenticated ? (
 						<Loading />
-					)}
-				</StyledApp>
-			</AnimatePresence>
+					) : (
+						<SignUp />
+					)
+				) : (
+					<Loading />
+				)}
+			</StyledApp>
+			{/* </AnimatePresence> */}
 		</BrowserRouter>
 	);
 }

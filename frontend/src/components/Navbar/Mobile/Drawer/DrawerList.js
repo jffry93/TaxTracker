@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import FilterSort from './FilterSort';
 import TransactionCard from '../../../Transactions/Card/CardContainer';
 import { useTransactionContext } from '../../../../hooks/useTransactionHook';
+import uuid from 'react-uuid';
 
 const DrawerList = ({ anchor, debounceCloseDrawer }) => {
 	const { transactions } = useTransactionContext();
@@ -19,12 +20,7 @@ const DrawerList = ({ anchor, debounceCloseDrawer }) => {
 			<StyledCards>
 				{transactions &&
 					transactions.map((transaction, index) => {
-						return (
-							<TransactionCard
-								key={transaction._id + index}
-								transaction={transaction}
-							/>
-						);
+						return <TransactionCard key={uuid()} transaction={transaction} />;
 					})}
 			</StyledCards>
 		</StyledBox>

@@ -1,11 +1,14 @@
 const updateTransaction = async (userInfo, callback) => {
-	const response = await fetch('/api/transactions/user', {
-		method: 'POST',
-		body: JSON.stringify(userInfo),
-		headers: {
-			'Content-type': 'application/json',
-		},
-	});
+	const response = await fetch(
+		process.env.REACT_APP_BACKEND_URL + '/api/transactions/user',
+		{
+			method: 'POST',
+			body: JSON.stringify(userInfo),
+			headers: {
+				'Content-type': 'application/json',
+			},
+		}
+	);
 	const json = await response.json();
 
 	if (response.ok) {

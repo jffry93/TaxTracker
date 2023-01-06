@@ -8,7 +8,8 @@ const DeleteModal = ({ showDelete, setShowDelete, transaction }) => {
 
 	const handleDelete = async () => {
 		const response = await fetch(
-			`/api/transactions/${transaction._id}?public=${transaction.imageData.public_id}`,
+			process.env.REACT_APP_BACKEND_URL +
+				`/api/transactions/${transaction._id}?public=${transaction.imageData.public_id}`,
 			{
 				method: 'DELETE',
 				body: transaction,

@@ -6,7 +6,9 @@ const FloatingShapes = () => {
 	const [shapeData, setShapeData] = useState(null);
 	useEffect(() => {
 		const fetchCircles = async () => {
-			const res = await fetch('./api/styles/');
+			const res = await fetch(
+				process.env.REACT_APP_BACKEND_URL + './api/styles/'
+			);
 			const json = await res.json();
 			setShapeData(json.data);
 		};
@@ -21,7 +23,7 @@ const FloatingShapes = () => {
 							const { position, size, animation } = circle;
 							return (
 								<StyledCircle
-									key={circle.size + i}
+									key={uuid()}
 									size={size}
 									position={position}
 									animation={animation}

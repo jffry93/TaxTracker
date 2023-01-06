@@ -3,46 +3,50 @@ require('dotenv').config();
 //add routes from routes folder
 const mongoose = require('mongoose');
 const express = require('express');
+const morgan = require('morgan');
+const cors = require('cors');
 //routes
 const transactionsRoutes = require('./routes/transactions');
 const userRoutes = require('./routes/user');
 const styleRoutes = require('./routes/styles');
-const cors = require('cors');
+
 //express app
 const app = express();
 
 //MIDDLEWARE
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static('public'));
 app.use(function (req, res, next) {
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader(
+	res.header(
 		'Access-Control-Allow-Methods',
-		'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+		'OPTIONS, HEAD, GET, PUT, POST, DELETE'
 	);
-	res.setHeader(
+	res.header(
 		'Access-Control-Allow-Headers',
-		'X-Requested-With,content-type'
+		'Origin, X-Requested-With, Content-Type, Accept'
 	);
-	res.setHeader('Access-Control-Allow-Credentials', true);
 	next();
 });
+app.use(morgan('tiny'));
 app.use(
 	cors({
-		origin: ['http://localhost:3000', 'https://taxtracker.onrender.com/'],
+		origin: ['https://taxtracker.onrender.com', 'https://localhost:3000'],
 	})
 );
-//This is used to show the URL path and HTTP Method in the terminal
-app.use((req, res, next) => {
-	console.log(req.path, req.method);
-	next();
-});
+
 // PAYMENT ROUTE
 app.use('/api/styles', styleRoutes);
 app.use('/api/transactions', transactionsRoutes);
 app.use('/api/user', userRoutes);
+//404 ERROR
+app.get('*', (req, res) => {
+	res.status(404).json({
+		status: 404,
+		message: 'This is obviously not what you are looking for.',
+	});
+});
 
+mongoose.set('strictQuery', false);
 //Connect to database
 mongoose
 	.connect(process.env.MONGO_URI)

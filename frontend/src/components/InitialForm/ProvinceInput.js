@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { StyledInput } from '../../styles/StyledInitial';
 import styled from 'styled-components';
-
+import uuid from 'react-uuid';
 const ProvinceInput = ({
 	setEmptyFields,
 	emptyFields,
@@ -42,7 +42,7 @@ const ProvinceInput = ({
 				}}
 			>
 				{provArr.map((province, i) => (
-					<MenuItem key={'prov' + i} value={province}>
+					<MenuItem key={uuid()} value={province}>
 						{province.toUpperCase()}
 					</MenuItem>
 				))}
