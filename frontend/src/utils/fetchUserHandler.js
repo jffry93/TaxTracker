@@ -1,5 +1,6 @@
 const fetchGetHandler = async (user, callback, callback2) => {
 	try {
+		console.log(user);
 		const res = await fetch('/api/user/', {
 			method: 'POST',
 			body: JSON.stringify(user),
@@ -7,6 +8,7 @@ const fetchGetHandler = async (user, callback, callback2) => {
 				'Content-type': 'application/json',
 			},
 		});
+		console.log(res);
 		const data = await res.json();
 		console.log(data);
 		callback({ type: 'LOG_ON', user: data.user });
