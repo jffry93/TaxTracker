@@ -41,8 +41,8 @@ const ProvinceInput = ({
 					provArr.includes(e.target.value) && setEmptyFields([]);
 				}}
 			>
-				{provArr.map((province) => (
-					<MenuItem key={province} value={province}>
+				{provArr.map((province, i) => (
+					<MenuItem key={'prov' + i} value={province}>
 						{province.toUpperCase()}
 					</MenuItem>
 				))}

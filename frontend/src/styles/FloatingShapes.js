@@ -17,11 +17,11 @@ const FloatingShapes = () => {
 			{shapeData && (
 				<StyledArea>
 					<ul className='circles'>
-						{shapeData.map((circle) => {
+						{shapeData.map((circle, i) => {
 							const { position, size, animation } = circle;
 							return (
 								<StyledCircle
-									key={uuid()}
+									key={circle.size + i}
 									size={size}
 									position={position}
 									animation={animation}

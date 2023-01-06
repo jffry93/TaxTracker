@@ -21,7 +21,7 @@ const DrawerList = ({ anchor, debounceCloseDrawer }) => {
 					transactions.map((transaction, index) => {
 						return (
 							<TransactionCard
-								key={transaction._id}
+								key={transaction._id + index}
 								transaction={transaction}
 							/>
 						);

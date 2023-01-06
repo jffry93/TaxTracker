@@ -36,13 +36,11 @@ const SignUp = () => {
 					</h1>
 				</div>
 				<StyledButton
-					// key={2}
 					variants={fadeIn}
 					initial='hidden'
 					animate='show'
 					exit='exit'
 					onClick={debounceLogin}
-					// transition={{ duration: 2 }}
 				>
 					SIGN UP
 				</StyledButton>

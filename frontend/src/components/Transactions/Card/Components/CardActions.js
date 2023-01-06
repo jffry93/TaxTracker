@@ -40,7 +40,7 @@ const CardActions = ({
 			{actionsObject.map((action, i) => {
 				return (
 					<StyledActionDiv
-						key={i}
+						key={action.name}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
