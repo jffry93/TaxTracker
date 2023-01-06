@@ -4,7 +4,6 @@ import '../src/styles/index.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 import App from './App';
 import { TransactionsContextProvider } from './context/TransactionContext';
-import GlobalStyle from './GlobalStyles';
 import { StyleContextProvider } from './context/StyleContext';
 import { UserProvider } from './context/UserContext';
 

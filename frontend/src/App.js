@@ -32,7 +32,6 @@ function App() {
 
 	return (
 		<BrowserRouter>
-			{/* <AnimatePresence exitsBeforeEnter> */}
 			<GlobalStyle theme={lightMode} />
 			<StyledApp>
 				{loadingObj.user === 'verified' && userInfo.location && <Navbar />}
@@ -55,7 +54,6 @@ function App() {
 					<Loading />
 				)}
 			</StyledApp>
-			{/* </AnimatePresence> */}
 		</BrowserRouter>
 	);
 }

@@ -14,20 +14,23 @@ const styleRoutes = require('./routes/styles');
 const app = express();
 
 //MIDDLEWARE
+app.use(morgan('tiny'));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static('public'));
 app.use(function (req, res, next) {
-	res.header(
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader(
 		'Access-Control-Allow-Methods',
-		'OPTIONS, HEAD, GET, PUT, POST, DELETE'
+		'GET, POST, OPTIONS, PUT, PATCH, DELETE'
 	);
-	res.header(
+	res.setHeader(
 		'Access-Control-Allow-Headers',
-		'Origin, X-Requested-With, Content-Type, Accept'
+		'X-Requested-With,content-type'
 	);
+	res.setHeader('Access-Control-Allow-Credentials', true);
 	next();
 });
-app.use(morgan('tiny'));
 app.use(
 	cors({
 		origin: ['https://taxtracker.onrender.com', 'https://localhost:3000'],
@@ -46,7 +49,6 @@ app.get('*', (req, res) => {
 	});
 });
 
-mongoose.set('strictQuery', false);
 //Connect to database
 mongoose
 	.connect(process.env.MONGO_URI)
