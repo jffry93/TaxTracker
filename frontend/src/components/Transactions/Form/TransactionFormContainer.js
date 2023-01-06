@@ -58,9 +58,7 @@ const TransactionFormContainer = ({ open, setOpen, handleClose }) => {
 	});
 
 	useEffect(() => {
-		console.log('mount');
 		return () => {
-			console.log('unmount');
 			clearForm();
 		};
 	}, []);

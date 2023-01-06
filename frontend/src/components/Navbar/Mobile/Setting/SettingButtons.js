@@ -16,7 +16,6 @@ const SettingButtons = () => {
 	const {
 		userInfo: { email },
 	} = useContext(UserContext);
-	console.log(email);
 
 	const navigate = useNavigate();
 	const debounceHome = useDebounce(() => {
@@ -36,8 +35,8 @@ const SettingButtons = () => {
 				},
 			}
 		);
-		const json = await response.json();
-		console.log(json);
+		// const json = await response.json();
+		// console.log(json);
 
 		setLightMode(!lightMode);
 	});

@@ -14,7 +14,6 @@ import fetchInitialTransactions from './utils/fetchInitialTransactions';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyles';
 import { useStyleContext } from './hooks/useStyleHook';
-import { AnimatePresence } from 'framer-motion';
 
 function App() {
 	const { user, isAuthenticated, isLoading } = useAuth0();
@@ -41,7 +40,6 @@ function App() {
 							<Route path='/' element={<Home />} />
 							<Route path='/account' element={<Profile />} />
 							<Route path='*' element={<Home />} />
-							{/* <Route path='/preferences' element={<WavyAnim />} /> */}
 						</Routes>
 					</div>
 				) : !isLoading && loadingObj.user === 'loading' ? (

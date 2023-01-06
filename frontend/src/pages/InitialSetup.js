@@ -10,7 +10,6 @@ const InitialSetup = () => {
 	const [formLocation, setFormLocation] = useState('');
 
 	useEffect(() => {
-		console.log('mount');
 		return () => {
 			setEmptyFields([]);
 			setFormLocation('');

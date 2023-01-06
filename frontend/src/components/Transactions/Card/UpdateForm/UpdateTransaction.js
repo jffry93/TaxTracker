@@ -40,7 +40,7 @@ const UpdateTransaction = ({
 			}
 		);
 		const json = await res.json();
-		console.log(json);
+		// console.log(json);
 		setShowUpdate(false);
 		dispatch({
 			type: 'UPDATE_TRANSACTIONS',

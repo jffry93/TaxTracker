@@ -9,7 +9,7 @@ import InfoContainer from '../components/Transactions/Information/InfoContainer'
 
 const Home = () => {
 	const { truth } = useTransactionContext();
-	console.log(truth);
+
 	const { loadingObj } = useContext(UserContext);
 
 	const { isLoading } = useAuth0();

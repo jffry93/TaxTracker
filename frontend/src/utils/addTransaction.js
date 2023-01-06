@@ -23,7 +23,7 @@ export const addTransaction = async (
 	}
 	if (response.ok) {
 		clearForm();
-		console.log('New Transactions added', json);
+		// console.log('New Transactions added', json);
 		dispatch({
 			type: 'CREATE_TRANSACTIONS',
 			payload: json.transaction,

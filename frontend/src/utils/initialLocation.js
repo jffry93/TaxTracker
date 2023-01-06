@@ -6,8 +6,6 @@ export const initialLocation = async (
 	setError,
 	navigate
 ) => {
-	console.log(formLocation);
-
 	if (formLocation.length) {
 		const res = await fetch(process.env.REACT_APP_BACKEND_URL + '/api/user/', {
 			method: 'PATCH',
