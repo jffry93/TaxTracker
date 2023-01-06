@@ -5,7 +5,8 @@ const fetchGetHandler = async (user, callback, callback2) => {
 			method: 'POST',
 			body: JSON.stringify(user),
 			headers: {
-				'Content-type': 'application/json',
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
 			},
 		});
 		console.log(res);
