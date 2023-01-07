@@ -120,3 +120,10 @@ After you have cloned the repo you will want to run the following commands
 ## 🧠 Learn More
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+<h3 align="center">Connect with me:</h3>
+<p align="center">
+<a href="https://linkedin.com/in/jffry93" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="jeffreys linkedin" height="30" width="40" /></a>
+<a href="https://instagram.com/jffry93" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="jeffrey instagram" height="30" width="40" /></a>
+<a href="https://discord.gg/#3313" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg" alt="jeffreys discord" height="30" width="40" /></a>
+</p>
