@@ -6,10 +6,9 @@ Welcome to Tax Tracker, the app that helps you keep track of your tax payments a
 
 You can visit the site by clicking [here](https://taxtracker.onrender.com/)
 
-<img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673057819/z270lahapfcozygfdhhr.png" alt="Screenshot description" width="150">
-<img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673057820/eflttfxjhyvgaamyqktn.png" alt="Screenshot description" width="150">
-<img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673057999/mqiramcjubjgegl9xray.png" alt="Screenshot description" width="150">
-<img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673058126/jldjemoiyxkz2vtqh98r.png" alt="Screenshot description" width="150">
+| Sign Up                                                                                                                                     | Home                                                                                                                                        | Add Form                                                                                                                                    | History                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673057819/z270lahapfcozygfdhhr.png" alt="Screenshot description" width="150"> | <img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673057820/eflttfxjhyvgaamyqktn.png" alt="Screenshot description" width="150"> | <img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673057999/mqiramcjubjgegl9xray.png" alt="Screenshot description" width="150"> | <img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673058126/jldjemoiyxkz2vtqh98r.png" alt="Screenshot description" width="150"> |
 
 ## 🍱 Features
 
