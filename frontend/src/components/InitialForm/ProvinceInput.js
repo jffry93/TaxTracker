@@ -37,7 +37,7 @@ const ProvinceInput = ({
 				onChange={(e) => {
 					setFormLocation(e.target.value);
 					setFormData({ ...formData, [e.target.name]: e.target.value });
-					console.log(provArr.includes(e.target.value));
+					// console.log(provArr.includes(e.target.value));
 					provArr.includes(e.target.value) && setEmptyFields([]);
 				}}
 			>
