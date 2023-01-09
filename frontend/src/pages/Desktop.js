@@ -20,6 +20,7 @@ export default Desktop;
 const StyledSpline = styled.div`
 	display: none;
 	height: 100vh;
+	background-color: #e8c7dd;
 	&:before {
 		content: '';
 		width: 150px;
