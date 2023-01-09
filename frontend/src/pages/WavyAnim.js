@@ -86,4 +86,8 @@ const StyledDiv = styled.div`
 		transform-origin: 134px 222px;
 		animation: rotate 20s linear infinite;
 	}
+
+	@media (min-width: 600px) {
+		display: none;
+	}
 `;

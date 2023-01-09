@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import useDebounce from '../../hooks/useDebounce';
 import { useStyleContext } from '../../hooks/useStyleHook';
-import DesktopNav from './DesktopNav';
+// import DesktopNav from './DesktopNav';
 import MobileNav from '../Navbar/Mobile/MobileNav';
 
 const Navbar = () => {

@@ -14,6 +14,7 @@ import fetchInitialTransactions from './utils/fetchInitialTransactions';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyles';
 import { useStyleContext } from './hooks/useStyleHook';
+import Desktop from './pages/Desktop';
 
 function App() {
 	const { user, isAuthenticated, isLoading } = useAuth0();
@@ -32,6 +33,7 @@ function App() {
 	return (
 		<BrowserRouter>
 			<GlobalStyle theme={lightMode} />
+			<Desktop />
 			<StyledApp>
 				{loadingObj.user === 'verified' && userInfo.location && <Navbar />}
 				{isAuthenticated && loadingObj.user === 'verified' ? (
@@ -63,5 +65,8 @@ const StyledApp = styled.div`
 		max-width: 400px;
 		/* width: 100%; */
 		margin: auto;
+	}
+	@media (min-width: 600px) {
+		display: none;
 	}
 `;
