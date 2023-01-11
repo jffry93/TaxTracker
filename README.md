@@ -1,53 +1,128 @@
-<!-- <a href="#"><img width="100%" height="auto" src="https://c.tenor.com/O7nVONlLsUQAAAAC/jeff-channing-tatum.gif" height="175px"/></a> -->
+# 💵 💵 💵 TaxTracker 💵 💵 💵
 
-<h1 align="center">Welcome to my GitHub<img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px"></h1>
-<h3 align="center">
+## 📙 Summary
 
-I'm a passionate Frontend Developer located in Canada:canada:
+Welcome to Tax Tracker, the app that helps you keep track of your tax payments and deadlines. With this app, you can easily stay organized and ensure that you never miss a payment or deadline.
 
-</h3>
+You can visit the site by clicking [here](https://taxtracker.onrender.com/)
 
-<br/>
+| Sign Up                                                                                                                                     | Home                                                                                                                                        | Add Form                                                                                                                                    | History                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673057819/z270lahapfcozygfdhhr.png" alt="Screenshot description" width="150"> | <img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673057820/eflttfxjhyvgaamyqktn.png" alt="Screenshot description" width="150"> | <img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673057999/mqiramcjubjgegl9xray.png" alt="Screenshot description" width="150"> | <img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673058126/jldjemoiyxkz2vtqh98r.png" alt="Screenshot description" width="150"> |
+
+## 🍱 Features
+
+- 👀 View a list of all your tax transactions
+- 📄 Add new tax transactions
+- 🎨 Edit or delete existing tax transactions
+- 👓 View payment history and tax documents
+- 🧮 Calculate amount owed
+
+# Frontend
+
+## 🖥 Technologies
+
+- [React](https://github.com/facebook/create-react-app)
+- [Material UI](https://mui.com/)
+- [Auth0](https://auth0.com/docs/quickstart/spa/react/01-login)
+- [Chart.js](https://www.chartjs.org/)
+- [date-fns](https://date-fns.org/)
+- [styled-components](https://styled-components.com/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+
+## 🧱 Initial Setup
+
+Register for an account with [Auth0](https://auth0.com/docs/quickstart/spa/react/01-login)
+
+In the frontend directory create a .env file
+
+<img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673056134/mmhopez2ewq8miygguso.png" alt="Screenshot description" width="150">
+
+Make sure you provide it the following keys with data from Auth0
+
+<img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673055967/pbfxwentxsrzk9zopluv.png" alt="Screenshot description" width="250">
+
+A proxy is not being used so make sure you set up the local host based on the PORT in the backend.
+
+Ex. REACT_APP_BACKEND_URL = "http://localhost:8000"
+
+>
+
+## 📜 Available Scripts
+
+After you have cloned the repo you will want to run the following commands
+
+> Step 1:
+>
+> #### `cd frontend`
+>
+> Step 2:
+>
+> #### `yarn install`
+>
+> Step 3:
+>
+> #### `yarn start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+❗️❗️❗️MUST RUN ON PORT 3000❗️❗️
+
+# Backend
+
+## 🖥 Technologies
+
+- [Node.js](https://nodejs.org/en/)
+- [MongoDB](https://www.mongodb.com/)
+- [Express](https://expressjs.com/)
+- [Mongoose](https://mongoosejs.com/docs/)
+- [Cloudinary](https://cloudinary.com/)
+- [nodemon](https://www.npmjs.com/package/nodemon)
+- [Morgan](https://www.npmjs.com/package/morgan)
+- [dotenv](https://www.npmjs.com/package/dotenv)
+- [cors](https://www.npmjs.com/package/cors)
+
+## 🧱 Initial Setup
+
+In the backend directory create a .env file
+
+<img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673059101/h5g8eoxwyoicpemeiesa.png" alt="Screenshot description" width="150">
+
+Register for an account with [Cloudinary](https://cloudinary.com/) and [MongoDB](https://www.mongodb.com/)
+
+Make sure you provide it the following keys with data
+
+<img src="https://res.cloudinary.com/dcfqlsnzh/image/upload/v1673059132/ohduicjse7bblo8wu4ja.png" alt="Screenshot description" width="250">
+
+A proxy is not being used so make sure you set up the local host based on the PORT in the backend.
+
+Ex. PORT = 8000
+
+## 📜 Available Scripts
+
+After you have cloned the repo you will want to run the following commands
+
+> Step 1:
+>
+> #### `cd backend`
+>
+> Step 2:
+>
+> #### `yarn install`
+>
+> Step 3:
+> this will start nodemon and get it to watch the server
+>
+> #### `yarn start`
+
+## 🧠 Learn More
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+<h3 align="center">Connect with me:</h3>
 <p align="center">
-    <a>
-        <img title="🔥 Get streak stats for your profile at git.io/streak-stats" alt="Jeffrey Zalischi's streak" src="https://github-readme-streak-stats.herokuapp.com/?user=jffry93&theme=black-ice&hide_border=true&stroke=0000&background=060A0CD0"/>
-    </a>
+<a href="https://linkedin.com/in/jffry93" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="jeffreys linkedin" height="30" width="40" /></a>
+<a href="https://instagram.com/jffry93" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="jeffrey instagram" height="30" width="40" /></a>
+<a href="https://discord.gg/#3313" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg" alt="jeffreys discord" height="30" width="40" /></a>
 </p>
-<br/>
-
-<div>
-<h1> 🙋🏽 About Me </h1>
-</div>
-
-- 🔭 Check out my ➡️ ➡️ **[Personal Portfolio](https://jffry93.github.io/react-portfolio/#/)** ⬅ ⬅
-
-- 🌱 I’m currently sharping me **TypeScript** skills
-
-- 🍻 I’m looking to collaborate on **exciting projects**
-
-- 📫 How to reach me **jay.zalischi@gmail.com**
-<br>
-<br>
-<br>
-<h2 align="center">Languages and Tools:</h2>
-
-<p align="center"> 
-<a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a>
-<a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> 
-<!-- <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a> -->
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a>
-<a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a>
-<a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/> </a>
-<a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a>
-<a href="https://www.figma.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="figma" width="40" height="40"/></a> 
-<a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/></a>
-</p>
-
-<br>
-<h2 align="center"> Connect with me:</h2>
-<p align="center">
-<a href = "https://www.linkedin.com/in/jffry93/"><img width="40px" height='40px' src="https://img.icons8.com/color/344/linkedin-2--v1.png"/></a>
-<a href = "https://my.indeed.com/p/jeffreyz-n48gpy7"><img width="40px" height='40px' src="https://spirerecoverysolutions.com/wp-content/uploads/2020/04/Home-Icon-indeed-v2-300x300-1.png"/></a>
-<a href = "mailto:jay.zalischi@gmail.com"><img width="40px" height='40px' src="https://img.icons8.com/color/344/gmail-new.png"/></a>
-</p>
-</div>
